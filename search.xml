@@ -78,6 +78,45 @@
       </tags>
   </entry>
   <entry>
+    <title>gmpy2库</title>
+    <url>/2020/12/15/2/</url>
+    <content><![CDATA[<h1 id="gmpy2库"><a href="#gmpy2库" class="headerlink" title="gmpy2库"></a>gmpy2库</h1><h2 id="gmpy2常见函数使用"><a href="#gmpy2常见函数使用" class="headerlink" title="gmpy2常见函数使用"></a>gmpy2常见函数使用</h2><p><strong>1.初始化大整数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.mpz(<span class="number">909090</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">909090</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.求大整数a,b的最大公因数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.gcd(<span class="number">6</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.求大整数x模m的逆元y</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#4*6 ≡ 1 mod 23</span></span><br><span class="line">gmpy2.invert(<span class="number">4</span>,<span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.检验大整数是否为偶数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>5.检验大整数是否为奇数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>6.检验大整数是否为素数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_prime(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>7.求大整数x开n次根</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.iroot(<span class="number">81</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">result:(mpz(<span class="number">9</span>),<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.求大整数x的y次幂模m取余</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>9.扩展欧几里得</strong></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>crypto</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RSA库</title>
     <url>/2020/12/15/3/</url>
     <content><![CDATA[<h1 id="RSA库"><a href="#RSA库" class="headerlink" title="RSA库"></a>RSA库</h1><p>仅对字节运行</p>
@@ -122,45 +161,6 @@
         <tag>crypto</tag>
         <tag>python</tag>
         <tag>rsa</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gmpy2库</title>
-    <url>/2020/12/15/2/</url>
-    <content><![CDATA[<h1 id="gmpy2库"><a href="#gmpy2库" class="headerlink" title="gmpy2库"></a>gmpy2库</h1><h2 id="gmpy2常见函数使用"><a href="#gmpy2常见函数使用" class="headerlink" title="gmpy2常见函数使用"></a>gmpy2常见函数使用</h2><p><strong>1.初始化大整数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.mpz(<span class="number">909090</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">909090</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.求大整数a,b的最大公因数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.gcd(<span class="number">6</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>3.求大整数x模m的逆元y</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#4*6 ≡ 1 mod 23</span></span><br><span class="line">gmpy2.invert(<span class="number">4</span>,<span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>4.检验大整数是否为偶数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>5.检验大整数是否为奇数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>6.检验大整数是否为素数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_prime(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>7.求大整数x开n次根</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.iroot(<span class="number">81</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">result:(mpz(<span class="number">9</span>),<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>8.求大整数x的y次幂模m取余</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>9.扩展欧几里得</strong></p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>python第三方库</category>
-      </categories>
-      <tags>
-        <tag>crypto</tag>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
