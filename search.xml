@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>RSA库</title>
+    <url>/2020/12/15/3/</url>
+    <content><![CDATA[<h1 id="RSA库"><a href="#RSA库" class="headerlink" title="RSA库"></a>RSA库</h1><p>仅对字节运行</p>
+<h2 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(pubkey, privkey) = rsa.newkeys(<span class="number">512</span>, poolsize=<span class="number">8</span>)</span><br><span class="line"><span class="comment">#均为元组形式</span></span><br><span class="line"><span class="comment">#poolsize表示线程数</span></span><br><span class="line"><span class="comment">#accurate=True默认</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pubkey</td>
+<td>(n,e)</td>
+</tr>
+<tr>
+<td>privkey</td>
+<td>(n,e,d,p,q)</td>
+</tr>
+</tbody></table>
+<p>实际测试生成4096位密钥需要50秒左右</p>
+<h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><h3 id="rsa-encrypt-message，pubkey"><a href="#rsa-encrypt-message，pubkey" class="headerlink" title="rsa.encrypt(message，pubkey)"></a>rsa.encrypt(message，pubkey)</h3><h3 id="rsa-decrypt-crypto，prikey"><a href="#rsa-decrypt-crypto，prikey" class="headerlink" title="rsa.decrypt(crypto，prikey)"></a>rsa.decrypt(crypto，prikey)</h3><h3 id="过程演示"><a href="#过程演示" class="headerlink" title="过程演示"></a>过程演示</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(bob_pub, bob_priv) = rsa.newkeys(<span class="number">512</span>)</span><br><span class="line">message = <span class="string">&#x27;hello Bob!&#x27;</span>.encode(<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">crypto = rsa.encrypt(message, bob_pub)</span><br><span class="line">message = rsa.decrypt(crypto, bob_priv)</span><br><span class="line">print(message.decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>如果加密消息被篡改会报错</p>
+<h2 id="签名和验证"><a href="#签名和验证" class="headerlink" title="签名和验证"></a>签名和验证</h2><h3 id="rsa-sign"><a href="#rsa-sign" class="headerlink" title="rsa.sign()"></a>rsa.sign()</h3><p>为邮件创建分离签名</p>
+<h3 id="rsa-verify"><a href="#rsa-verify" class="headerlink" title="rsa.verify()"></a>rsa.verify()</h3><p>验证签名，成功返回True</p>
+<p>如果签名被篡改会报错</p>
+<h2 id="函数格式"><a href="#函数格式" class="headerlink" title="函数格式"></a>函数格式</h2><ol>
+<li><code>rsa.encrypt</code>(<em>message: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → bytes</li>
+<li><code>rsa.decrypt</code>(<em>crypto: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>) → bytes</li>
+<li><code>rsa.sign</code>(<em>message: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>, <em>hash_method: str</em>) → bytes</li>
+<li><code>rsa.verify</code>(<em>message: bytes</em>, <em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str</li>
+<li><code>rsa.find_signature_hash</code>(<em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str  返回从签名中检测到的哈希名称</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a href="https://stuvel.eu/python-rsa-doc/genindex.html">https://stuvel.eu/python-rsa-doc/genindex.html</a></p>
+]]></content>
+      <categories>
+        <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>crypto</tag>
+        <tag>python</tag>
+        <tag>rsa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gmpy2库</title>
+    <url>/2020/12/15/2/</url>
+    <content><![CDATA[<h1 id="gmpy2库"><a href="#gmpy2库" class="headerlink" title="gmpy2库"></a>gmpy2库</h1><h2 id="gmpy2常见函数使用"><a href="#gmpy2常见函数使用" class="headerlink" title="gmpy2常见函数使用"></a>gmpy2常见函数使用</h2><p><strong>1.初始化大整数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.mpz(<span class="number">909090</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">909090</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.求大整数a,b的最大公因数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.gcd(<span class="number">6</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.求大整数x模m的逆元y</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#4*6 ≡ 1 mod 23</span></span><br><span class="line">gmpy2.invert(<span class="number">4</span>,<span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.检验大整数是否为偶数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>5.检验大整数是否为奇数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>6.检验大整数是否为素数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_prime(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>7.求大整数x开n次根</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.iroot(<span class="number">81</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">result:(mpz(<span class="number">9</span>),<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>8.求大整数x的y次幂模m取余</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>9.扩展欧几里得</strong></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>crypto</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Crypto库学习</title>
     <url>/2020/12/15/1/</url>
     <content><![CDATA[<h1 id="Crypto库"><a href="#Crypto库" class="headerlink" title="Crypto库"></a>Crypto库</h1><table>
@@ -75,92 +161,6 @@
       <tags>
         <tag>crypto</tag>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gmpy2库</title>
-    <url>/2020/12/15/2/</url>
-    <content><![CDATA[<h1 id="gmpy2库"><a href="#gmpy2库" class="headerlink" title="gmpy2库"></a>gmpy2库</h1><h2 id="gmpy2常见函数使用"><a href="#gmpy2常见函数使用" class="headerlink" title="gmpy2常见函数使用"></a>gmpy2常见函数使用</h2><p><strong>1.初始化大整数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.mpz(<span class="number">909090</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">909090</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>2.求大整数a,b的最大公因数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.gcd(<span class="number">6</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>3.求大整数x模m的逆元y</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#4*6 ≡ 1 mod 23</span></span><br><span class="line">gmpy2.invert(<span class="number">4</span>,<span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>4.检验大整数是否为偶数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>5.检验大整数是否为奇数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>6.检验大整数是否为素数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_prime(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>7.求大整数x开n次根</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.iroot(<span class="number">81</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">result:(mpz(<span class="number">9</span>),<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>8.求大整数x的y次幂模m取余</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>9.扩展欧几里得</strong></p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>python第三方库</category>
-      </categories>
-      <tags>
-        <tag>crypto</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RSA库</title>
-    <url>/2020/12/15/3/</url>
-    <content><![CDATA[<h1 id="RSA库"><a href="#RSA库" class="headerlink" title="RSA库"></a>RSA库</h1><p>仅对字节运行</p>
-<h2 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(pubkey, privkey) = rsa.newkeys(<span class="number">512</span>, poolsize=<span class="number">8</span>)</span><br><span class="line"><span class="comment">#均为元组形式</span></span><br><span class="line"><span class="comment">#poolsize表示线程数</span></span><br><span class="line"><span class="comment">#accurate=True默认</span></span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pubkey</td>
-<td>(n,e)</td>
-</tr>
-<tr>
-<td>privkey</td>
-<td>(n,e,d,p,q)</td>
-</tr>
-</tbody></table>
-<p>实际测试生成4096位密钥需要50秒左右</p>
-<h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><h3 id="rsa-encrypt-message，pubkey"><a href="#rsa-encrypt-message，pubkey" class="headerlink" title="rsa.encrypt(message，pubkey)"></a>rsa.encrypt(message，pubkey)</h3><h3 id="rsa-decrypt-crypto，prikey"><a href="#rsa-decrypt-crypto，prikey" class="headerlink" title="rsa.decrypt(crypto，prikey)"></a>rsa.decrypt(crypto，prikey)</h3><h3 id="过程演示"><a href="#过程演示" class="headerlink" title="过程演示"></a>过程演示</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(bob_pub, bob_priv) = rsa.newkeys(<span class="number">512</span>)</span><br><span class="line">message = <span class="string">&#x27;hello Bob!&#x27;</span>.encode(<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">crypto = rsa.encrypt(message, bob_pub)</span><br><span class="line">message = rsa.decrypt(crypto, bob_priv)</span><br><span class="line">print(message.decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-<p>如果加密消息被篡改会报错</p>
-<h2 id="签名和验证"><a href="#签名和验证" class="headerlink" title="签名和验证"></a>签名和验证</h2><h3 id="rsa-sign"><a href="#rsa-sign" class="headerlink" title="rsa.sign()"></a>rsa.sign()</h3><p>为邮件创建分离签名</p>
-<h3 id="rsa-verify"><a href="#rsa-verify" class="headerlink" title="rsa.verify()"></a>rsa.verify()</h3><p>验证签名，成功返回True</p>
-<p>如果签名被篡改会报错</p>
-<h2 id="函数格式"><a href="#函数格式" class="headerlink" title="函数格式"></a>函数格式</h2><ol>
-<li><code>rsa.encrypt</code>(<em>message: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → bytes</li>
-<li><code>rsa.decrypt</code>(<em>crypto: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>) → bytes</li>
-<li><code>rsa.sign</code>(<em>message: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>, <em>hash_method: str</em>) → bytes</li>
-<li><code>rsa.verify</code>(<em>message: bytes</em>, <em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str</li>
-<li><code>rsa.find_signature_hash</code>(<em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str  返回从签名中检测到的哈希名称</li>
-</ol>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a href="https://stuvel.eu/python-rsa-doc/genindex.html">https://stuvel.eu/python-rsa-doc/genindex.html</a></p>
-]]></content>
-      <categories>
-        <category>python第三方库</category>
-      </categories>
-      <tags>
-        <tag>crypto</tag>
-        <tag>python</tag>
-        <tag>rsa</tag>
       </tags>
   </entry>
   <entry>
