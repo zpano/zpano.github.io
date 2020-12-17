@@ -40,6 +40,53 @@
       </tags>
   </entry>
   <entry>
+    <title>RSA库</title>
+    <url>/2020/12/15/3/</url>
+    <content><![CDATA[<h1 id="RSA库"><a href="#RSA库" class="headerlink" title="RSA库"></a>RSA库</h1><p>仅对字节运行</p>
+<h2 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(pubkey, privkey) = rsa.newkeys(<span class="number">512</span>, poolsize=<span class="number">8</span>)</span><br><span class="line"><span class="comment">#均为元组形式</span></span><br><span class="line"><span class="comment">#poolsize表示线程数</span></span><br><span class="line"><span class="comment">#accurate=True默认</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pubkey</td>
+<td>(n,e)</td>
+</tr>
+<tr>
+<td>privkey</td>
+<td>(n,e,d,p,q)</td>
+</tr>
+</tbody></table>
+<p>实际测试生成4096位密钥需要50秒左右</p>
+<h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><h3 id="rsa-encrypt-message，pubkey"><a href="#rsa-encrypt-message，pubkey" class="headerlink" title="rsa.encrypt(message，pubkey)"></a>rsa.encrypt(message，pubkey)</h3><h3 id="rsa-decrypt-crypto，prikey"><a href="#rsa-decrypt-crypto，prikey" class="headerlink" title="rsa.decrypt(crypto，prikey)"></a>rsa.decrypt(crypto，prikey)</h3><h3 id="过程演示"><a href="#过程演示" class="headerlink" title="过程演示"></a>过程演示</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(bob_pub, bob_priv) = rsa.newkeys(<span class="number">512</span>)</span><br><span class="line">message = <span class="string">&#x27;hello Bob!&#x27;</span>.encode(<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">crypto = rsa.encrypt(message, bob_pub)</span><br><span class="line">message = rsa.decrypt(crypto, bob_priv)</span><br><span class="line">print(message.decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>如果加密消息被篡改会报错</p>
+<h2 id="签名和验证"><a href="#签名和验证" class="headerlink" title="签名和验证"></a>签名和验证</h2><h3 id="rsa-sign"><a href="#rsa-sign" class="headerlink" title="rsa.sign()"></a>rsa.sign()</h3><p>为邮件创建分离签名</p>
+<h3 id="rsa-verify"><a href="#rsa-verify" class="headerlink" title="rsa.verify()"></a>rsa.verify()</h3><p>验证签名，成功返回True</p>
+<p>如果签名被篡改会报错</p>
+<h2 id="函数格式"><a href="#函数格式" class="headerlink" title="函数格式"></a>函数格式</h2><ol>
+<li><code>rsa.encrypt</code>(<em>message: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → bytes</li>
+<li><code>rsa.decrypt</code>(<em>crypto: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>) → bytes</li>
+<li><code>rsa.sign</code>(<em>message: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>, <em>hash_method: str</em>) → bytes</li>
+<li><code>rsa.verify</code>(<em>message: bytes</em>, <em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str</li>
+<li><code>rsa.find_signature_hash</code>(<em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str  返回从签名中检测到的哈希名称</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a href="https://stuvel.eu/python-rsa-doc/genindex.html">https://stuvel.eu/python-rsa-doc/genindex.html</a></p>
+]]></content>
+      <categories>
+        <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>crypto</tag>
+        <tag>python</tag>
+        <tag>rsa</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Crypto库学习</title>
     <url>/2020/12/15/1/</url>
     <content><![CDATA[<h1 id="Crypto库"><a href="#Crypto库" class="headerlink" title="Crypto库"></a>Crypto库</h1><table>
@@ -117,53 +164,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RSA库</title>
-    <url>/2020/12/15/3/</url>
-    <content><![CDATA[<h1 id="RSA库"><a href="#RSA库" class="headerlink" title="RSA库"></a>RSA库</h1><p>仅对字节运行</p>
-<h2 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(pubkey, privkey) = rsa.newkeys(<span class="number">512</span>, poolsize=<span class="number">8</span>)</span><br><span class="line"><span class="comment">#均为元组形式</span></span><br><span class="line"><span class="comment">#poolsize表示线程数</span></span><br><span class="line"><span class="comment">#accurate=True默认</span></span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pubkey</td>
-<td>(n,e)</td>
-</tr>
-<tr>
-<td>privkey</td>
-<td>(n,e,d,p,q)</td>
-</tr>
-</tbody></table>
-<p>实际测试生成4096位密钥需要50秒左右</p>
-<h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><h3 id="rsa-encrypt-message，pubkey"><a href="#rsa-encrypt-message，pubkey" class="headerlink" title="rsa.encrypt(message，pubkey)"></a>rsa.encrypt(message，pubkey)</h3><h3 id="rsa-decrypt-crypto，prikey"><a href="#rsa-decrypt-crypto，prikey" class="headerlink" title="rsa.decrypt(crypto，prikey)"></a>rsa.decrypt(crypto，prikey)</h3><h3 id="过程演示"><a href="#过程演示" class="headerlink" title="过程演示"></a>过程演示</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">(bob_pub, bob_priv) = rsa.newkeys(<span class="number">512</span>)</span><br><span class="line">message = <span class="string">&#x27;hello Bob!&#x27;</span>.encode(<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">crypto = rsa.encrypt(message, bob_pub)</span><br><span class="line">message = rsa.decrypt(crypto, bob_priv)</span><br><span class="line">print(message.decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-<p>如果加密消息被篡改会报错</p>
-<h2 id="签名和验证"><a href="#签名和验证" class="headerlink" title="签名和验证"></a>签名和验证</h2><h3 id="rsa-sign"><a href="#rsa-sign" class="headerlink" title="rsa.sign()"></a>rsa.sign()</h3><p>为邮件创建分离签名</p>
-<h3 id="rsa-verify"><a href="#rsa-verify" class="headerlink" title="rsa.verify()"></a>rsa.verify()</h3><p>验证签名，成功返回True</p>
-<p>如果签名被篡改会报错</p>
-<h2 id="函数格式"><a href="#函数格式" class="headerlink" title="函数格式"></a>函数格式</h2><ol>
-<li><code>rsa.encrypt</code>(<em>message: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → bytes</li>
-<li><code>rsa.decrypt</code>(<em>crypto: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>) → bytes</li>
-<li><code>rsa.sign</code>(<em>message: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>, <em>hash_method: str</em>) → bytes</li>
-<li><code>rsa.verify</code>(<em>message: bytes</em>, <em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str</li>
-<li><code>rsa.find_signature_hash</code>(<em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str  返回从签名中检测到的哈希名称</li>
-</ol>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a href="https://stuvel.eu/python-rsa-doc/genindex.html">https://stuvel.eu/python-rsa-doc/genindex.html</a></p>
-]]></content>
-      <categories>
-        <category>python第三方库</category>
-      </categories>
-      <tags>
-        <tag>crypto</tag>
-        <tag>python</tag>
-        <tag>rsa</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>secrets库</title>
     <url>/2020/12/15/4/</url>
     <content><![CDATA[<h1 id="secrets库"><a href="#secrets库" class="headerlink" title="secrets库"></a>secrets库</h1><blockquote>
@@ -199,6 +199,162 @@
 ]]></content>
       <categories>
         <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>crypto</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BUUCTF CRYPTO 1-20</title>
+    <url>/2020/12/17/5/</url>
+    <content><![CDATA[<h1 id="BUUCTF-CRYPTO-1-20"><a href="#BUUCTF-CRYPTO-1-20" class="headerlink" title="BUUCTF CRYPTO 1-20"></a>BUUCTF CRYPTO 1-20</h1><h2 id="1-MD5"><a href="#1-MD5" class="headerlink" title="1.MD5"></a>1.MD5</h2><p>下载压缩包解压得到e00cf25ad42683b3df678c61f42c6bda</p>
+<p>直接在线解密<a href="https://cmd5.com/">https://cmd5.com/</a></p>
+<h3 id="message-digest-algorithm-5-消息摘要算法5"><a href="#message-digest-algorithm-5-消息摘要算法5" class="headerlink" title="message-digest algorithm 5  消息摘要算法5"></a><strong>message-digest algorithm 5</strong>  消息摘要算法5</h3><h3 id="什么是消息摘要算法？"><a href="#什么是消息摘要算法？" class="headerlink" title="什么是消息摘要算法？"></a>什么是消息摘要算法？</h3><p>消息摘要算法是密码学算法中非常重要的一个分支，它通过对所有数据提取指纹信息以实现数据签名、数据完整性校验等功能，由于其不可逆性，有时候会被用做敏感信息的加密。消息摘要算法也被称为哈希（Hash）算法或散列算法。</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><ol>
+<li>防止被篡改：作为消息传输后的验证</li>
+<li>防止直接被看到明文：替换明文密码储存在网站中</li>
+<li>防止抵赖（数字签名）：对含标识的文件的摘要信息记录进行记录，对其他的文件（消息）产生的摘要信息比对，可以唯一确定是否是相同文件（消息）</li>
+</ol>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>输入任意长度的信息，经过处理，输出为128位的信息（数字指纹）；<br>不同的输入得到的不同的结果（唯一性）；</p>
+<h3 id="算法详解"><a href="#算法详解" class="headerlink" title="算法详解"></a>算法详解</h3><p>传送门</p>
+<h2 id="2-URL编码"><a href="#2-URL编码" class="headerlink" title="2.URL编码"></a>2.URL编码</h2><p>%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d</p>
+<p>在线解密<a href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a></p>
+<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p>URL是为了 统一的命名网络中的一个资源（URL不是单单为了HTTP协议而定义的，而是网络上的所有的协议都可以使用）</p>
+<h3 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h3><ol>
+<li>URL 只能使用 ASCII 字符集来通过因特网进行发送。</li>
+<li>由于 URL 常常会包含 ASCII 集合之外的字符，URL 必须转换为有效的 ASCII 格式。</li>
+<li>URL 编码使用 “%” 其后跟随两位的十六进制数来替换非 ASCII 字符。</li>
+<li>URL 不能包含空格。URL 编码通常使用 + 来替换空格(%2b)或者用%20代替</li>
+</ol>
+<h2 id="3-一眼就解密"><a href="#3-一眼就解密" class="headerlink" title="3.一眼就解密"></a>3.一眼就解密</h2><p>ZmxhZ3tUSEVfRkxBR19PRl9USElTX1NUUklOR30=   base64解密</p>
+<h3 id="BASE64"><a href="#BASE64" class="headerlink" title="BASE64"></a>BASE64</h3><p>Base64编码是基于64个字符A-Z,a-z，0-9，+，/的编码方式</p>
+<h3 id="编码过程"><a href="#编码过程" class="headerlink" title="编码过程"></a>编码过程</h3><ul>
+<li>第一步，将待转换的字符串每三个字节分为一组，每个字节占8bit，那么共有24个二进制位。</li>
+<li>第二步，将上面的24个二进制位每6个一组，共分为4组。</li>
+<li>第三步，在每组前面添加两个0，每组由6个变为8个二进制位，总共32个二进制位，即四个字节。</li>
+</ul>
+<p><img src="/2020/12/17/5/base64.jpg" alt="base64"></p>
+<ul>
+<li>第四步，根据Base64编码对照表（见下图）获得对应的值。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">0　A　　17　R　　　34　i　　　51　z</span><br><span class="line">1　B　　18　S　　　35　j　　　52　0</span><br><span class="line">2　C　　19　T　　　36　k　　　53　1</span><br><span class="line">3　D　　20　U　　　37　l　　　54　2</span><br><span class="line">4　E　　21　V　　　38　m　　　55　3</span><br><span class="line">5　F　　22　W　　　39　n　　　56　4</span><br><span class="line">6　G　　23　X　　　40　o　　　57　5</span><br><span class="line">7　H　　24　Y　　　41　p　　　58　6</span><br><span class="line">8　I　　25　Z　　　42　q　　　59　7</span><br><span class="line">9　J　　26　a　　　43　r　　　60　8</span><br><span class="line">10　K　　27　b　　　44　s　　　61　9</span><br><span class="line">11　L　　28　c　　　45　t　　　62　+</span><br><span class="line">12　M　　29　d　　　46　u　　　63　/</span><br><span class="line">13　N　　30　e　　　47　v</span><br><span class="line">14　O　　31　f　　　48　w　　　</span><br><span class="line">15　P　　32　g　　　49　x</span><br><span class="line">16　Q　　33　h　　　50　y</span><br></pre></td></tr></table></figure>
+
+<h3 id="解码过程"><a href="#解码过程" class="headerlink" title="解码过程"></a>解码过程</h3><p>解码原理是将4个字节转换成3个字节.先读入4个6位(用或运算),每次左移6位,再右移3次,每次8位，这样就还原了</p>
+<h2 id="4-看我回旋踢"><a href="#4-看我回旋踢" class="headerlink" title="4.看我回旋踢"></a>4.看我回旋踢</h2><p>synt{5pq1004q-86n5-46q8-o720-oro5on0417r1}  凯撒加密 rot-13</p>
+<p>顺手写一个循环脚本</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">string = <span class="built_in">input</span>(<span class="string">&quot;Enter a string\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">26</span>):</span><br><span class="line">   <span class="comment"># print(&#x27;&#x27;, j, &#x27;&#x27;,end = &#x27;&#x27;)</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> string:</span><br><span class="line">        <span class="keyword">if</span> x.islower():</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">ord</span>(x) + <span class="built_in">int</span>(j) &gt; <span class="number">122</span>:   <span class="comment"># ord()函数给出字母的ASCII码</span></span><br><span class="line">                a = <span class="number">96</span> + <span class="built_in">ord</span>(x) + <span class="built_in">int</span>(j) - <span class="number">122</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                a = <span class="built_in">ord</span>(x) + <span class="built_in">int</span>(j)</span><br><span class="line">        <span class="keyword">if</span> x.isupper():</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">ord</span>(x) + <span class="built_in">int</span>(j) &gt; <span class="number">90</span>:  <span class="comment"># ord()函数给出字母的ASCII码</span></span><br><span class="line">                a = <span class="number">64</span> + <span class="built_in">ord</span>(x) + <span class="built_in">int</span>(j) - <span class="number">90</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                a = <span class="built_in">ord</span>(x) + <span class="built_in">int</span>(j)</span><br><span class="line">        <span class="keyword">if</span> <span class="number">0</span> == x.isalpha():</span><br><span class="line">            a = <span class="built_in">ord</span>(x)</span><br><span class="line"></span><br><span class="line">        print(<span class="built_in">chr</span>(a),end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    print(<span class="string">&quot; &quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>对明文的每一位字母进行位移得到密文</p>
+<h2 id="5-摩丝"><a href="#5-摩丝" class="headerlink" title="5.摩丝"></a>5.摩丝</h2><p>.. .-.. — …- . -.– — ..-</p>
+<p>在线解密得到 iloveyou</p>
+<p><img src="/2020/12/17/5/mosi.jpg" alt="mosi"></p>
+<h2 id="6-签到-y1ng"><a href="#6-签到-y1ng" class="headerlink" title="6.签到-y1ng"></a>6.签到-y1ng</h2><p>QkpEe1czbGMwbWVfVDBfQkpEQ1RGfQ== </p>
+<p>base64解密</p>
+<h2 id="7-PASSWORD"><a href="#7-PASSWORD" class="headerlink" title="7.PASSWORD"></a>7.PASSWORD</h2><p>打开题目看到</p>
+<p>姓名：张三</p>
+<p>生日：19900315</p>
+<p>key{xxxxxxxxxx}</p>
+<p>双括号内x的数量为10，生日为8，加姓名缩写，尝试姓名头字母加数字得到flag</p>
+<h2 id="8-变异凯撒"><a href="#8-变异凯撒" class="headerlink" title="8.变异凯撒"></a>8.变异凯撒</h2><p>加密密文：AFZ_R9VYFSCOEO_UL^RWUC</p>
+<p>格式：FLAG{ }</p>
+<p>观察可知AFZ_R与FLAG{ 存在对应关系</p>
+<p>利用PYTHON ORD()函数，得到AFZ_R与FLAG{ 对应的ASCII值</p>
+<table>
+<thead>
+<tr>
+<th>AFZ_R</th>
+<th>97</th>
+<th>102</th>
+<th>90</th>
+<th>95</th>
+<th>114</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FALG{</td>
+<td>102</td>
+<td>108</td>
+<td>97</td>
+<td>103</td>
+<td>123</td>
+</tr>
+<tr>
+<td>相差</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+<td>9</td>
+</tr>
+</tbody></table>
+<p>得出规律，写PYTHON脚本解得FLAG{CAESAR_VARIATION}</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line">c=[]</span><br><span class="line"><span class="built_in">str</span>=<span class="string">&quot;afZ_r9VYfScOeO_UL^RWUc&quot;</span></span><br><span class="line"><span class="comment">#字符串转数组，字符转数字</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">str</span>:</span><br><span class="line">    c.append(<span class="built_in">ord</span>(a))</span><br><span class="line">    </span><br><span class="line"><span class="comment">#规律，与flag&#123;对应的数字差5，6，7，8，9...</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(<span class="built_in">str</span>)):</span><br><span class="line">    c[i]=c[i]+<span class="number">5</span>+i</span><br><span class="line">    </span><br><span class="line"><span class="comment">#数组转字符串</span></span><br><span class="line">new_str = <span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(i%<span class="number">128</span>) <span class="keyword">for</span> i <span class="keyword">in</span> c])</span><br><span class="line"><span class="built_in">print</span> new_str</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-Quoted-printable"><a href="#9-Quoted-printable" class="headerlink" title="9.Quoted-printable"></a>9.Quoted-printable</h2><p>=E9=82=A3=E4=BD=A0=E4=B9=9F=E5=BE=88=E6=A3=92=E5=93=A6</p>
+<p>Quoted-printable在线解密<a href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a></p>
+<h3 id="什么是Quoted-printable"><a href="#什么是Quoted-printable" class="headerlink" title="什么是Quoted-printable"></a>什么是Quoted-printable</h3><p>quoted-printable 编码方法适用于所传送的数据中只有少量的非 ASCII 码，例如汉字。这种编码方法的要点就是对于可打印的 ASCII 码，除特殊字符等号 “=” 外，都不改变。</p>
+<h3 id="编码方法"><a href="#编码方法" class="headerlink" title="编码方法"></a>编码方法</h3><p>等号 “=” 和不可打印的 ASCII 码以及非 ASCII 码的数据的编码方法是：现将每个字节的二进制代码用两个十六进制数字表示，然后在前面加上一个等号 “=”。</p>
+<h2 id="10-RABBIT"><a href="#10-RABBIT" class="headerlink" title="10.RABBIT"></a>10.RABBIT</h2><p>U2FSDGVKX1/+YDNDPOWGBJJJXHZXM2MP2AGI</p>
+<p>在线解密</p>
+<h2 id="11-篱笆墙的影子"><a href="#11-篱笆墙的影子" class="headerlink" title="11.篱笆墙的影子"></a>11.篱笆墙的影子</h2><p>FELHAAGV{EWTEHTEHFILNAKGW}</p>
+<p>根据提示是栅栏密码</p>
+<p>在线解密，写个循坏脚本</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zhalan</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(s) - <span class="number">1</span>):</span><br><span class="line">        ans = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>((<span class="built_in">len</span>(s)+<span class="number">1</span>) / n)):</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    ans += s[j * n + i]</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    <span class="keyword">pass</span></span><br><span class="line">        print(ans)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    s = <span class="built_in">input</span>(<span class="string">&quot;please input the strings:\n&quot;</span>)</span><br><span class="line">    zhalan(s)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="什么是栅栏密码"><a href="#什么是栅栏密码" class="headerlink" title="什么是栅栏密码"></a>什么是栅栏密码</h3><p>所谓栅栏密码，就是把要加密的明文分成N个一组，然后把每组的相同位置的连起来，形成一段无规律的话</p>
+<h3 id="举个简单的例子"><a href="#举个简单的例子" class="headerlink" title="举个简单的例子"></a>举个简单的例子</h3><p>对FALG{ABCDEF}按照三个一组分类</p>
+<table>
+<thead>
+<tr>
+<th>FLA</th>
+<th>G{A</th>
+<th>BCD</th>
+<th align="center">EF}</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FGBE</td>
+<td>L{CE</td>
+<td>AAD}</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>进行串联变成上面表格第二行的样子</p>
+<h2 id="12-RSA"><a href="#12-RSA" class="headerlink" title="12.RSA"></a>12.RSA</h2><p>题目给出：在一次RSA密钥对生成中，假设P=473398607161，Q=4511491，E=17 求解出D作为FLAG提交</p>
+<p>附上RSA脚本，后面会出一个RSA总结，这里不再赘述</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line">p = <span class="number">473398607161</span></span><br><span class="line">q = <span class="number">4511491</span></span><br><span class="line">e = <span class="number">17</span></span><br><span class="line">d = gmpy2.invert(e,(p-<span class="number">1</span>)*(q-<span class="number">1</span>))</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+
+<h2 id="13-丢失的MD5"><a href="#13-丢失的MD5" class="headerlink" title="13.丢失的MD5"></a>13.丢失的MD5</h2><p>题目给出脚本，尝试运行直接出结果</p>
+<h2 id="14-老文盲了"><a href="#14-老文盲了" class="headerlink" title="14.老文盲了"></a>14.老文盲了</h2><p>打开题目看到   “罼雧締眔擴灝淛匶襫黼瀬鎶軄鶛驕鳓哵眔鞹鰝”</p>
+<p>繁体字朗读一下，提示这就是flag直接交。与佛伦禅需要有佛曰开头</p>
+<h2 id="15-ALICE与BOB"><a href="#15-ALICE与BOB" class="headerlink" title="15.ALICE与BOB"></a>15.ALICE与BOB</h2><p>N=98554799767分解得到</p>
+<p>101999 * 966233</p>
+<p>在线分解大整数网站<a href="http://www.factordb.com/">http://www.factordb.com/</a></p>
+<p>之后对101999966233进行MD5加密得到flag</p>
+<h2 id="16-RSA"><a href="#16-RSA" class="headerlink" title="16.RSA"></a>16.RSA</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Until.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"> </span><br><span class="line">p = <span class="number">9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483</span></span><br><span class="line">q = <span class="number">11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">c = <span class="number">83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034</span>    </span><br><span class="line">n = p*q</span><br><span class="line">phi = (p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d=gmpy2.invert(e,phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c,d,n)</span><br><span class="line">print(long_to_bytes(m))</span><br></pre></td></tr></table></figure>
+
+<h2 id="17-大帝的武器密码"><a href="#17-大帝的武器密码" class="headerlink" title="17.大帝的武器密码"></a>17.大帝的武器密码</h2><p>对FRPHEVGL使用题四的脚本发现偏移等于13时得到单词security</p>
+<p>COMECHINA加密，得FLAG{PBZRPUVAN}</p>
+<h2 id="18-WINDOWS系统密码"><a href="#18-WINDOWS系统密码" class="headerlink" title="18.WINDOWS系统密码"></a>18.WINDOWS系统密码</h2><p><a href="https://www.cmd5.com/%E5%9C%A8%E7%BA%BF%E8%A7%A3%E5%AF%86%EF%BC%8C%E8%AF%95%E5%87%BA%E6%9D%A5%E4%B8%80%E4%B8%AA%E6%9C%89%E8%A7%A3">HTTPS://WWW.CMD5.COM/在线解密，试出来一个有解</a></p>
+<p>A7FCB22A88038F35A8F39D503E7F0062解出来是GOOD-LUCK，得FLAG{GOOD-LUCK}</p>
+<h2 id="19-CAT-FLAG"><a href="#19-CAT-FLAG" class="headerlink" title="19.CAT_FLAG"></a>19.CAT_FLAG</h2><p><img src="/2020/12/17/5/19.jpg" alt="20"></p>
+<p>对于这种只有两种组成的，培根密码，二进制转字符串，摩斯密码</p>
+<p>上面显然是二进制转字符串</p>
+<p>01000010010010100100010001111011010011010010000101100001001100000111111001111101</p>
+<p>转成十六进制424a447b4d2161307e7d</p>
+<p>在进行hex编码得到BJD{M!A0~}</p>
+<h2 id="20-燕言燕语-Y1NG"><a href="#20-燕言燕语-Y1NG" class="headerlink" title="20.燕言燕语-Y1NG"></a>20.燕言燕语-Y1NG</h2><p>79616E7A69205A4A517B78696C7A765F6971737375686F635F73757A6A677D20</p>
+<p>hex编码一下yanzi ZJQ{xilzv_iqssuhoc_suzjg} </p>
+<p>维吉尼亚解密得到flag</p>
+<h3 id="什么是维吉尼亚密码"><a href="#什么是维吉尼亚密码" class="headerlink" title="什么是维吉尼亚密码"></a>什么是维吉尼亚密码</h3><p><strong>维吉尼亚密码</strong>（又译<strong>维热纳尔密码</strong>）是使用一系列凯撒密码组成密码字母表的加密算法，属于多表密码的一种简单形式（用坐标概念理解）</p>
+<p>明文        BJDYA        代表列</p>
+<p>密钥        YANZI        代表行</p>
+<p>密文        ZJQXI        行列坐标的字母</p>
+<p><img src="/2020/12/17/5/20.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>BUU刷题记录</category>
       </categories>
       <tags>
         <tag>crypto</tag>
