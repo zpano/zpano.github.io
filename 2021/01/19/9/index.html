@@ -24,24 +24,28 @@
     var CONFIG = {"hostname":"zpano.gitee.io","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="ElGamal加密算法学习">
+  <meta name="description" content="记录某次面试题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ElGamal加密算法">
-<meta property="og:url" content="https://zpano.gitee.io/2021/01/19/8/index.html">
+<meta property="og:title" content="某次面试">
+<meta property="og:url" content="https://zpano.gitee.io/2021/01/19/9/index.html">
 <meta property="og:site_name" content="Zpano&#39;s Blog">
-<meta property="og:description" content="ElGamal加密算法学习">
+<meta property="og:description" content="记录某次面试题">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/%E5%AF%86%E7%A0%81%E5%AD%A6/1.png">
-<meta property="article:published_time" content="2021-01-19T11:38:31.000Z">
-<meta property="article:modified_time" content="2021-01-19T11:40:36.079Z">
+<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/img/3-1.jpg">
+<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/img/3-2.jpg">
+<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/img/3-3.jpg">
+<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/img/3-4.jpg">
+<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/img/3-5.jpg">
+<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/img/3-6.jpg">
+<meta property="article:published_time" content="2021-01-19T11:42:28.000Z">
+<meta property="article:modified_time" content="2021-01-19T11:44:16.047Z">
 <meta property="article:author" content="ZPANO">
-<meta property="article:tag" content="crypto">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="-数论 -二次剩余">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/%E5%AF%86%E7%A0%81%E5%AD%A6/1.png">
+<meta name="twitter:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/img/3-1.jpg">
 
 
-<link rel="canonical" href="https://zpano.gitee.io/2021/01/19/8/">
+<link rel="canonical" href="https://zpano.gitee.io/2021/01/19/9/">
 
 
 <script class="page-configurations">
@@ -54,7 +58,7 @@
   };
 </script>
 
-  <title>ElGamal加密算法 | Zpano's Blog</title>
+  <title>某次面试 | Zpano's Blog</title>
   
 
 
@@ -218,7 +222,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELGAMAL"><span class="nav-number">1.</span> <span class="nav-text">ELGAMAL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">密钥生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">1.1.2.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86"><span class="nav-number">1.1.3.</span> <span class="nav-text">解密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="nav-number">1.2.</span> <span class="nav-text">正确性验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">密钥生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">解密</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E9%9D%A2%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">三面报告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B0%9D%E8%AF%95"><span class="nav-number"></span> <span class="nav-text">简单尝试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99"><span class="nav-number"></span> <span class="nav-text">二次剩余</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%AF%E5%90%A6%E6%9C%89%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">是否有解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E5%8B%92%E8%AE%A9%E5%BE%B7%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">引入勒让德符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%A7%E6%8B%89%E5%88%A4%E5%88%AB%E5%87%86%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">欧拉判别准则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">证明：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cipolla%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Cipolla算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%A2%84%E6%9C%9F%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">非预期解</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -291,7 +295,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zpano.gitee.io/2021/01/19/8/">
+    <link itemprop="mainEntityOfPage" href="https://zpano.gitee.io/2021/01/19/9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -304,7 +308,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          ElGamal加密算法
+          某次面试
         </h1>
 
         <div class="post-meta-container">
@@ -316,7 +320,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-19 19:38:31 / 修改时间：19:40:36" itemprop="dateCreated datePublished" datetime="2021-01-19T19:38:31+08:00">2021-01-19</time>
+      <time title="创建时间：2021-01-19 19:42:28 / 修改时间：19:44:16" itemprop="dateCreated datePublished" datetime="2021-01-19T19:42:28+08:00">2021-01-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -324,7 +328,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">原理</span></a>
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
         </span>
     </span>
 
@@ -343,7 +347,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>861</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -354,7 +358,7 @@
     </span>
 </div>
 
-            <div class="post-description">ElGamal加密算法学习</div>
+            <div class="post-description">记录某次面试题</div>
         </div>
       </header>
 
@@ -362,31 +366,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="ELGAMAL"><a href="#ELGAMAL" class="headerlink" title="ELGAMAL"></a>ELGAMAL</h1><p>在密码学中，ElGamal加密算法是一个基于迪菲-赫尔曼密钥交换的非对称加密算法。它在1985年由塔希尔·盖莫尔提出。GnuPG和PGP等很多密码学系统中都应用到了ElGamal算法。</p>
-<p>ElGamal加密算法可以定义在任何循环群G上。它的安全性取决于G上的离散对数难题</p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="密钥生成"><a href="#密钥生成" class="headerlink" title="密钥生成"></a>密钥生成</h3><p>1.随机选择一个大素数p，要求p-1有大素数因子</p>
-<p>2.选择一个模p的原根g</p>
-<p>3.随机地选择一个整数x (1＜x＜p-1)作为私钥x，并对x保密。</p>
-<p>4.计算y=g^x(mod p)</p>
-<p>5.公钥(p,g,y)，私钥(x)</p>
-<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p>1.将明文进行比特分组，使得每个分组对应的十进制数小于p，即分组长度小于log2p，得到明文组M1,M2…..Mt(C1||C1’)</p>
-<p>2.对明文M1加密: 选择一个整数K1(1&lt;K1&lt;p-1)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C1 = g^k(mod p) </span><br><span class="line">C1<span class="string">&#x27; = M1^k(mod p)</span></span><br></pre></td></tr></table></figure>
-<p>得到密文组1(C1||C1’)</p>
-<p>3.依次对明文组加密</p>
-<p>4.得到密文C=(C1||C1’)(C2||C2’)……(Ct||Ct’)</p>
-<h3 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h3><p>1.使用密钥x进行解密</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k1= C1^x mod p</span><br><span class="line">m1= (C1<span class="string">&#x27; * k1^-1) mod p</span></span><br><span class="line"><span class="string">#-1的幂次运算是k1模p的逆元</span></span><br></pre></td></tr></table></figure>
-<p>2.依次对密文进行解密</p>
-<p>3.拼接解密后的明文m1,m2,……mt得到明文m</p>
-<h2 id="正确性验证"><a href="#正确性验证" class="headerlink" title="正确性验证"></a>正确性验证</h2><p><img src="/2021/01/19/8/../../program/Typora/conclusion/%E5%AF%86%E7%A0%81%E5%AD%A6/1.png" alt="avatar"></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>选取素数p=150001，本原元a=7，密钥999，明文7777</p>
-<h3 id="密钥生成-1"><a href="#密钥生成-1" class="headerlink" title="密钥生成"></a>密钥生成</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="number">150001</span></span><br><span class="line">g = <span class="number">7</span></span><br><span class="line">x = <span class="number">999</span></span><br><span class="line">y = g **x %p</span><br><span class="line">print(y)</span><br><span class="line"><span class="comment">#120062</span></span><br></pre></td></tr></table></figure>
-<p>得到公钥（15001，7，120062）</p>
-<h3 id="加密-1"><a href="#加密-1" class="headerlink" title="加密"></a>加密</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">M = <span class="number">7777</span></span><br><span class="line">k = <span class="number">1234</span></span><br><span class="line">c = g**k%p</span><br><span class="line">c_= M*y**k%p</span><br><span class="line">print(<span class="string">&#x27;(&#x27;</span>,c,<span class="string">&#x27;||&#x27;</span>,c_,<span class="string">&#x27;)&#x27;</span>)</span><br><span class="line"><span class="comment">#( 33676 || 65720 )</span></span><br></pre></td></tr></table></figure>
-<p>得到密文( 33676 || 65720 )</p>
-<h3 id="解密-1"><a href="#解密-1" class="headerlink" title="解密"></a>解密</h3><p>引用gmpy2库的invert函数求逆元</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">k_ = (c ** x) % p</span><br><span class="line">a = gmpy2.invert(k_,p)</span><br><span class="line">m = c_ * a % p</span><br><span class="line">print(m)</span><br><span class="line"><span class="comment">#7777</span></span><br></pre></td></tr></table></figure>
+        <h3 id="三面报告"><a href="#三面报告" class="headerlink" title="三面报告"></a>三面报告</h3><h2 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c=<span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n=<span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/19/9/../../program/Typora/conclusion/img/3-1.jpg" alt="avatar"></p>
+<p>看着识字感觉有点熟悉，类似与RSA的低加密指数分解攻击，试一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line">m = gmpy2.iroot(c,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#(mpz(1690512188248851376925542155690365), True)</span></span><br><span class="line"><span class="comment">#另一解n- m[0]</span></span><br><span class="line"><span class="comment">#108607598680742993231063442886639267104372362086743097715265004177975148274702</span></span><br><span class="line">print(long_to_bytes(m[<span class="number">0</span>]))</span><br><span class="line"><span class="comment">#b&#x27;SYC&#123;good_job!&#125;&#x27;</span></span><br><span class="line">print(long_to_bytes(n-m[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+<p>在思考一下，和RSA的低加密指数分解攻击有点类似的Rabin算法（是一种基于模平方和模平方根的非对称加密算法）。尝试用yafu，factordb分解n，失败。在验证一下n是不是素数。</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(n))</span><br><span class="line"><span class="meta">#1</span></span><br></pre></td></tr></table></figure>
+<p>那就说明不是Rabin加密。</p>
+<p>看提示要探索x背后的秘密，回想之前数论学习里面的二次同余式的知识，试一下。</p>
+<h2 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h2><p>一个数 a，如果不是p 的倍数且模 p同余于某个数的平方，则称 a为模p 的 <strong>二次剩余</strong> 。而一个不是 p的倍数的数 b，不同余于任何数的平方，则b称 为模 p的 <strong>非二次剩余</strong> 。</p>
+<h3 id="是否有解"><a href="#是否有解" class="headerlink" title="是否有解"></a>是否有解</h3><h4 id="引入勒让德符号"><a href="#引入勒让德符号" class="headerlink" title="引入勒让德符号"></a>引入勒让德符号</h4><p><img src="/2021/01/19/9/../../program/Typora/conclusion/img/3-2.jpg" alt="avatar"></p>
+<p>通过勒让德符号可以判断一个数 是否为二次剩余，具体判断 是否为 的二次剩余，需要通过欧拉判别准则来实现</p>
+<h4 id="欧拉判别准则"><a href="#欧拉判别准则" class="headerlink" title="欧拉判别准则"></a>欧拉判别准则</h4><p><img src="/2021/01/19/9/../../program/Typora/conclusion/img/3-3.jpg" alt="avatar"></p>
+<h4 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：<img src="/2021/01/19/9/../../program/Typora/conclusion/img/3-4.jpg" alt="avatar"></h4><h3 id="Cipolla算法"><a href="#Cipolla算法" class="headerlink" title="Cipolla算法"></a>Cipolla算法</h3><p>Cipolla算法是解决二次剩余强有力的工具，一个脑洞大开的算法</p>
+<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p><img src="/2021/01/19/9/../../program/Typora/conclusion/img/3-5.jpg" alt="avater"></p>
+<p><img src="/2021/01/19/9/../../program/Typora/conclusion/img/3-6.jpg" alt="avater"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    a = random.randint(<span class="number">1</span>,n)</span><br><span class="line">    i=a*a - c</span><br><span class="line">    <span class="keyword">if</span>(gmpy2.legendre(i,n) == -<span class="number">1</span>):</span><br><span class="line">        i_sqrt = gmpy2.sqrt(i)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">x = gmpy2.powmod(a+i_sqrt,n+<span class="number">1</span>//<span class="number">2</span>,n)</span><br><span class="line">print(x,-x%n)</span><br></pre></td></tr></table></figure>
+<h3 id="非预期解"><a href="#非预期解" class="headerlink" title="非预期解"></a>非预期解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">3</span>):</span><br><span class="line">    ans = <span class="built_in">pow</span>(c, (n + <span class="number">1</span>) // <span class="number">4</span>, n)</span><br><span class="line">    print(ans, -ans % n)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -404,7 +400,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://zpano.gitee.io/2021/01/19/8/" title="ElGamal加密算法">https://zpano.gitee.io/2021/01/19/8/</a>
+      <a href="https://zpano.gitee.io/2021/01/19/9/" title="某次面试">https://zpano.gitee.io/2021/01/19/9/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -413,22 +409,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/crypto/" rel="tag"># crypto</a>
-              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E6%95%B0%E8%AE%BA-%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99/" rel="tag"># -数论 -二次剩余</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/19/7/" rel="prev" title="RSA总结">
-                  <i class="fa fa-chevron-left"></i> RSA总结
+                <a href="/2021/01/19/8/" rel="prev" title="ElGamal加密算法">
+                  <i class="fa fa-chevron-left"></i> ElGamal加密算法
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/01/19/9/" rel="next" title="某次面试">
-                  某次面试 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
