@@ -96,7 +96,9 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -231,7 +233,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -361,7 +363,7 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="RSA库"><a href="#RSA库" class="headerlink" title="RSA库"></a>RSA库</h1><p>仅对字节运行</p>
 <h2 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(pubkey, privkey) = rsa.newkeys(<span class="number">512</span>, poolsize=<span class="number">8</span>)</span><br><span class="line"><span class="comment">#均为元组形式</span></span><br><span class="line"><span class="comment">#poolsize表示线程数</span></span><br><span class="line"><span class="comment">#accurate=True默认</span></span><br></pre></td></tr></table></figure>
-
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -369,7 +371,8 @@
 <th>value</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>pubkey</td>
 <td>(n,e)</td>
 </tr>
@@ -377,10 +380,11 @@
 <td>privkey</td>
 <td>(n,e,d,p,q)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>实际测试生成4096位密钥需要50秒左右</p>
 <h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><h3 id="rsa-encrypt-message，pubkey"><a href="#rsa-encrypt-message，pubkey" class="headerlink" title="rsa.encrypt(message，pubkey)"></a>rsa.encrypt(message，pubkey)</h3><h3 id="rsa-decrypt-crypto，prikey"><a href="#rsa-decrypt-crypto，prikey" class="headerlink" title="rsa.decrypt(crypto，prikey)"></a>rsa.decrypt(crypto，prikey)</h3><h3 id="过程演示"><a href="#过程演示" class="headerlink" title="过程演示"></a>过程演示</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(bob_pub, bob_priv) = rsa.newkeys(<span class="number">512</span>)</span><br><span class="line">message = <span class="string">&#x27;hello Bob!&#x27;</span>.encode(<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">crypto = rsa.encrypt(message, bob_pub)</span><br><span class="line">message = rsa.decrypt(crypto, bob_priv)</span><br><span class="line">print(message.decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
 <p>如果加密消息被篡改会报错</p>
 <h2 id="签名和验证"><a href="#签名和验证" class="headerlink" title="签名和验证"></a>签名和验证</h2><h3 id="rsa-sign"><a href="#rsa-sign" class="headerlink" title="rsa.sign()"></a>rsa.sign()</h3><p>为邮件创建分离签名</p>
 <h3 id="rsa-verify"><a href="#rsa-verify" class="headerlink" title="rsa.verify()"></a>rsa.verify()</h3><p>验证签名，成功返回True</p>
@@ -483,7 +487,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -494,13 +498,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">39k</span>
+    <span title="站点总字数">40k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">36 分钟</span>
+    <span title="站点阅读时长">37 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -561,6 +565,52 @@
 
 
   
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -95,7 +95,9 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -230,7 +232,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -362,32 +364,23 @@
 <p>secrets是python3.6加入到标准库的,使用secrets模块，可以生成适用于处理机密信息（如密码，帐户身份验证，安全令牌）的加密强随机数。</p>
 </blockquote>
 <h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> secrets</span><br></pre></td></tr></table></figure>
-
 <h3 id="SystemRandom"><a href="#SystemRandom" class="headerlink" title="SystemRandom"></a>SystemRandom</h3><p>它是使用OS提供的最高质量源生成随机数的类。 有关更多详细信息，请参阅random.SystemRandom。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">secrets</span><span class="selector-class">.SystemRandom</span>()</span><br><span class="line"></span><br><span class="line">&lt;<span class="selector-tag">random</span><span class="selector-class">.SystemRandom</span> <span class="selector-tag">at</span> 0<span class="selector-tag">x7fd537094418</span>&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="choice-sequence"><a href="#choice-sequence" class="headerlink" title="choice(sequence)"></a>choice(sequence)</h3><p>从非空序列中选择一个元素。</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.choice([<span class="number">23</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br></pre></td></tr></table></figure>
-
 <h3 id="randbelow"><a href="#randbelow" class="headerlink" title="randbelow"></a>randbelow</h3><p>[0,n) 取0-n之间的整数</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbelow(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">6</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="randbits-k"><a href="#randbits-k" class="headerlink" title="randbits(k)"></a>randbits(k)</h3><p>随机不超过k位的整数</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbits(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">426</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="token生成"><a href="#token生成" class="headerlink" title="token生成"></a>token生成</h2><p>secret模块还提供用于生成适合于重置密码和难以想象的URL的安全令牌的功能。</p>
 <h3 id="token-bytes"><a href="#token-bytes" class="headerlink" title="token_bytes"></a>token_bytes</h3><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.token_bytes(nbytes=10)</span><br><span class="line"></span><br><span class="line">b&#x27;<span class="symbol">\x</span>ca<span class="symbol">\x</span>feQ<span class="symbol">\x</span>03&amp;<span class="symbol">\x</span>8b7<span class="symbol">\x</span>d7&amp;<span class="symbol">\x</span>af&#x27;</span><br></pre></td></tr></table></figure>
-
 <p>返回包含nbytes个字节的字节字符串。 如果nbytes为None或未给出，则使用有效的默认值。</p>
 <h3 id="token-hex"><a href="#token-hex" class="headerlink" title="token_hex"></a>token_hex</h3><p>返回十六进制随机文本字符串。 该字符串有n个字节的随机字节，每个字节转换为两个十六进制数字。 如果nbytes为None或未给出，则使用有效的默认值。</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.token_hex()</span><br><span class="line"></span><br><span class="line">&#x27;494ee83c2a42ce3dc488b059eb64a<span class="number">50628667</span>e9f2c939a<span class="number">8767</span>2d3d6a<span class="number">174825</span>2a&#x27;</span><br></pre></td></tr></table></figure>
-
 <h3 id="token-urlsafe"><a href="#token-urlsafe" class="headerlink" title="token_urlsafe"></a>token_urlsafe</h3><p>返回随机字节为nbytes的URL安全文本字符串。 文本以Base64编码，每个字节平均约为1.3个字符。 如果nbytes为None或未给出，则使用有效的默认值。</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.token_urlsafe()</span><br><span class="line"></span><br><span class="line">&#x27;giZFsPv9ch4OGWvuqihEIkj0LwOsHDOjgGHoqDeTvb8&#x27;</span><br></pre></td></tr></table></figure>
-
 <h3 id="compare-digest"><a href="#compare-digest" class="headerlink" title="compare_digest"></a>compare_digest</h3><p>字符串比较的安全方式,减少攻击风险。</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.compare_digest(<span class="string">&quot;e&quot;</span>,<span class="string">&quot;E&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -477,7 +470,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -488,13 +481,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">39k</span>
+    <span title="站点总字数">40k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">36 分钟</span>
+    <span title="站点阅读时长">37 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -555,6 +548,52 @@
 
 
   
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
