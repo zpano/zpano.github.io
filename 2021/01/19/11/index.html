@@ -24,24 +24,21 @@
     var CONFIG = {"hostname":"zpano.gitee.io","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="ElGamal加密算法学习">
+  <meta name="description" content="通过 *ctf 2021 CRYPTO MyEnc 学习高斯消元">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ElGamal加密算法">
-<meta property="og:url" content="https://zpano.gitee.io/2021/01/19/8/index.html">
+<meta property="og:title" content="高斯消元求解">
+<meta property="og:url" content="https://zpano.gitee.io/2021/01/19/11/index.html">
 <meta property="og:site_name" content="Zpano&#39;s Blog">
-<meta property="og:description" content="ElGamal加密算法学习">
+<meta property="og:description" content="通过 *ctf 2021 CRYPTO MyEnc 学习高斯消元">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/%E5%AF%86%E7%A0%81%E5%AD%A6/1.png">
-<meta property="article:published_time" content="2021-01-19T11:38:31.000Z">
-<meta property="article:modified_time" content="2021-01-19T11:40:36.079Z">
+<meta property="article:published_time" content="2021-01-19T11:52:32.000Z">
+<meta property="article:modified_time" content="2021-03-10T15:11:22.070Z">
 <meta property="article:author" content="ZPANO">
-<meta property="article:tag" content="crypto">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="-rsa -ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zpano.gitee.io/2021/01/program/Typora/conclusion/%E5%AF%86%E7%A0%81%E5%AD%A6/1.png">
 
 
-<link rel="canonical" href="https://zpano.gitee.io/2021/01/19/8/">
+<link rel="canonical" href="https://zpano.gitee.io/2021/01/19/11/">
 
 
 <script class="page-configurations">
@@ -54,7 +51,7 @@
   };
 </script>
 
-  <title>ElGamal加密算法 | Zpano's Blog</title>
+  <title>高斯消元求解 | Zpano's Blog</title>
   
 
 
@@ -218,7 +215,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELGAMAL"><span class="nav-number">1.</span> <span class="nav-text">ELGAMAL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">密钥生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">1.1.2.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86"><span class="nav-number">1.1.3.</span> <span class="nav-text">解密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="nav-number">1.2.</span> <span class="nav-text">正确性验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">密钥生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">解密</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">高斯消元简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">核心思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">算法思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy%E5%BA%93%E5%AD%A6%E4%B9%A0"><span class="nav-number">4.</span> <span class="nav-text">Numpy库学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90"><span class="nav-number">4.1.</span> <span class="nav-text">简单例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E7%89%87"><span class="nav-number">4.2.</span> <span class="nav-text">切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">4.3.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E6%95%B0%E7%BB%84%E7%B4%A2%E5%BC%95"><span class="nav-number">4.4.</span> <span class="nav-text">布尔数组索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97"><span class="nav-number">4.5.</span> <span class="nav-text">矩阵运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95"><span class="nav-number">4.5.1.</span> <span class="nav-text">加法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%8F%E6%B3%95"><span class="nav-number">4.5.2.</span> <span class="nav-text">减法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%98%E6%B3%95%EF%BC%88%E5%85%83%E7%B4%A0%E4%B9%98%E6%B3%95%EF%BC%89"><span class="nav-number">4.5.3.</span> <span class="nav-text">乘法（元素乘法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%A4%E6%B3%95%EF%BC%88%E5%85%83%E7%B4%A0%E9%99%A4%E6%B3%95%EF%BC%89"><span class="nav-number">4.5.4.</span> <span class="nav-text">除法（元素除法）</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -291,7 +288,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zpano.gitee.io/2021/01/19/8/">
+    <link itemprop="mainEntityOfPage" href="https://zpano.gitee.io/2021/01/19/11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -304,7 +301,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          ElGamal加密算法
+          高斯消元求解
         </h1>
 
         <div class="post-meta-container">
@@ -314,17 +311,23 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-01-19 19:38:31 / 修改时间：19:40:36" itemprop="dateCreated datePublished" datetime="2021-01-19T19:38:31+08:00">2021-01-19</time>
+      <time title="创建时间：2021-01-19 19:52:32" itemprop="dateCreated datePublished" datetime="2021-01-19T19:52:32+08:00">2021-01-19</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-03-10 23:11:22" itemprop="dateModified" datetime="2021-03-10T23:11:22+08:00">2021-03-10</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">原理</span></a>
+          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
         </span>
     </span>
 
@@ -343,7 +346,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>861</span>
+      <span>1.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -354,7 +357,7 @@
     </span>
 </div>
 
-            <div class="post-description">ElGamal加密算法学习</div>
+            <div class="post-description">通过 *ctf 2021 CRYPTO MyEnc 学习高斯消元</div>
         </div>
       </header>
 
@@ -362,31 +365,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="ELGAMAL"><a href="#ELGAMAL" class="headerlink" title="ELGAMAL"></a>ELGAMAL</h1><p>在密码学中，ElGamal加密算法是一个基于迪菲-赫尔曼密钥交换的非对称加密算法。它在1985年由塔希尔·盖莫尔提出。GnuPG和PGP等很多密码学系统中都应用到了ElGamal算法。</p>
-<p>ElGamal加密算法可以定义在任何循环群G上。它的安全性取决于G上的离散对数难题</p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="密钥生成"><a href="#密钥生成" class="headerlink" title="密钥生成"></a>密钥生成</h3><p>1.随机选择一个大素数p，要求p-1有大素数因子</p>
-<p>2.选择一个模p的原根g</p>
-<p>3.随机地选择一个整数x (1＜x＜p-1)作为私钥x，并对x保密。</p>
-<p>4.计算y=g^x(mod p)</p>
-<p>5.公钥(p,g,y)，私钥(x)</p>
-<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p>1.将明文进行比特分组，使得每个分组对应的十进制数小于p，即分组长度小于log2p，得到明文组M1,M2…..Mt(C1||C1’)</p>
-<p>2.对明文M1加密: 选择一个整数K1(1&lt;K1&lt;p-1)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C1 = g^k(mod p) </span><br><span class="line">C1<span class="string">&#x27; = M1^k(mod p)</span></span><br></pre></td></tr></table></figure>
-<p>得到密文组1(C1||C1’)</p>
-<p>3.依次对明文组加密</p>
-<p>4.得到密文C=(C1||C1’)(C2||C2’)……(Ct||Ct’)</p>
-<h3 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h3><p>1.使用密钥x进行解密</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k1= C1^x mod p</span><br><span class="line">m1= (C1<span class="string">&#x27; * k1^-1) mod p</span></span><br><span class="line"><span class="string">#-1的幂次运算是k1模p的逆元</span></span><br></pre></td></tr></table></figure>
-<p>2.依次对密文进行解密</p>
-<p>3.拼接解密后的明文m1,m2,……mt得到明文m</p>
-<h2 id="正确性验证"><a href="#正确性验证" class="headerlink" title="正确性验证"></a>正确性验证</h2><p><img src="/2021/01/19/8/../../program/Typora/conclusion/%E5%AF%86%E7%A0%81%E5%AD%A6/1.png" alt="avatar"></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>选取素数p=150001，本原元a=7，密钥999，明文7777</p>
-<h3 id="密钥生成-1"><a href="#密钥生成-1" class="headerlink" title="密钥生成"></a>密钥生成</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="number">150001</span></span><br><span class="line">g = <span class="number">7</span></span><br><span class="line">x = <span class="number">999</span></span><br><span class="line">y = g **x %p</span><br><span class="line">print(y)</span><br><span class="line"><span class="comment">#120062</span></span><br></pre></td></tr></table></figure>
-<p>得到公钥（15001，7，120062）</p>
-<h3 id="加密-1"><a href="#加密-1" class="headerlink" title="加密"></a>加密</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">M = <span class="number">7777</span></span><br><span class="line">k = <span class="number">1234</span></span><br><span class="line">c = g**k%p</span><br><span class="line">c_= M*y**k%p</span><br><span class="line">print(<span class="string">&#x27;(&#x27;</span>,c,<span class="string">&#x27;||&#x27;</span>,c_,<span class="string">&#x27;)&#x27;</span>)</span><br><span class="line"><span class="comment">#( 33676 || 65720 )</span></span><br></pre></td></tr></table></figure>
-<p>得到密文( 33676 || 65720 )</p>
-<h3 id="解密-1"><a href="#解密-1" class="headerlink" title="解密"></a>解密</h3><p>引用gmpy2库的invert函数求逆元</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">k_ = (c ** x) % p</span><br><span class="line">a = gmpy2.invert(k_,p)</span><br><span class="line">m = c_ * a % p</span><br><span class="line">print(m)</span><br><span class="line"><span class="comment">#7777</span></span><br></pre></td></tr></table></figure>
+        <h1 id="高斯消元简介"><a href="#高斯消元简介" class="headerlink" title="高斯消元简介"></a>高斯消元简介</h1><p>高斯消元法，是线性代数中的一个，可用来求解线性方程组，并可以求出矩阵的秩，以及求出可逆方阵的逆矩阵。<br>高斯消元法的原理是：<br>若用初等行变换将增广矩阵 化为 ，则AX = B与CX = D是同解方程组。</p>
+<p>所以我们可以用初等行变换把增广矩阵转换为行阶梯阵，然后回代求出方程的解。</p>
+<h1 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h1><ol>
+<li>两方程互换，解不变</li>
+<li>一方程乘以非零数k，解不变</li>
+<li>一方程乘以数k加上另一方程，解不变 </li>
+</ol>
+<h1 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h1><p>思路就是根据高斯消元法的特性，先将矩阵化成行阶梯型矩阵，由行阶梯型矩阵得出秩再判断线性方程组解的个数<br>1.R(A)&lt;=R(Ab) 则方程无解<br>2.R(A)=R(Ab)=N时方程有唯一解 （齐次方程称无非0解）<br>3.R(A)=R(Ab)&lt;N时方程有无穷个解 （齐次方程称有非0解）</p>
+<p>得出解的个数后，如果存在唯一解，再将之前的矩阵化为行最简形矩阵，得出线性方程组的解</p>
+<h1 id="Numpy库学习"><a href="#Numpy库学习" class="headerlink" title="Numpy库学习"></a>Numpy库学习</h1><p>因为Numpy库矩阵的运算有很大的帮助，所以花点时间学习一下</p>
+<p>NumPy 最重要的一个特点是其 N 维数组对象 ndarray，它是一系列同类型数据的集合，以 0 下标为开始进行集合中元素的索引。</p>
+<h2 id="简单例子"><a href="#简单例子" class="headerlink" title="简单例子"></a>简单例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">15</span>).reshape(<span class="number">3</span>, <span class="number">5</span>) <span class="comment">#初始化一个3*5，1到15的矩阵</span></span><br><span class="line"><span class="comment">#相当于</span></span><br><span class="line">a= np.array([[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>,  <span class="number">4</span>],</span><br><span class="line">       [ <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">8</span>,  <span class="number">9</span>],</span><br><span class="line">       [<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>]])</span><br><span class="line"><span class="comment">#一些函数</span></span><br><span class="line">a.shape<span class="comment">#对于有 n 行和 m 列的矩阵，shape 将是 (n,m)</span></span><br><span class="line">a.ndim<span class="comment">#shape 元组的长度就是rank或维度的个数 ndim。</span></span><br><span class="line">a.size<span class="comment">#数组元素的总数。这等于 shape 的元素的乘积</span></span><br><span class="line">a.dtype<span class="comment">#一个描述数组中元素类型的对象 有numpy.int32、numpy.int16和numpy.float64</span></span><br><span class="line">a.itemsize<span class="comment">#数组中每个元素的字节大小</span></span><br><span class="line">b = a.reshape(<span class="number">3</span>,<span class="number">5</span>)<span class="comment">#矩阵重载</span></span><br></pre></td></tr></table></figure>
+<h2 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">b = a[<span class="number">0</span>:<span class="number">2</span>,<span class="number">3</span>:<span class="number">5</span>] <span class="comment">#[[3 4] [8 9]]</span></span><br><span class="line">row_r1 = a[<span class="number">1</span>, :] <span class="comment">#[5 6 7 8 9]</span></span><br><span class="line">b[<span class="number">0</span>, <span class="number">0</span>] = <span class="number">77</span> <span class="comment">#同时a也会改变</span></span><br><span class="line">[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span> <span class="number">77</span>  <span class="number">4</span>]</span><br><span class="line"> [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]</span><br><span class="line"> [<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]]</span><br></pre></td></tr></table></figure>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.array(a[<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>]) <span class="comment">#[ 0  6 10]</span></span><br><span class="line">a[[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]] </span><br><span class="line">np.array([a[<span class="number">0</span>, <span class="number">0</span>], a[<span class="number">1</span>, <span class="number">1</span>], a[<span class="number">2</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<h2 id="布尔数组索引"><a href="#布尔数组索引" class="headerlink" title="布尔数组索引"></a><strong>布尔数组索引</strong></h2><p>用来判断某些元素是否满足条件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bool_idx = (a &gt; <span class="number">5</span>)</span><br><span class="line">print(bool_idx)</span><br><span class="line">[[<span class="literal">False</span> <span class="literal">False</span> <span class="literal">False</span> <span class="literal">False</span> <span class="literal">False</span>]</span><br><span class="line"> [<span class="literal">False</span>  <span class="literal">True</span>  <span class="literal">True</span>  <span class="literal">True</span>  <span class="literal">True</span>]</span><br><span class="line"> [ <span class="literal">True</span>  <span class="literal">True</span>  <span class="literal">True</span>  <span class="literal">True</span>  <span class="literal">True</span>]]</span><br><span class="line"> print(a[bool_idx])</span><br><span class="line"> [ <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h2><h3 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h3><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">x</span> + <span class="symbol">y</span></span><br><span class="line">np.add(<span class="symbol">x</span>, <span class="symbol">y</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="减法"><a href="#减法" class="headerlink" title="减法"></a>减法</h3><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">x</span> - <span class="symbol">y</span></span><br><span class="line">np.subtract(<span class="symbol">x</span>, <span class="symbol">y</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="乘法（元素乘法）"><a href="#乘法（元素乘法）" class="headerlink" title="乘法（元素乘法）"></a>乘法（元素乘法）</h3><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">x</span> * <span class="symbol">y</span></span><br><span class="line">np.multiply(<span class="symbol">x</span>, <span class="symbol">y</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="除法（元素除法）"><a href="#除法（元素除法）" class="headerlink" title="除法（元素除法）"></a>除法（元素除法）</h3><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">x</span> / <span class="symbol">y</span></span><br><span class="line">np.divide(<span class="symbol">x</span>, <span class="symbol">y</span>)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -404,7 +402,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://zpano.gitee.io/2021/01/19/8/" title="ElGamal加密算法">https://zpano.gitee.io/2021/01/19/8/</a>
+      <a href="https://zpano.gitee.io/2021/01/19/11/" title="高斯消元求解">https://zpano.gitee.io/2021/01/19/11/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -413,21 +411,20 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/crypto/" rel="tag"># crypto</a>
-              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/rsa-ctf/" rel="tag"># -rsa -ctf</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/19/7/" rel="prev" title="RSA总结">
-                  <i class="fa fa-chevron-left"></i> RSA总结
+                <a href="/2021/01/19/10/" rel="prev" title="2020 CISCN Crypto lockrise">
+                  <i class="fa fa-chevron-left"></i> 2020 CISCN Crypto lockrise
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/01/19/9/" rel="next" title="某次面试">
-                  某次面试 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/03/10/12/" rel="next" title="区块链安全入门">
+                  区块链安全入门 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
