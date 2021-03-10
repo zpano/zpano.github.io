@@ -382,34 +382,6 @@
       </tags>
   </entry>
   <entry>
-    <title>某次面试</title>
-    <url>/2021/01/19/9/</url>
-    <content><![CDATA[<h3 id="三面报告"><a href="#三面报告" class="headerlink" title="三面报告"></a>三面报告</h3><h2 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c=<span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n=<span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/01/19/9/3-1.jpg" alt="avatar"></p>
-<p>看着识字感觉有点熟悉，类似与RSA的低加密指数分解攻击，试一下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line">m = gmpy2.iroot(c,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#(mpz(1690512188248851376925542155690365), True)</span></span><br><span class="line"><span class="comment">#另一解n- m[0]</span></span><br><span class="line"><span class="comment">#108607598680742993231063442886639267104372362086743097715265004177975148274702</span></span><br><span class="line">print(long_to_bytes(m[<span class="number">0</span>]))</span><br><span class="line"><span class="comment">#b&#x27;SYC&#123;good_job!&#125;&#x27;</span></span><br><span class="line">print(long_to_bytes(n-m[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
-<p>在思考一下，和RSA的低加密指数分解攻击有点类似的Rabin算法（是一种基于模平方和模平方根的非对称加密算法）。尝试用yafu，factordb分解n，失败。在验证一下n是不是素数。</p>
-<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(n))</span><br><span class="line"><span class="meta">#1</span></span><br></pre></td></tr></table></figure>
-<p>那就说明不是Rabin加密。</p>
-<p>看提示要探索x背后的秘密，回想之前数论学习里面的二次同余式的知识，试一下。</p>
-<h2 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h2><p>一个数 a，如果不是p 的倍数且模 p同余于某个数的平方，则称 a为模p 的 <strong>二次剩余</strong> 。而一个不是 p的倍数的数 b，不同余于任何数的平方，则b称 为模 p的 <strong>非二次剩余</strong> 。</p>
-<h3 id="是否有解"><a href="#是否有解" class="headerlink" title="是否有解"></a>是否有解</h3><h4 id="引入勒让德符号"><a href="#引入勒让德符号" class="headerlink" title="引入勒让德符号"></a>引入勒让德符号</h4><p><img src="/2021/01/19/9/3-2.jpg" alt="avatar"></p>
-<p>通过勒让德符号可以判断一个数 是否为二次剩余，具体判断 是否为 的二次剩余，需要通过欧拉判别准则来实现</p>
-<h4 id="欧拉判别准则"><a href="#欧拉判别准则" class="headerlink" title="欧拉判别准则"></a>欧拉判别准则</h4><p><img src="/2021/01/19/9/3-3.jpg" alt="avatar"></p>
-<h4 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：<img src="/2021/01/19/9/3-4.jpg" alt="avatar"></h4><h3 id="Cipolla算法"><a href="#Cipolla算法" class="headerlink" title="Cipolla算法"></a>Cipolla算法</h3><p>Cipolla算法是解决二次剩余强有力的工具，一个脑洞大开的算法</p>
-<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p><img src="/2021/01/19/9/3-5.jpg" alt="avater"></p>
-<p><img src="/2021/01/19/9/3-6.jpg" alt="avater"></p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    a = random.randint(<span class="number">1</span>,n)</span><br><span class="line">    i=a*a - c</span><br><span class="line">    <span class="keyword">if</span>(gmpy2.legendre(i,n) == -<span class="number">1</span>):</span><br><span class="line">        i_sqrt = gmpy2.sqrt(i)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">x = gmpy2.powmod(a+i_sqrt,n+<span class="number">1</span>//<span class="number">2</span>,n)</span><br><span class="line">print(x,-x%n)</span><br></pre></td></tr></table></figure>
-<h3 id="非预期解"><a href="#非预期解" class="headerlink" title="非预期解"></a>非预期解</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">3</span>):</span><br><span class="line">    ans = <span class="built_in">pow</span>(c, (n + <span class="number">1</span>) // <span class="number">4</span>, n)</span><br><span class="line">    print(ans, -ans % n)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>-数论 -二次剩余</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ElGamal加密算法</title>
     <url>/2021/01/19/8/</url>
     <content><![CDATA[<h1 id="ELGAMAL"><a href="#ELGAMAL" class="headerlink" title="ELGAMAL"></a>ELGAMAL</h1><p>在密码学中，ElGamal加密算法是一个基于迪菲-赫尔曼密钥交换的非对称加密算法。它在1985年由塔希尔·盖莫尔提出。GnuPG和PGP等很多密码学系统中都应用到了ElGamal算法。</p>
@@ -444,6 +416,34 @@
       <tags>
         <tag>crypto</tag>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>某次面试</title>
+    <url>/2021/01/19/9/</url>
+    <content><![CDATA[<h3 id="三面报告"><a href="#三面报告" class="headerlink" title="三面报告"></a>三面报告</h3><h2 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c=<span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n=<span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/19/9/3-1.jpg" alt="avatar"></p>
+<p>看着识字感觉有点熟悉，类似与RSA的低加密指数分解攻击，试一下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line">m = gmpy2.iroot(c,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#(mpz(1690512188248851376925542155690365), True)</span></span><br><span class="line"><span class="comment">#另一解n- m[0]</span></span><br><span class="line"><span class="comment">#108607598680742993231063442886639267104372362086743097715265004177975148274702</span></span><br><span class="line">print(long_to_bytes(m[<span class="number">0</span>]))</span><br><span class="line"><span class="comment">#b&#x27;SYC&#123;good_job!&#125;&#x27;</span></span><br><span class="line">print(long_to_bytes(n-m[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+<p>在思考一下，和RSA的低加密指数分解攻击有点类似的Rabin算法（是一种基于模平方和模平方根的非对称加密算法）。尝试用yafu，factordb分解n，失败。在验证一下n是不是素数。</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(n))</span><br><span class="line"><span class="meta">#1</span></span><br></pre></td></tr></table></figure>
+<p>那就说明不是Rabin加密。</p>
+<p>看提示要探索x背后的秘密，回想之前数论学习里面的二次同余式的知识，试一下。</p>
+<h2 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h2><p>一个数 a，如果不是p 的倍数且模 p同余于某个数的平方，则称 a为模p 的 <strong>二次剩余</strong> 。而一个不是 p的倍数的数 b，不同余于任何数的平方，则b称 为模 p的 <strong>非二次剩余</strong> 。</p>
+<h3 id="是否有解"><a href="#是否有解" class="headerlink" title="是否有解"></a>是否有解</h3><h4 id="引入勒让德符号"><a href="#引入勒让德符号" class="headerlink" title="引入勒让德符号"></a>引入勒让德符号</h4><p><img src="/2021/01/19/9/3-2.jpg" alt="avatar"></p>
+<p>通过勒让德符号可以判断一个数 是否为二次剩余，具体判断 是否为 的二次剩余，需要通过欧拉判别准则来实现</p>
+<h4 id="欧拉判别准则"><a href="#欧拉判别准则" class="headerlink" title="欧拉判别准则"></a>欧拉判别准则</h4><p><img src="/2021/01/19/9/3-3.jpg" alt="avatar"></p>
+<h4 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：<img src="/2021/01/19/9/3-4.jpg" alt="avatar"></h4><h3 id="Cipolla算法"><a href="#Cipolla算法" class="headerlink" title="Cipolla算法"></a>Cipolla算法</h3><p>Cipolla算法是解决二次剩余强有力的工具，一个脑洞大开的算法</p>
+<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p><img src="/2021/01/19/9/3-5.jpg" alt="avater"></p>
+<p><img src="/2021/01/19/9/3-6.jpg" alt="avater"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    a = random.randint(<span class="number">1</span>,n)</span><br><span class="line">    i=a*a - c</span><br><span class="line">    <span class="keyword">if</span>(gmpy2.legendre(i,n) == -<span class="number">1</span>):</span><br><span class="line">        i_sqrt = gmpy2.sqrt(i)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">x = gmpy2.powmod(a+i_sqrt,n+<span class="number">1</span>//<span class="number">2</span>,n)</span><br><span class="line">print(x,-x%n)</span><br></pre></td></tr></table></figure>
+<h3 id="非预期解"><a href="#非预期解" class="headerlink" title="非预期解"></a>非预期解</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">3</span>):</span><br><span class="line">    ans = <span class="built_in">pow</span>(c, (n + <span class="number">1</span>) // <span class="number">4</span>, n)</span><br><span class="line">    print(ans, -ans % n)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>-数论 -二次剩余</tag>
       </tags>
   </entry>
   <entry>
