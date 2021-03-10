@@ -112,6 +112,36 @@
       </tags>
   </entry>
   <entry>
+    <title>gmpy2库</title>
+    <url>/2020/12/15/2/</url>
+    <content><![CDATA[<h1 id="gmpy2库"><a href="#gmpy2库" class="headerlink" title="gmpy2库"></a>gmpy2库</h1><h2 id="gmpy2常见函数使用"><a href="#gmpy2常见函数使用" class="headerlink" title="gmpy2常见函数使用"></a>gmpy2常见函数使用</h2><p><strong>1.初始化大整数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.mpz(<span class="number">909090</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">909090</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>2.求大整数a,b的最大公因数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.gcd(<span class="number">6</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>3.求大整数x模m的逆元y</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#4*6 ≡ 1 mod 23</span></span><br><span class="line">gmpy2.invert(<span class="number">4</span>,<span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>4.检验大整数是否为偶数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p><strong>5.检验大整数是否为奇数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p><strong>6.检验大整数是否为素数</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_prime(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p><strong>7.求大整数x开n次根</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.iroot(<span class="number">81</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">result:(mpz(<span class="number">9</span>),<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>8.求大整数x的y次幂模m取余</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>9.扩展欧几里得</strong></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>crypto</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>区块链安全入门</title>
     <url>/2021/03/10/12/</url>
     <content><![CDATA[<h1 id="区块链学习"><a href="#区块链学习" class="headerlink" title="区块链学习"></a>区块链学习</h1><p><img src="/2021/03/10/12/image-20210306223141693.png" alt="avatar"></p>
@@ -119,7 +149,7 @@
 <h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p><strong>Smart Contract，是一种旨在以信息化方式传播、验证或执行合同的计算机协议</strong></p>
 <p>本质上来说，智能合约是一段程序，它以计算机指令的方式实现了传统合约的自动化处理。简单讲，智能合约就是双方在区块链资产上交易时，触发执行的一段代码，这段代码就是智能合约。“智能合约程序不只是一个可以自动执行的计算机程序，它本身就是一个系统参与者，对接收到的信息进行回应，可以接收和储存价值，也可以向外发送信息和价值。这个程序就像一个可以被信任的人，可以临时保管资产，总是按照事先的规则执行操作。”</p>
 <p>智能合约的设计目标是，执行一般的合同条件，最大限度地减少恶意和意外的状况，最大限度地减少使用信任中介</p>
-<p><img src="/2021/03/10/12/../../program/Typora/conclusion/img/image-20210306222800930.png" alt="image-20210306222800930"></p>
+<p><img src="/2021/03/10/12/image-20210306222800930.png" alt="avatar"></p>
 <h2 id="Solidity合约调用方式"><a href="#Solidity合约调用方式" class="headerlink" title="Solidity合约调用方式"></a>Solidity合约调用方式</h2><ul>
 <li>call</li>
 </ul>
@@ -254,36 +284,6 @@
         <tag>crypto</tag>
         <tag>python</tag>
         <tag>rsa</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>gmpy2库</title>
-    <url>/2020/12/15/2/</url>
-    <content><![CDATA[<h1 id="gmpy2库"><a href="#gmpy2库" class="headerlink" title="gmpy2库"></a>gmpy2库</h1><h2 id="gmpy2常见函数使用"><a href="#gmpy2常见函数使用" class="headerlink" title="gmpy2常见函数使用"></a>gmpy2常见函数使用</h2><p><strong>1.初始化大整数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.mpz(<span class="number">909090</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">909090</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>2.求大整数a,b的最大公因数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.gcd(<span class="number">6</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>3.求大整数x模m的逆元y</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#4*6 ≡ 1 mod 23</span></span><br><span class="line">gmpy2.invert(<span class="number">4</span>,<span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>4.检验大整数是否为偶数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br></pre></td></tr></table></figure>
-<p><strong>5.检验大整数是否为奇数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-<p><strong>6.检验大整数是否为素数</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_prime(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-<p><strong>7.求大整数x开n次根</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.iroot(<span class="number">81</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">result:(mpz(<span class="number">9</span>),<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>8.求大整数x的y次幂模m取余</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>9.扩展欧几里得</strong></p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>python第三方库</category>
-      </categories>
-      <tags>
-        <tag>crypto</tag>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
