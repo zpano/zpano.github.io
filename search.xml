@@ -70,102 +70,6 @@
       </tags>
   </entry>
   <entry>
-    <title>区块链安全入门</title>
-    <url>/2021/03/10/12/</url>
-    <content><![CDATA[<h1 id="区块链学习"><a href="#区块链学习" class="headerlink" title="区块链学习"></a>区块链学习</h1><p><img src="/2021/03/10/12/image-20210306223141693.png" alt="avatar"></p>
-<h2 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h2><p><img src="/2021/03/10/12/image-20210306221505322.png" alt="avatar"></p>
-<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p><strong>Smart Contract，是一种旨在以信息化方式传播、验证或执行合同的计算机协议</strong></p>
-<p>本质上来说，智能合约是一段程序，它以计算机指令的方式实现了传统合约的自动化处理。简单讲，智能合约就是双方在区块链资产上交易时，触发执行的一段代码，这段代码就是智能合约。“智能合约程序不只是一个可以自动执行的计算机程序，它本身就是一个系统参与者，对接收到的信息进行回应，可以接收和储存价值，也可以向外发送信息和价值。这个程序就像一个可以被信任的人，可以临时保管资产，总是按照事先的规则执行操作。”</p>
-<p>智能合约的设计目标是，执行一般的合同条件，最大限度地减少恶意和意外的状况，最大限度地减少使用信任中介</p>
-<p><img src="/2021/03/10/12/image-20210306222800930.png" alt="avatar"></p>
-<h2 id="Solidity合约调用方式"><a href="#Solidity合约调用方式" class="headerlink" title="Solidity合约调用方式"></a>Solidity合约调用方式</h2><ul>
-<li>call</li>
-</ul>
-<p>最常用的调用方式，调用后内置变量 msg 的值会修改为调用者，执行环境为被调用者的运行环境</p>
-<ul>
-<li>delegetcall</li>
-</ul>
-<p>调用后内置变量 msg 的值不会修改为调用者，但执行环境为调用者的运行环境</p>
-<ul>
-<li><p>callcode</p>
-<p>调用后内置变量 msg 的值会修改为调用者，但执行环境为调用者的运行环境</p>
-</li>
-</ul>
-<h2 id="DASP-TOP-10"><a href="#DASP-TOP-10" class="headerlink" title="DASP TOP 10"></a>DASP TOP 10</h2><h3 id="1-高级可持续威胁"><a href="#1-高级可持续威胁" class="headerlink" title="1.高级可持续威胁"></a>1.高级可持续威胁</h3><p>高级可持续威胁会导致区块链系统被入侵，权限被控制，最终导致资金被盗取，敏感数据被泄露等系列严重问题</p>
-<p>事件：</p>
-<ul>
-<li>Mt.Gox 攻击公司内部人员电脑渗透进内网修改比特币价格进行交易</li>
-<li>Coincheck 使用热钱包，且未实行多重签名系统</li>
-<li>Fomo3D 基于BAPT (区块链高级持续威胁)，对区块链基础设施，智能合约进行攻击</li>
-</ul>
-<h3 id="2-失控的币值膨胀"><a href="#2-失控的币值膨胀" class="headerlink" title="2.失控的币值膨胀"></a>2.失控的币值膨胀</h3><p>铸币总数限制部分的程序设计和实现 有漏洞，则可能导致铸币总数失控，甚至超出设定发币总数多倍，致使币值失控通胀</p>
-<ul>
-<li>BEC  币值控制部分的代码 出现了整数溢出漏洞，导致出现无限铸币的情况</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(balances[_from] &lt; _fee + _value) 	revert();</span><br></pre></td></tr></table></figure>
-<p>这段代码本意是检查账户余额是否大于转帐余额加上转账费用，但是这两个参数都可以由攻击者控制。当<code>_value</code> 的值足够大大于2^256-1时，会导致 <code>_value+_fee</code>发生整数上溢，使得 <code>_value+_fee的</code>值等于零，从而绕过检查，仍然支付成功，使得账户凭空获得大量数字货币</p>
-<h3 id="3-失效的权限控制"><a href="#3-失效的权限控制" class="headerlink" title="3.失效的权限控制"></a>3.失效的权限控制</h3><p>由于权限控制在设计或编码过程中的疏忽和缺陷，导致本来应该限制使用范围的重 要函数或权限没有控制好范围，从而被攻击者调用这些重要函数或者使用权限实施攻击</p>
-<ul>
-<li>Parity 钱包  将下列初始化函数设置为public 导致其他合约也能调用，以至于钱包的所有者被修改</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initContract</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">	owner = msg.sender;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>编译器漏洞     编写构造函数过程中不注意也会导致越权调用</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Owned</span>(<span class="params"></span>) <span class="title">public</span></span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//solidity &lt;=^0.4.22</span></span><br><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="title">constructor</span>(<span class="params"></span>) <span class="title">public</span> &#123;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//solidity &gt;=^0.4.22</span></span><br></pre></td></tr></table></figure>
-<p>导致构造函数被初始化成普通函数，可以被任意人调用，容易导致owner权限被盗取</p>
-<p><a href>https://paper.seebug.org/741/</a></p>
-<ul>
-<li>Call调用限制</li>
-</ul>
-<p>call是最常用的调用方式，调用后内置变量msg的值会被修改为调用者，但执行环境是被调用者的运行环境，如果合约中有函数以 msg.sender 作为关键变量的代码逻辑，比如向 msg.sender 转账，那么就会导致越权操作。</p>
-<p>先来看两个函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">address addr</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">require</span>(isAuth(msg.sender));</span><br><span class="line">addr.transfer(<span class="built_in">this</span>.balance);</span><br><span class="line">&#125;<span class="comment">//合约拥有者或合约本身拥有取款操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAuth</span>(<span class="params">address src</span>) <span class="title">internal</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (src == address(<span class="built_in">this</span>)) &#123; <span class="comment">//检查是否合约拥有者或合约本身</span></span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (src == owner) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//发起恶意怕拼接请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callFunc</span>(<span class="params">bytes data</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">this</span>.call(data);</span><br><span class="line"> <span class="comment">//this.call(bytes4(keccak256(&quot;withdraw(address)&quot;)), target); //利用代码示意</span></span><br><span class="line"> <span class="comment">//后面会总结一篇三种交互方式的安全问题</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-不安全的共识协议"><a href="#4-不安全的共识协议" class="headerlink" title="4.不安全的共识协议"></a>4.不安全的共识协议</h3><p>共识协议由于存在某些设计之初未考虑到的漏洞，导致漏洞可能被攻击者识别和利 用，从而损害链上参与者的利益</p>
-<ul>
-<li>Krypton    遭遇51%攻击—回滚交易实现双花，DDOS攻击网络节点</li>
-<li>ETC  51% 算力攻击双花交易，篡改后使得被替换的块的交易无法追溯</li>
-</ul>
-<h3 id="5-考虑不充分的程序逻辑"><a href="#5-考虑不充分的程序逻辑" class="headerlink" title="5.考虑不充分的程序逻辑"></a>5.考虑不充分的程序逻辑</h3><p>由于软件设计和编码的错误原因，存在没有考虑到的异常分支，导致程序逻辑可以 被攻击者利用，以至于陷入设计者未预期的流程，造成重大损失</p>
-<ul>
-<li>The DAO  </li>
-</ul>
-<p><a href>https://blog.csdn.net/u011721501/article/details/79450122</a></p>
-<h3 id="6-不严谨的业务策略"><a href="#6-不严谨的业务策略" class="headerlink" title="6.不严谨的业务策略"></a>6.不严谨的业务策略</h3><p>目前比较突出的一种业务策略类问题是利用高额的以太费用和技术手段让以太坊 堵塞，从而获得游戏中的大奖。但根据场景不一样，会有许多不一样的业务问题，这些 也都会对产品的公平性，乃至产品的生存造成重大影响，需要特别注意！</p>
-<ul>
-<li>FOMO3D</li>
-</ul>
-<p>类似于竞拍中自己出价后，使用技术手段使得以太坊拥堵，使得其他玩家无法出价，获得最后的胜利！</p>
-<p>​    实现方法</p>
-<ol>
-<li>和矿主合谋，让矿主在我的交易后，不再打包其他购买KEY的交易，可能性几乎为零</li>
-<li>在自己成功购买KEY之后，把以太坊堵塞，让其无法打包其他购买KEY的交易。</li>
-</ol>
-<p><a href>https://mp.weixin.qq.com/s/s_RCF_EDlptQpm3d7mzApA</a></p>
-<h3 id="7-校验不严格的交易逻辑"><a href="#7-校验不严格的交易逻辑" class="headerlink" title="7.校验不严格的交易逻辑"></a>7.校验不严格的交易逻辑</h3><p>交易的校验逻辑不够严密，以致攻击者可以构造假的交易行为，但却被校验方验证 通过，误认为真的交易行为。或者提交了真的交易操作，但是通过时间差，黑名单等因 素，让交易操作产生回滚来实现，实际上的交易动作并没有完成，而商家仅验证是否有 交易行为的话，就可能导致资金上的损失。</p>
-<ul>
-<li>EOSBET</li>
-<li>回滚类攻击      利用时间差</li>
-<li>BetDice      黑名单</li>
-</ul>
-<h3 id="8-脆弱的随机数机制"><a href="#8-脆弱的随机数机制" class="headerlink" title="8.脆弱的随机数机制"></a>8.脆弱的随机数机制</h3><p>这里指的不仅仅是伪随机函数的问题，而是整个随机数生成机制不够安全，导致可 以被攻击者提前获取或猜测到随机数的结果，以实施攻击。</p>
-<h3 id="9-存在缺陷的激励机制"><a href="#9-存在缺陷的激励机制" class="headerlink" title="9.存在缺陷的激励机制"></a>9.存在缺陷的激励机制</h3><p>激励机制是区块链的重要环节，但若开发者设计的激励机制存在可以被利用的漏洞， 就可能会给开发者或用户带来损失。</p>
-<ul>
-<li>Eligius 矿池     块代扣攻击 挖出不上交</li>
-</ul>
-<h3 id="10-日志记录和监控不足"><a href="#10-日志记录和监控不足" class="headerlink" title="10.日志记录和监控不足"></a>10.日志记录和监控不足</h3><p>日志记录和监控的问题对区块链团队和公司来说非常很重要。如果没有足够的日志 记录和监控，被攻击的过程中，你会不知道，不能及时止损。发生安全事件后，你没有 办法调查，也没有办法改进以避免再犯同样的错误。所以日志记录和监控不足的问题也 很严重！</p>
-<ul>
-<li>未知的攻击手法无法追溯主要是没有完善的日志记录和监控</li>
-</ul>
-]]></content>
-      <categories>
-        <category>区块链安全</category>
-      </categories>
-      <tags>
-        <tag>区块链安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>读《以太坊技术详解与实战》笔记（上）</title>
     <url>/2021/03/21/13/</url>
     <content><![CDATA[<h1 id="读《以太坊技术详解与实战》笔记（上）"><a href="#读《以太坊技术详解与实战》笔记（上）" class="headerlink" title="读《以太坊技术详解与实战》笔记（上）"></a>读《以太坊技术详解与实战》笔记（上）</h1><h2 id="整体目录"><a href="#整体目录" class="headerlink" title="整体目录"></a>整体目录</h2><p><img src="/2021/03/21/13/image-20210319171504700.png" alt="image-20210319171504700"></p>
@@ -366,6 +270,102 @@
 <p><a href="http://remix.hubwiz.com/">中文版</a></p>
 <p><a href="https://www.jianshu.com/p/8e9882f626f0">简单使用</a></p>
 <p><a href="https://remix-ide.readthedocs.io/en/latest/">官方文档</a></p>
+]]></content>
+      <categories>
+        <category>区块链安全</category>
+      </categories>
+      <tags>
+        <tag>区块链安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>区块链安全入门</title>
+    <url>/2021/03/10/12/</url>
+    <content><![CDATA[<h1 id="区块链学习"><a href="#区块链学习" class="headerlink" title="区块链学习"></a>区块链学习</h1><p><img src="/2021/03/10/12/image-20210306223141693.png" alt="avatar"></p>
+<h2 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h2><p><img src="/2021/03/10/12/image-20210306221505322.png" alt="avatar"></p>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p><strong>Smart Contract，是一种旨在以信息化方式传播、验证或执行合同的计算机协议</strong></p>
+<p>本质上来说，智能合约是一段程序，它以计算机指令的方式实现了传统合约的自动化处理。简单讲，智能合约就是双方在区块链资产上交易时，触发执行的一段代码，这段代码就是智能合约。“智能合约程序不只是一个可以自动执行的计算机程序，它本身就是一个系统参与者，对接收到的信息进行回应，可以接收和储存价值，也可以向外发送信息和价值。这个程序就像一个可以被信任的人，可以临时保管资产，总是按照事先的规则执行操作。”</p>
+<p>智能合约的设计目标是，执行一般的合同条件，最大限度地减少恶意和意外的状况，最大限度地减少使用信任中介</p>
+<p><img src="/2021/03/10/12/image-20210306222800930.png" alt="avatar"></p>
+<h2 id="Solidity合约调用方式"><a href="#Solidity合约调用方式" class="headerlink" title="Solidity合约调用方式"></a>Solidity合约调用方式</h2><ul>
+<li>call</li>
+</ul>
+<p>最常用的调用方式，调用后内置变量 msg 的值会修改为调用者，执行环境为被调用者的运行环境</p>
+<ul>
+<li>delegetcall</li>
+</ul>
+<p>调用后内置变量 msg 的值不会修改为调用者，但执行环境为调用者的运行环境</p>
+<ul>
+<li><p>callcode</p>
+<p>调用后内置变量 msg 的值会修改为调用者，但执行环境为调用者的运行环境</p>
+</li>
+</ul>
+<h2 id="DASP-TOP-10"><a href="#DASP-TOP-10" class="headerlink" title="DASP TOP 10"></a>DASP TOP 10</h2><h3 id="1-高级可持续威胁"><a href="#1-高级可持续威胁" class="headerlink" title="1.高级可持续威胁"></a>1.高级可持续威胁</h3><p>高级可持续威胁会导致区块链系统被入侵，权限被控制，最终导致资金被盗取，敏感数据被泄露等系列严重问题</p>
+<p>事件：</p>
+<ul>
+<li>Mt.Gox 攻击公司内部人员电脑渗透进内网修改比特币价格进行交易</li>
+<li>Coincheck 使用热钱包，且未实行多重签名系统</li>
+<li>Fomo3D 基于BAPT (区块链高级持续威胁)，对区块链基础设施，智能合约进行攻击</li>
+</ul>
+<h3 id="2-失控的币值膨胀"><a href="#2-失控的币值膨胀" class="headerlink" title="2.失控的币值膨胀"></a>2.失控的币值膨胀</h3><p>铸币总数限制部分的程序设计和实现 有漏洞，则可能导致铸币总数失控，甚至超出设定发币总数多倍，致使币值失控通胀</p>
+<ul>
+<li>BEC  币值控制部分的代码 出现了整数溢出漏洞，导致出现无限铸币的情况</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(balances[_from] &lt; _fee + _value) 	revert();</span><br></pre></td></tr></table></figure>
+<p>这段代码本意是检查账户余额是否大于转帐余额加上转账费用，但是这两个参数都可以由攻击者控制。当<code>_value</code> 的值足够大大于2^256-1时，会导致 <code>_value+_fee</code>发生整数上溢，使得 <code>_value+_fee的</code>值等于零，从而绕过检查，仍然支付成功，使得账户凭空获得大量数字货币</p>
+<h3 id="3-失效的权限控制"><a href="#3-失效的权限控制" class="headerlink" title="3.失效的权限控制"></a>3.失效的权限控制</h3><p>由于权限控制在设计或编码过程中的疏忽和缺陷，导致本来应该限制使用范围的重 要函数或权限没有控制好范围，从而被攻击者调用这些重要函数或者使用权限实施攻击</p>
+<ul>
+<li>Parity 钱包  将下列初始化函数设置为public 导致其他合约也能调用，以至于钱包的所有者被修改</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initContract</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">	owner = msg.sender;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译器漏洞     编写构造函数过程中不注意也会导致越权调用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Owned</span>(<span class="params"></span>) <span class="title">public</span></span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//solidity &lt;=^0.4.22</span></span><br><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="title">constructor</span>(<span class="params"></span>) <span class="title">public</span> &#123;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//solidity &gt;=^0.4.22</span></span><br></pre></td></tr></table></figure>
+<p>导致构造函数被初始化成普通函数，可以被任意人调用，容易导致owner权限被盗取</p>
+<p><a href>https://paper.seebug.org/741/</a></p>
+<ul>
+<li>Call调用限制</li>
+</ul>
+<p>call是最常用的调用方式，调用后内置变量msg的值会被修改为调用者，但执行环境是被调用者的运行环境，如果合约中有函数以 msg.sender 作为关键变量的代码逻辑，比如向 msg.sender 转账，那么就会导致越权操作。</p>
+<p>先来看两个函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">address addr</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">require</span>(isAuth(msg.sender));</span><br><span class="line">addr.transfer(<span class="built_in">this</span>.balance);</span><br><span class="line">&#125;<span class="comment">//合约拥有者或合约本身拥有取款操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAuth</span>(<span class="params">address src</span>) <span class="title">internal</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (src == address(<span class="built_in">this</span>)) &#123; <span class="comment">//检查是否合约拥有者或合约本身</span></span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (src == owner) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//发起恶意怕拼接请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callFunc</span>(<span class="params">bytes data</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">this</span>.call(data);</span><br><span class="line"> <span class="comment">//this.call(bytes4(keccak256(&quot;withdraw(address)&quot;)), target); //利用代码示意</span></span><br><span class="line"> <span class="comment">//后面会总结一篇三种交互方式的安全问题</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-不安全的共识协议"><a href="#4-不安全的共识协议" class="headerlink" title="4.不安全的共识协议"></a>4.不安全的共识协议</h3><p>共识协议由于存在某些设计之初未考虑到的漏洞，导致漏洞可能被攻击者识别和利 用，从而损害链上参与者的利益</p>
+<ul>
+<li>Krypton    遭遇51%攻击—回滚交易实现双花，DDOS攻击网络节点</li>
+<li>ETC  51% 算力攻击双花交易，篡改后使得被替换的块的交易无法追溯</li>
+</ul>
+<h3 id="5-考虑不充分的程序逻辑"><a href="#5-考虑不充分的程序逻辑" class="headerlink" title="5.考虑不充分的程序逻辑"></a>5.考虑不充分的程序逻辑</h3><p>由于软件设计和编码的错误原因，存在没有考虑到的异常分支，导致程序逻辑可以 被攻击者利用，以至于陷入设计者未预期的流程，造成重大损失</p>
+<ul>
+<li>The DAO  </li>
+</ul>
+<p><a href>https://blog.csdn.net/u011721501/article/details/79450122</a></p>
+<h3 id="6-不严谨的业务策略"><a href="#6-不严谨的业务策略" class="headerlink" title="6.不严谨的业务策略"></a>6.不严谨的业务策略</h3><p>目前比较突出的一种业务策略类问题是利用高额的以太费用和技术手段让以太坊 堵塞，从而获得游戏中的大奖。但根据场景不一样，会有许多不一样的业务问题，这些 也都会对产品的公平性，乃至产品的生存造成重大影响，需要特别注意！</p>
+<ul>
+<li>FOMO3D</li>
+</ul>
+<p>类似于竞拍中自己出价后，使用技术手段使得以太坊拥堵，使得其他玩家无法出价，获得最后的胜利！</p>
+<p>​    实现方法</p>
+<ol>
+<li>和矿主合谋，让矿主在我的交易后，不再打包其他购买KEY的交易，可能性几乎为零</li>
+<li>在自己成功购买KEY之后，把以太坊堵塞，让其无法打包其他购买KEY的交易。</li>
+</ol>
+<p><a href>https://mp.weixin.qq.com/s/s_RCF_EDlptQpm3d7mzApA</a></p>
+<h3 id="7-校验不严格的交易逻辑"><a href="#7-校验不严格的交易逻辑" class="headerlink" title="7.校验不严格的交易逻辑"></a>7.校验不严格的交易逻辑</h3><p>交易的校验逻辑不够严密，以致攻击者可以构造假的交易行为，但却被校验方验证 通过，误认为真的交易行为。或者提交了真的交易操作，但是通过时间差，黑名单等因 素，让交易操作产生回滚来实现，实际上的交易动作并没有完成，而商家仅验证是否有 交易行为的话，就可能导致资金上的损失。</p>
+<ul>
+<li>EOSBET</li>
+<li>回滚类攻击      利用时间差</li>
+<li>BetDice      黑名单</li>
+</ul>
+<h3 id="8-脆弱的随机数机制"><a href="#8-脆弱的随机数机制" class="headerlink" title="8.脆弱的随机数机制"></a>8.脆弱的随机数机制</h3><p>这里指的不仅仅是伪随机函数的问题，而是整个随机数生成机制不够安全，导致可 以被攻击者提前获取或猜测到随机数的结果，以实施攻击。</p>
+<h3 id="9-存在缺陷的激励机制"><a href="#9-存在缺陷的激励机制" class="headerlink" title="9.存在缺陷的激励机制"></a>9.存在缺陷的激励机制</h3><p>激励机制是区块链的重要环节，但若开发者设计的激励机制存在可以被利用的漏洞， 就可能会给开发者或用户带来损失。</p>
+<ul>
+<li>Eligius 矿池     块代扣攻击 挖出不上交</li>
+</ul>
+<h3 id="10-日志记录和监控不足"><a href="#10-日志记录和监控不足" class="headerlink" title="10.日志记录和监控不足"></a>10.日志记录和监控不足</h3><p>日志记录和监控的问题对区块链团队和公司来说非常很重要。如果没有足够的日志 记录和监控，被攻击的过程中，你会不知道，不能及时止损。发生安全事件后，你没有 办法调查，也没有办法改进以避免再犯同样的错误。所以日志记录和监控不足的问题也 很严重！</p>
+<ul>
+<li>未知的攻击手法无法追溯主要是没有完善的日志记录和监控</li>
+</ul>
 ]]></content>
       <categories>
         <category>区块链安全</category>
