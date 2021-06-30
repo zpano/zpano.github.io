@@ -24,29 +24,21 @@
     var CONFIG = {"hostname":"zpano.gitee.io","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="记录某次面试题">
+  <meta name="description" content="昨天才投的简历，很快啊，啪的一下，下午就有小姐姐和我约面试，然后今天十一点左右面了试，简单总结一下我不会的几个点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="某次面试">
-<meta property="og:url" content="https://zpano.gitee.io/2021/01/19/9/index.html">
+<meta property="og:title" content="长亭区块链面试总结">
+<meta property="og:url" content="https://zpano.gitee.io/2021/06/30/18/index.html">
 <meta property="og:site_name" content="Zpano&#39;s Blog">
-<meta property="og:description" content="记录某次面试题">
+<meta property="og:description" content="昨天才投的简历，很快啊，啪的一下，下午就有小姐姐和我约面试，然后今天十一点左右面了试，简单总结一下我不会的几个点">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/19/9/3-1.jpg">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/19/9/3-2.jpg">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/19/9/3-3.jpg">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/19/9/3-4.jpg">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/19/9/3-5.jpg">
-<meta property="og:image" content="https://zpano.gitee.io/2021/01/19/9/3-6.jpg">
-<meta property="article:published_time" content="2021-01-19T11:42:28.000Z">
-<meta property="article:modified_time" content="2021-06-28T05:43:05.396Z">
+<meta property="article:published_time" content="2021-06-30T11:19:50.000Z">
+<meta property="article:modified_time" content="2021-06-30T11:25:41.829Z">
 <meta property="article:author" content="ZPANO">
-<meta property="article:tag" content="数论">
-<meta property="article:tag" content="二次剩余">
+<meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zpano.gitee.io/2021/01/19/9/3-1.jpg">
 
 
-<link rel="canonical" href="https://zpano.gitee.io/2021/01/19/9/">
+<link rel="canonical" href="https://zpano.gitee.io/2021/06/30/18/">
 
 
 <script class="page-configurations">
@@ -59,7 +51,7 @@
   };
 </script>
 
-  <title>某次面试 | Zpano's Blog</title>
+  <title>长亭区块链面试总结 | Zpano's Blog</title>
   
 
 
@@ -210,7 +202,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -223,7 +215,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E9%9D%A2%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">三面报告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B0%9D%E8%AF%95"><span class="nav-number"></span> <span class="nav-text">简单尝试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99"><span class="nav-number"></span> <span class="nav-text">二次剩余</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%AF%E5%90%A6%E6%9C%89%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">是否有解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E5%8B%92%E8%AE%A9%E5%BE%B7%E7%AC%A6%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">引入勒让德符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%A7%E6%8B%89%E5%88%A4%E5%88%AB%E5%87%86%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">欧拉判别准则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">证明：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cipolla%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Cipolla算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%81%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E9%A2%84%E6%9C%9F%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">非预期解</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -296,7 +287,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zpano.gitee.io/2021/01/19/9/">
+    <link itemprop="mainEntityOfPage" href="https://zpano.gitee.io/2021/06/30/18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -309,7 +300,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          某次面试
+          长亭区块链面试总结
         </h1>
 
         <div class="post-meta-container">
@@ -319,23 +310,17 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-01-19 19:42:28" itemprop="dateCreated datePublished" datetime="2021-01-19T19:42:28+08:00">2021-01-19</time>
+      <time title="创建时间：2021-06-30 19:19:50 / 修改时间：19:25:41" itemprop="dateCreated datePublished" datetime="2021-06-30T19:19:50+08:00">2021-06-30</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-28 13:43:05" itemprop="dateModified" datetime="2021-06-28T13:43:05+08:00">2021-06-28</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+          <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
         </span>
     </span>
 
@@ -354,7 +339,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>1.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -365,7 +350,7 @@
     </span>
 </div>
 
-            <div class="post-description">记录某次面试题</div>
+            <div class="post-description">昨天才投的简历，很快啊，啪的一下，下午就有小姐姐和我约面试，然后今天十一点左右面了试，简单总结一下我不会的几个点</div>
         </div>
       </header>
 
@@ -373,24 +358,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="三面报告"><a href="#三面报告" class="headerlink" title="三面报告"></a>三面报告</h3><h2 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c=<span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n=<span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/01/19/9/3-1.jpg" alt="avatar"></p>
-<p>看着识字感觉有点熟悉，类似与RSA的低加密指数分解攻击，试一下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line">m = gmpy2.iroot(c,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#(mpz(1690512188248851376925542155690365), True)</span></span><br><span class="line"><span class="comment">#另一解n- m[0]</span></span><br><span class="line"><span class="comment">#108607598680742993231063442886639267104372362086743097715265004177975148274702</span></span><br><span class="line">print(long_to_bytes(m[<span class="number">0</span>]))</span><br><span class="line"><span class="comment">#b&#x27;SYC&#123;good_job!&#125;&#x27;</span></span><br><span class="line">print(long_to_bytes(n-m[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
-<p>在思考一下，和RSA的低加密指数分解攻击有点类似的Rabin算法（是一种基于模平方和模平方根的非对称加密算法）。尝试用yafu，factordb分解n，失败。在验证一下n是不是素数。</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(n))</span><br><span class="line"><span class="meta">#1</span></span><br></pre></td></tr></table></figure>
-<p>那就说明不是Rabin加密。</p>
-<p>看提示要探索x背后的秘密，回想之前数论学习里面的二次同余式的知识，试一下。</p>
-<h2 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h2><p>一个数 a，如果不是p 的倍数且模 p同余于某个数的平方，则称 a为模p 的 <strong>二次剩余</strong> 。而一个不是 p的倍数的数 b，不同余于任何数的平方，则b称 为模 p的 <strong>非二次剩余</strong> 。</p>
-<h3 id="是否有解"><a href="#是否有解" class="headerlink" title="是否有解"></a>是否有解</h3><h4 id="引入勒让德符号"><a href="#引入勒让德符号" class="headerlink" title="引入勒让德符号"></a>引入勒让德符号</h4><p><img src="/2021/01/19/9/3-2.jpg" alt="avatar"></p>
-<p>通过勒让德符号可以判断一个数 是否为二次剩余，具体判断 是否为 的二次剩余，需要通过欧拉判别准则来实现</p>
-<h4 id="欧拉判别准则"><a href="#欧拉判别准则" class="headerlink" title="欧拉判别准则"></a>欧拉判别准则</h4><p><img src="/2021/01/19/9/3-3.jpg" alt="avatar"></p>
-<h4 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：<img src="/2021/01/19/9/3-4.jpg" alt="avatar"></h4><h3 id="Cipolla算法"><a href="#Cipolla算法" class="headerlink" title="Cipolla算法"></a>Cipolla算法</h3><p>Cipolla算法是解决二次剩余强有力的工具，一个脑洞大开的算法</p>
-<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p><img src="/2021/01/19/9/3-5.jpg" alt="avater"></p>
-<p><img src="/2021/01/19/9/3-6.jpg" alt="avater"></p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    a = random.randint(<span class="number">1</span>,n)</span><br><span class="line">    i=a*a - c</span><br><span class="line">    <span class="keyword">if</span>(gmpy2.legendre(i,n) == -<span class="number">1</span>):</span><br><span class="line">        i_sqrt = gmpy2.sqrt(i)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">x = gmpy2.powmod(a+i_sqrt,n+<span class="number">1</span>//<span class="number">2</span>,n)</span><br><span class="line">print(x,-x%n)</span><br></pre></td></tr></table></figure>
-<h3 id="非预期解"><a href="#非预期解" class="headerlink" title="非预期解"></a>非预期解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">3</span>):</span><br><span class="line">    ans = <span class="built_in">pow</span>(c, (n + <span class="number">1</span>) // <span class="number">4</span>, n)</span><br><span class="line">    print(ans, -ans % n)</span><br></pre></td></tr></table></figure>
-
+        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="4a20eb574ed656017225cc910eb2205d1561660b8d24af82055561cea840602c">5a244dcfd602656d65a7a239fc7ff7061d2ee1703ab6fd175462fe3ff63eb3cd13db8697d79d0f89948da893a4b0027b11c5cf08c0671a3331301b2fdd0febcf0e27034c2e884f1bc6016a07b6063eaf46a5b25634e691e3807811629532f5131b55519a6274dc46784ba5b573499910ee1863ea3dd52df70c20a627caf598936762b3954e0a5aac82f150e080d415e6516ffbabd0d06a1268b2ecd7f8a506902daf7a03cccf91adde4466d2df1690fbb683e77a89a03aba72cb4221576f5fbf30e7b205c23ad843684325da38062ab30ef7f3f73b0e24379eaa818e5304d76b024a9b31a298f74d3416d57b13ab7db25bbfe36de2a8543363bb831ab199bbd1c6a190ef5e1283624ea4876f6b8dbcba840ee27b98236bf3b918073f5ccecab77a6d00dc6bc3ec21b9c7610ff35afea8a8d2ef14dd316ac16cc10299cd7c2fc70d801010f01dc51b5604c433b0c04dfff2378a00a17417cb1242842514b7c55c25478117dfc7d4b8cb73e943416dd29b618c21a171f5e45edd94f162fd171d93e714286f4c7c983261ead5fbf51cbe6919e7aa95779727c9f7023fc12e406141cfce0fdf7ce74d2da9b994194c15662c6d9649c859e135dbd06f9d7bb53abd79cc64705a61f44753730df93d2f73859ea2391cb34aa87126c008f079532dacf550da06803c45f00d4ac6dafbb23b600d8dba0f2cccf3797555e210693f9c47fdc34bbb5ce0def6126406a8c29cb3a097ad1e02b6a80c3bbe7aae4f6b6a6f01da0ce396697f0530e9f10434644859392ccde172ecd4b02c9e9f52a0f4d2f8a48e467264b128a39e327b9333235226c9b84b2319764e0dab79b42ee7eade9a4f07fbdd622765308e93cf98f6f732155b440c11df98583268ed49305f3a3e884f55a98f6333353866a7cedbba7b7e986737873c8b9dec48c4d8a3b6326144abfaf98f8fca73b911c7a88c5f640875a4734cd232a3514641fde13203bb1d4599e874b620d369ca5ffbf2cc03dd19a752fd0a2f693077f28862dfa8e913cadca3303e26c08349d58e995c729d37fe465203c73d852eb154eac3e893c219ba2cf0c3376a203a2ccc8c04c90d486227601e2b5aaa481ad841ab5fc9e68f044ee7fefd558202057a9b9fc291ca7f6a2c4927f6592f6d9d716d4cd491b5875741dacf22402dab3e55ca67dc735ed6b01ef5651daf7e847a208e442e9f6d8d11129986a8e914276954cc3965fa0ed383c43bd3ba135127a789b80effaae722e80a6437118dcd156d8b11e0576c5bedb9741524e353c92a3f6626a1cff81d8e653d88ece618a7641c445cb6adaee9d084e9e732f9bfe601198c6fa6fbf78443b1b455b68a31245a9f2cc4055a992de83512fff8092d33fa5bd54e57f5febb4b7a95e802f1e11ba34a346dec69a6bf5cae75779b8bce74636db7c791de627578027aeca2b72308925351aa2dfd7ce80890735ab37679c828c5486ba176f6dbc0a7c39cfbfd455ee78150dbcb30bfd66ad6ebb2d14665023146046ce4cafde71045a309494ec69428c94adc2b5acc1a2d7ee70a14044523ed0c784d8d19afa592a5a386a2aecbd176465afcc6679f561612a3d1d04a2301c6b5d15f1c02b6313cb187e59a2fac643f26ba10a1bf83b4d46d93ed55ebf863ef0141b3cd194966131289ebc65fcd9e210648ec4eb22ed7b66a482ff833ae6951c1cd7f7e2b6c5e6840cafb3542c8d0a8dc1fb5831d947d5853a0c7568003b7962f8445542e5ced88c0ea3e15193b0f00ff18b0708208131b70b8fb2972800c69dd7d651d28fecb5e08c8bba2fb42a19a226a6cdbe466a94648a4bf7e57a847f8d173e883d47dd4d91211b12045bfafc48049939026f9e2fdc645b750aa497c302bd915134c104ccfb151dfe3f247e8057bd441dbf8dc631fb639279ac663a32ae38435b0096f0ba59629b0c7f0b0c2631042996aa21efba862eeade5cff155c88a42f39ba750ae69ff6827e4e4ac863eb62fc767460e2274dcf85945c09fa77ee9f76d9a9b8986135b4711c42e38ea070d59c3deb975a3a99c0235676474b30df98de1417ca3541118fe16f1fa1f541929411db8fd710e0312f27d5ebd5c2fb627342e4a31758c201e3356ad0670bcc0c1b5a7c13a653b18cd62bac0f99eb12b15b3f9905f4ec074b92ab9327708af7de8513bf82b08878c090885e082a94d5a043d3a07bb1ff1f6be24488bd391b1676fc35a8b3d5f9a0f48e307a5048afa9a0a8464a7118f27ad45a427bfb044b1abbdb27324677202b2d623a4a38a69e76e8d6bebeb14c897d7ca82905c857003c0e961f45c098b344c2388704c944fa6512a9385c2bc2e0d89541efa265e7e10112e32b1f6c3c6aaa3b7ae8aa98ff921c9be75379dc79b7592bda23aad450c7dcc057b277a5c984858dedb83e7319ee5979a6cb7397ad80e8811cd85d36b4c829dd6b635520bcacdc0b1eb45ba6df2be15e7f6c5f1704d3205e6f30a9950424d1a5a18a4c680632ca6442473e08a4437e274a1ccb94e37fbfd15a93b76d0bd118d11606351ba1b1a1edf39e59c811a8089011f0b957e069e397738bc50a08c50702c92adadc094522eaa20d1bb904f4d66c7a05cece92a0233344d0e33b3c53782910ae84c01c5273e3ec0a726f8c56742786efcfd69b968a67dc5bf32b3da626bf8808bd816c0cdb50135cb3fa2ebb5f67cf8559c508b9d9dbd420052c62545b83d5c5a8a7c3f177ad15d46a38c71dcca807a6bb7badc63bd84e96753242fa4fa439ffb51b455cba8bff90c9daa8be664505531a02f0e5de2af714ffaa5b7579d2a257386e7da2be21f8abdb7fb2e220ea1611bb2f80714cd247d86b98f71ef3b25c052f081a1ecc6293042a2c650132d4aeed224c17fca426f19a67e37dd43b2fa952236f523783d867db427215da0085663f3f660b9686719a7ea7364f178b0ecab06882742c8ce8f79c8f339175235a9b322efb8034924055d4bb9cff80606580e1d644f1c3e408bcdafdd84ce75bebc26acdf17197f18fd2cbbae2b6e322f81c32a78961c72402b86f81f233370a1f547ad18611aa9b28be326a11d7d82b26800e6e8851442d1994b9a4e639ad471adc58d255d886c0b8ebb37d4716309e60f83bac85febbe0f1796cddec54eebfa2f51fc8c484118448a0fea49c7e406ae862ae921ddd14e9b59495a71be71d9ea6e0218b91ab5af8dcd4b0a4aace3bfeea4f4c97f66723d07554d7e3796d5cfe75302c8fd2621273b8040c2d9eea4ef6ffe9b913ac558ec6ed052365ea62c5b69e75efe354133b25580bb1144f30df80413b3d1d37cce06ed3f8a8a410c5488b2c550e5f973742da382d6887285157b707130336cabe77241bb3fb616c5b36095ea2619508d04dd0130ccfdd56dc9cf67dff2b89c658dc238ede899115e463141ff667bd0c288ea51c1d935abd2c6af028a35478334a4af2e164fdfd8114ea80adffd3d26de5c674b6401ee5f3d18328a769013cf33727f15bfe82a0e949ca952d4db8c003e1dccba19f16e4396e0f6e8740c0121d18d14c568ad86cf87fae4aeb1b67b23802ebc38fbb5134283dc7569ff559223b578f697141e5bbf1771a11b3f36296bb771f8eb5e90709390feee33f454e19ba84d1edcfdbf8917b48d99f646f72564873df9cf48f6894c72cf82d42af11f57797682df6758d1386d94b592d8674f94118f6a1c989755986d7b24722eaf32862c1e7ddf98d72cc793cbcbc32c7c36179a24fd2243a2a88751fe268769535e21de112b4605da039cfe983bd4771d63a30f58d003e500338ca98a55993c4b80e5ab9039086062282d01ae9148fd1b5b49928d04f0e0948bef698d9017a81dc363127fea4ad65e3a62399604e7bfca0962ca9da2da0ec94f01d87be3ba8ff115e4379a8c1f4f24a6df6a1b3a7c26aee11682fbdab3020c69f0a5f966a5b32888c616e469bb3ab57dec685897e38e18bcd19cb27bb397afa982c2daa0543209afc047d3f8ae18b31800510b0606ba970d3546dc43a2b1cb0661a618a2c42b535287ebf532b4b1bb2a78ea679c24ed41a3feb29fac3860664d9ea1f044a44850f49b6d271e8884234c82a4481992060fea708ef6022dee83841bf045ddfebc7b37560451f03b87f9314e01d1bb028d13560bd47503f3d25c47bfaebe054af71e9584956c25141256f0957998595ba6a4780b41b18f1839b7d6fab82a4655d9bf4b96f7a469f0ca4120c852096d8809160256ff55e5e4f91805aac912f93769a908a19397900f962884715b092d5e2d8989b437d2e7ea2f9a74e58257b9e571ab6c6fe4bdb63371582716987e1c9f4d2404816b1c4c17aa7dcdf90195e985c4c43d31408b656b3d7e0beba21ab326604b3ee7c2274ec3cf958f111b57fa3a0fbba872b8b5b508e6537b167e970702a80f0d9301f47b469c6a85693037f0ba381a627c9ce66cc5857f64dc7239acb6e9e02e8632eaf6130272156bd5f01ee693368dd7b68f28ba0993be180199ee5823d8702ca94489e4b70d896d08157c477bd70dbb79f42ca37f09823160cb9ca58c622a4d23c079dfe84138ecc363814e4405881a8f217730d77157fc5f05b2ac0f21cd2f1aa1c90eefe089158a118434929f34729686b432a6609c0f3b9d3535eac4ab2ea40c3d56e196b132334c79f082b928dbe96edb838d83d17be2a243d8ade483d33904400181853bd2e259a2b5f52da294d7f1eec87e7acd8eff8f9f7ed498acfd0eb74cb8c90b38145c5b8f8b5d215992234937fbc219afff1644d0a1c92c69f315ac95f6fa4ae60e40637901a21e78477e7145d111398eb1e47fb159bdf3e4a7d0831116c83cb48987111a6aa48a16c270e3380561177f9408aa0ceb98869ed0cd6e22d28b3bef93dfc676010b838acd8dbf54439d3dc59ccae0f47e6231ded456a620efafa462e2abdce29ee23b68eee5bc76ff7d67d14af4fe7546be68f3a00c2feb570f367cec13553bef973af413e3c340f773306a9aaafb9516fb0d0ea63c56179718c76bedf6aad9cec0fd0c42d866d42f18cdb428f39346acaa9f4af32ba29c954936b1ceb4281ca1e301bf68c39fdc40c15b7251e733cbd0052e5dd96bbfbc56d66be2cb6f79ab5f0d8cb3a744a6018ebeefd91b1904d41e7af501a61d716254a6392951bb137b8b21812193069846654d061bd4e5751eb79225a1b4267dcd70d96a95e3563568a969a945c5fc3c9dc7156acce232d7fe1de50b9ecd780acc636ae3927af4f6c5db282c3a557d42a3a13c99eca17c5c62c1cc88c83c96656f433a917c7aae5d4b6e78dc6bd465062b1ab887b069f021a37701913e15d033ef099bf5bfe4bf6e96111341934a189214fcbec818ef19f910e4bac181e9ce14023abf0cca2b77d0b155bc3796d026a7b105428a1a867e835e1e31dbc8944a5d7e88a270fa93dd6f1ecd432ef7006cd5cdab816d965b13ae732621b5306bfd2c0f37928aa3b3b9a029936e75388aa54ebfd0cfa0885089cc69f9104e2702f17f6c2c639957867992291a7a235982915d6efbc2a08f8bcb3957dd15b0acccc8b394a5a541be182223e0e533e29d004a1200762fb57fe0d5c826f56cac205e3b4cadc00043090b407a14c113f5970f8b997110b4c9071f13520f5219b8adc9f887a039acc21c19f30ca7c1e434ff66f930cde6487eb469657dbb6f1587f0277ab7f3a93ea9b80eae91b5702ebc634b0f00424e2fc9cb9b7c3711516abe8ba19ecbbe516eee9330e383acd1ee413f0d752bdb894776581b493234671e9fb5a1c493cc0343fcf39027e7c504c4e59ddb8b5bdd2e5b056256d1b150de1e07ba3135589fd8d6f7e9b0b12c16089b39fb04a2cd2d044449edf403aea5dafcb58b59bbf1b03ad61f369f39e96e4084bbba1eb8a6190f90a355abdc8da46e2db8950d7fbf8d8af52aa1b4f4037424dbcc5c1c801b0eed708382a024c839d6ab7163cb864c75895e4bbc9b78ab1c31ea410100207f0ad760bd0f1b7995e9afef0db392e724b99b637f68f4d00bd9e4dba0c9cbb6d5be0c94009d4d57d1dbced5bcf03ca2b49330c9e1d4ace4b3a2b5e6f78d7058ebf7a5a030859b056a0bc182d2489c9473e79f6a7d3a36eaf9b8ea61293205cc6dd5ba68065c770973fa17b26e7313fbfb1916250140c3e86f015a2c053b1f0868af025e4c12c03a793bb8ff064040b1e95f2cc8a572ab0366a985147a6ab51e5d5a59bd5b59e4c432bfc7d72618a20f86d536c0ba590d0e5d4184ad0970e3ce29132920e17dc01babccbeacc8ef5685e9892ff2ca8c3b5b5e59812438471cf6bc782c7222897a865fee77a74c69dd12bfad93941199593437d26554acca8ea06e28d3d6e56a1c821102198ba352644a6ea99d23b1022c68f844f0987ba53f266905c3b91196d04f1913492b23563f00f92799809aedfb7092bbba37499023ee162711e10265880e5709a03fbadfe389b5a5e6b1529ba808b47e24ee61f70aa41e5de8e244853ecb40e13ad9b7293d65981885697650443d26f4151a7fe8bdc348e3e48bd6ec47d488b8c437847daa994861658828ce5be48d97b0520a89a14e9cf7c31905b8f1b64196da9130602bde77afe3f74ef0194435d7276e5ee94aff83033fd503609abad356212e1cd019ffccb62266bee4683776df0c15d10ee0e97a722b2bb45788340cff093aeeac48d31258d478fe8c51702b0cab4cb707b7b0c599280c9b64e4e82758e5012471c3a99e806c92defda58f77b27aa3f69457f60894d7b00af2ae00153a6acf6f1c22d5973d472ae1fd76f08d927d3c9776bf4488104974b16e5d45c8f7dc8212018b9a597c914ccd598d5995749b830bb9c6a17512d489df7a629af5c8c525dde8587d0a5d0c6ffd9157ba1eddad3939a1bdde595e983e00deab61352ec2fbbc7ec5fd2b7c258b03c4edfb08</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
     </div>
 
     
@@ -407,7 +386,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://zpano.gitee.io/2021/01/19/9/" title="某次面试">https://zpano.gitee.io/2021/01/19/9/</a>
+      <a href="https://zpano.gitee.io/2021/06/30/18/" title="长亭区块链面试总结">https://zpano.gitee.io/2021/06/30/18/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -416,22 +395,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag"># 数论</a>
-              <a href="/tags/%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99/" rel="tag"># 二次剩余</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/01/19/8/" rel="prev" title="ElGamal加密算法">
-                  <i class="fa fa-chevron-left"></i> ElGamal加密算法
+                <a href="/2021/06/27/17/" rel="prev" title="Ethernaut wp(下)">
+                  <i class="fa fa-chevron-left"></i> Ethernaut wp(下)
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/01/19/10/" rel="next" title="2020 CISCN Crypto lockrise">
-                  2020 CISCN Crypto lockrise <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
