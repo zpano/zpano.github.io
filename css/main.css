@@ -2852,6 +2852,21 @@ mjx-container[display="true"] + br {
 .links-of-author-item span.exturl:hover {
   background: var(--body-bg-color);
 }
+.links-of-blogroll-item {
+  display: inline-block;
+  max-width: 100%;
+  margin: 5px 0 0;
+}
+.links-of-blogroll-item a,
+.links-of-blogroll-item span.exturl {
+  box-sizing: border-box;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .main-inner {
   background: var(--content-bg-color);
   box-shadow: initial;
