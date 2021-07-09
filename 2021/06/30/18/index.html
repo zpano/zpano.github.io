@@ -32,7 +32,7 @@
 <meta property="og:description" content="一些简单的总结">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-30T12:11:48.390Z">
-<meta property="article:modified_time" content="2021-07-09T02:28:45.786Z">
+<meta property="article:modified_time" content="2021-07-09T04:06:07.081Z">
 <meta property="article:author" content="ZPANO">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -207,7 +207,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -220,7 +220,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%BF%E4%BA%AD%E5%8C%BA%E5%9D%97%E9%93%BE%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">长亭区块链面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%AF%86%E6%9C%BA%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">共识机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uniswap%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.</span> <span class="nav-text">Uniswap协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DEFI"><span class="nav-number">1.3.</span> <span class="nav-text">DEFI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solidity-%E4%B8%89%E7%A7%8D%E8%B0%83%E7%94%A8%E5%BC%82%E5%90%8C"><span class="nav-number">1.4.</span> <span class="nav-text">solidity 三种调用异同</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EIP"><span class="nav-number">2.</span> <span class="nav-text">EIP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NFT"><span class="nav-number">2.1.</span> <span class="nav-text">NFT</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -324,7 +323,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-09 10:28:45" itemprop="dateModified" datetime="2021-07-09T10:28:45+08:00">2021-07-09</time>
+        <time title="修改时间：2021-07-09 12:06:07" itemprop="dateModified" datetime="2021-07-09T12:06:07+08:00">2021-07-09</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -351,7 +350,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>1.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -370,47 +369,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="长亭区块链面试总结"><a href="#长亭区块链面试总结" class="headerlink" title="长亭区块链面试总结"></a>长亭区块链面试总结</h1><p>昨天才投的简历，很快啊，啪的一下，下午就有小姐姐和我约面试，然后今天十一点左右面了试，简单总结一下我不会的几个点</p>
-<h2 id="共识机制"><a href="#共识机制" class="headerlink" title="共识机制"></a>共识机制</h2><ul>
-<li>POW 工作证明机制</li>
-<li>POS 权益证明机制</li>
-<li>DPOS 选举机制</li>
-<li>BFT 拜占庭容错</li>
-</ul>
-<p>找到一个写的比较多的<a target="_blank" rel="noopener" href="https://github.com/blockchainGuide/blockchainguide/tree/main/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E6%A0%88/%E6%AD%BB%E7%A3%95%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95">链接</a></p>
-<h2 id="Uniswap协议"><a href="#Uniswap协议" class="headerlink" title="Uniswap协议"></a>Uniswap协议</h2><p><code>Uniswap</code>是一个基于以太坊的自动代币交换协议，它的设计目标是：易用性、<code>gas</code>高利用率、抗审查性和零抽租。</p>
-<ul>
-<li><p>ease-of-use（易用性）：<code>Token A</code>换<code>Token B</code>，在<code>Uniswap</code>也只要发出一笔交易就能完成兑换，在其它交易所中可能需要发两笔交易：第一笔将<code>Token A</code>换成某种媒介货币，如<code>ETH</code>, <code>DAI</code> 等，然后再发第二笔交易换成<code>Token B</code>。</p>
-</li>
-<li><p><code>gas efficiency</code>（<code>gas</code>高利用率）：在<code>Uniswap</code>上消耗的<code>gas</code>量是以太坊上的几家主流去中化交易所中最低的，也就代表在Uniswap交易要付的矿工费最少。</p>
-</li>
-<li><p><code>censorship resistance</code>（抗审查性）：抗审查性体现在<code>Uniswap</code>上架新<code>Token</code>没有门槛，任何人都能在<code>Uniswap</code>上架任何<code>Token</code>。这在去中心交易所中很少见，虽然大多数的去中心化交易所不会像中心化交易所那样向你收取上币费，但还是需要提交上币申请，通过审查后运营团队才会让你的<code>Token</code>可以在他们的交易所上交易。下面是各去中心化交易所上币规则的详情：</p>
-</li>
-<li><p><code>zero rent extraction</code>（零抽租）:在<code>Uniswap</code>协议设计中，开发团队不会从交易中抽取费用，交易中的所有费用都归还给流动性提供者。</p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU5MzMxNTk2Nw==&amp;mid=2247486616&amp;idx=1&amp;sn=129856d69177a4ad2c8dfeecb91653eb&amp;chksm=fe131d88c964949e753fad0b4e56e839fdcde46acf86bb2197fd62964f39620785f9ebae06e7&amp;scene=21#wechat_redirect">详解</a></p>
-</li>
-</ul>
-<h2 id="DEFI"><a href="#DEFI" class="headerlink" title="DEFI"></a>DEFI</h2><p>DeFi的全称是Decentralized Finance，即“去中心化金融”，也被称为“开放式金融”，当前几乎全部的DeFi项目都在以太坊的区块链上进行。</p>
-<p>这一块之前确实没有了解到，后面会注重学习</p>
-<h2 id="solidity-三种调用异同"><a href="#solidity-三种调用异同" class="headerlink" title="solidity 三种调用异同"></a>solidity 三种调用异同</h2><ul>
-<li>call: 最常用的调用方式，调用后内置变量 msg 的值会修改为调用者，执行环境为被调用者的运行环境(合约的 storage)。</li>
-<li>delegatecall: 调用后内置变量 msg 的值不会修改为调用者，但执行环境为调用者的运行环境。</li>
-<li>callcode: 调用后内置变量 msg 的值会修改为调用者，但执行环境为调用者的运行环境。</li>
-<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1158344">分析</a></li>
-</ul>
-<h1 id="EIP"><a href="#EIP" class="headerlink" title="EIP"></a>EIP</h1><p>EIPs（Ethereum Improvement Proposals, 以太坊改进建议），是公开征集、讨论改进以太坊的措施的途径，以太坊的任何一次更新的内容，都来自EIPs。</p>
-<p>EIP有Draft、Last Call、Accepted、Final这四种状态。</p>
-<ul>
-<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-606">EIP-606</a></strong>：Homestead分叉</li>
-<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-609">EIP-609</a></strong>：拜占庭分叉</li>
-<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-779">EIP-779</a></strong>：DAO分叉</li>
-<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-1013">EIP-1013</a></strong>：君士坦丁堡分叉</li>
-<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-1679">EIP-1679</a></strong>:  伊斯坦布尔分叉</li>
-<li><strong><a href>EIP 1559</a></strong>:  伦敦硬分叉(尚未升级)</li>
-</ul>
-<p>学习清单++</p>
-<h2 id="NFT"><a href="#NFT" class="headerlink" title="NFT"></a>NFT</h2><p>数字货币收藏品和非同质化代币</p>
-
+        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="0cf30d2ddd2c078f821af87afa7d87940acc9891adc5112f7bd607b9e1c1ead0">82f25d4dd2bfd032bbe4dcc0fbfc3e12e66a29d67b0624b05a3c4eb21d9dd75d13c44dd4a45a8addb2eadb0f2f8db32d772870fec424cfe1399cf36eeb77a0ce72e158e4a320522b0b1f378c7dc726a6c9c106061ea6ff7f7752198639dbf2edd7b8d4e7532a8b76a57c0f66169ec495de5f1ca9ac7bc0223c64e081effe2110b6e8823874de4c5b7ba39ca1acca28d2efe26e216ee59ca4df6969b6b996ace01eeb475361dfb2c4a705bd9fefbabb9167b0316ff7dff00f8e12cfa16d25d04ac75e9ab93cf3ba5ccb097c258d528f9c8dee29f9672d62c474457e4a83bccaecd66b0fed04d699bb25667aa285d5a6492ea5c4e9c00963694fa2dc82207195aa898ee56ce4ca9077fded706e3e98710eb49e43ba0a27597da7f14796bb14d05c36f83e9faf2cb85392b833595c9a7b2beb51ac151f5aca175e08a2a54f2b9c478b64bf1a33ab8b2ba02c8bbc5ae79114361edd545660cd7bcb157e82f2927d366754289e1e25c71b94de8167efef8629f197f5946de7b0f8421849cba7870d8b81f104a2321edb834c5ab2219e162f3db50a2ef8123a9f565913b5cd4282168f7beeec8821da4d5ab508bc6fe41c10ee6f3be2538146fa83e1341aa95f96fa764f580e8063d1457d821382a97710310937cd652b4f35239ab679f4ae182fa1f9ea1354293ae64872dde38d9a9687acc7e05c06f4eb409579474c2b6526e78111d653d6af92a1b16aef88cde801e03378f6179968b172eb8d96977f50a905207a6f3dbd1ee62a8641e3a87ce41af772241e3f3b1a1b94c3b986ec76805277a4cb41f93c11b4a5969581740582bc713a45bbff093a117b0573f7e6a570a12bc37cd9109b6aa51a9ba3ed964ac7bd1edebc0ee357894c81ae4babb59f3569560e2f95d174150b568c7d797b671d38c73c54f1c7f94a6cd0a09f5a0f16f8bf62eb873bde069f3899679d1fc88db674032841ce7c23e7c0567452c48b368bf1dbc37663a0312b0ca4ac6a90f5910d1ab3d2cb000f000768a76a737e4be0490dfdc2c001e7f3f2c25af8d211959a28b21d25af38c2265aff1fa8ffd13032c9a64a48388f3d035d40cc027eb47caeb95a8c401645796060d8fa9b94b99694e770819b3ce88fc47491d54aaa4f6b3787546e507036b631661ab3f45517c3c1ecc16325c2ca1864b3e4b7f9b175f1a023359f17fb00a31ff83b027ab156c3b3aa354f943ec0834fc9d22e2181a7e5b0f6b59a0616928c614db69915df9822ced172a3554d2db0e3e97bc8eaa71034617d7aa5a534c92de9673a4d1ffa07336e1a87ea03e954635fed87e4f23cf5b79c1150dc4eff788cda6cd7c2759e9c978316032b11cc2932cd31cd4c6c6bf6c90df198d95a53e296aeec4b1d9b0682fb4cc198f65275e94c539cc9cf307ba872f4d660b160554e4fc5dac47aac23934f5536b0acc90e0ddaf2a998538a5d2ba8cd40989490a602a52c910a05234b55d3493241cfb54409eeac66ef283c61fe08322b2c9313e1879acfa65a1a81b937ba3277797595476efa1b54f268a9b5122d7ac6f310f5a1050aad33097bb96feaaf851a700d29f2f3e12145ac53f8b97918668960831b672b64a6398741c4180de46b367572b14e0dc0adb803067dcc4f708b7334927a5cdd684331edb13bed18751ede224d8956e36c3841ae889f1333d1dbd0f7e14411941bbd1586c4fb6c953bdebd7825b11e6ed148e5d55cd321fc9277e762e1ae77eb0cd0d7e74f756202c9a90e3492713a0db82ee8fe7aa333bc2de1817d1947caf1fb025ace4e30f0f268d28a675a05a0c032144fffae177399a0197ef0f811c49e6c327f7e9d7bb11365ed7709b97485003577fcba77b19579b8df4ea7428db2107ff249151737834a839160ce025c4f55ffc39dc8134f8e292d93cc9cd7eb417b616893ac4bfcfccb431a5ada98f11da84b5c5f3cf09931fd0a35f680603e4ed23bbf9ee843b6d202b2e322211bb97f91848cde175190bb75be8f8e0b8ed29b007795e5cd57a6e267a12662830b1fc21912442b51bb18a4569406bdf66877ec4e6f542c35ea9a8a14ea727ab1b9e67f9faa5a684db4e5ec1ead77c24d2785ac5e36572593a0bfd161a46519ddfb9f1bcdb7cc6c146e26962850d93f44bdefb11a29d66cb987b8b0b892bcf2b88e91b486536cef385dd507dba8774bbc7f5f6148db6b68b7216617d9bda07994730397bde4296eafb08b25e503c0c8dc6136c401aeff3c02d96edadae1f3693bb83d0c75a15a64c92128719b9bfe0f942a7213d55e7dd7b9da5f3bb983cd2df6fe1e233e4c08460a0a87c2134d02dd2c4e82e9e734a040fcf57d3d311c652c671e2cf02f2c409268ae1df7ad09646e55a3c5ac0a46b66111043ea0dcf0d5016622201f7983b96c1a95a48175a0640376ef144c9ee66d074621e6fed4f262447e9254993ed1382502ea5be38fb3f83428cca6965e2557c8787c77c7c05e643f1d46930e6a0225167ab0b56ab793822e686a6bda63d4d725795ae3146d711cc8053293646f6a3406f1f6cad4634d92865f1043f3c56ce9ad9b39bf9382b34d581b73f48a257dcb39c71ef2a36bb5e9571908e0589730f9f9ee1f8b37f61b38e0f973f69bc766523bee196f07fe272fdbf4b49a0a6cc96b52158ef1aa397cfb27309156e3695ff9bb363152570537ddd2e7c3c58d9be0ce6299abcd79f8963405d7a92a6ea78be886dca00dc641da4edf23c1efef2fdc6923197b701a044fb85d29c6a10ae490dc9a39f13a17cb47fb951c96983ad0d41b3eeabb5918f7242e63b6898e378373cc4fb2bc61e5d888f1cdde356e043fe9441d8175be2330410c3f3991b0d1935ced9111f2a4fe3653d496712e0f989af52cb955050f01d281427d2092bfaf67d8bc3d6ae00c9ff314793933d4bb9815da8bec744ee78dc38f1bba3f70413c3025b90d700d08df7971063c5f7287d7b1a91d5e3fa033116c56d637988c22078cd6435631540d857aafbad63e741784cf7290759bfffc79d9234ead55638280a3c4d16dc829bf4e2d73504ca4f1e5d27bda64891787f51a2c34ecb84f2f2c959c9a84447e1367cc53e72d0f7a83c63586fdd711f36c82ea316205f6f37e197faaba0da1f1eaa06ba2060ad3d9d1968174579c4a445ede5809a69fe95d729d6a50bb6d94658af1fb7ea6dc319e1b71aab42fe9c1952a98279bc7829c52760714a5080222939e6615f4a656a13a48c0380ec55853b8767e3b5803f8360325ab37e551781ed39426b7c9fe7f88f4a9e1265445264027befe6346c900c9ea2debf84e738c9abb5a989a989dd67fe22a8e4e8bc4091bc712734c05a6be8b34f4c8a19c11b9e0c4e1b5d0869621d12802fb6a60fa054fa4f1f13d36ecfbcc0490bba973f6c09a165177c1e677909e50d51edd37ce4210e1413b03759b56c4dc6f4a83afad038e2af5684be73367f99545fbee8f6fcddc84971d99d7ab49d41b6213ad14fb564b0511f2c0f42383062bfbca557868eb7c52c4dfc7987a2fd539b1dab25b0a2c031005ef6b0053f4698a4067977b49e5d89e0ec81244df6442be02b8395f9c07308fd0ede0fa54b142bf9fcbcb4b2f0fbb718aae5b450eaf1d4c3d20dbb697f84e31758730ce3581c1a2f3b72f518288203250f7586288aceea9e33c1da2ad37da91007c26483d87d3e4d63707046739fdfb7b3157aab592e097313f7fa1234fc2fdd200e9cdf4a48dd9dce5316fd8714354a32e52bdd790f0c18b750ed4599fb0a6f4857df3afb754cbeaa0b96706ac42fd619c4a3bbc1afb3950aafe39922640799d2bcff8131418124ec5de41e7dcf3f1d56b8aca34df5e83b9010ad04fac2da66a47076957e32f4f1160afb78f7df230c7f2146721ee67a6d64624141ed231d440805691e6c4d4331b7612f94bb08119ec4444407441ccc3a94f9010a88d66f63be918d825a7f0ead1b137705a8818986225b6769c00a6b6618504569d1a75b99d73a6559999316f173cb34b9ef769b3b34a8d0e62c2e4741035f6185251fe01596a28b0e1d1af63bb3ce04b1c349504f6789ea552f0a650f7ea60e8fe850d07fde3b1321a5bc1444b72b64ebdc9db17e8dfdad79908d149e917c0db72d88644670f816fc53f4c5b03f4415b3c3224ae6c6796753e6085652ed9c223ea9a4baa61d8e96046a0141d96ee758a45620f13212579c8faedcef529b2360cceb72d3877994c4b1cfe5efbee7f1cae2e282fd4501a22fe6746ddf5b8ba217b0aa5160c1feb954cfd58528b2f73503ceffe6781b229e8c6df280995db0bb9084724a8f101b95c255260b77189299b859ef6ebb7d67c397b5294b1dbf4f7d11de1255596e759f7bab3e1df2fe38446494e8779fb1725f1ffbf8b193a6d23954fd99f202190b4d33b6ea4dcbb5251dc4cb08cb14f3295e11a7a2a20c5acc13fab1bdb572512d2bc24e8aa8ad1629be89a5abcd8f8b059c0076f75174f033c4d67f257057e1e192d56d2dfe7245bc540eb2357fcbcb66cae4e3916ef7803d84d433eb245a68e02b51a9ce5f43cde4ce8c8998150697247638ceb050860e8a6e9bda07cef600c2b6fd71094bc5af271fb38b143a2d638ce2459f94ac0d783f365da51d10b901fd097c895ea85d4b511f1d6aeb87ad9d3af2d2956d4536393022ea7b4b6597a10ccf4b5359102fef26c6ec2115a629d00ef6bd23fa37b506c4217440977e268f2da492655ab8cd6526b6556c2ecc82ecbf4b365ccfff79c803dc0fdc78c83593fa5d4e6f0f2179d55e398d027d33227a2a5269301223209e8ba04ef16b7416a4bf24b5d493e6a54b4ba14ae113ffccf4f27517b42e41b4495e11c4ad767b7b131b095f02aec118167726edf4b98dd944fbe79eca6219a63c931efc29b7a903a8849d25d489cdc93fbdc58518eb5f52b1bbc661d79e8ea5172bbc61d850c343f29d5da6e3e706c8498d0ebbc4f5c5bbbc277ba7f1ae230917e1f29ba32b87255d62546ab2e22b516c584373d6a2b8312cdd668aaaf1533fdf3c63786982481457d184fbd87ee6fb2856798e67a52565e6969a1f605a507d821ac090fed3e9616303ed0d02aa0d6e4dd6bcf9bcbb75fc9d1572b3fa40606c9b67fe3f37821e86173b8e67ab362655d09128e5764e2683aedde65a7a1ef4e149ebda16e794136d17a4d6d17e83c84f306b2e5f60c6d23ed6dcce1df8bd1c5018bf3a5abf9ab5d78b3cf404acd0a57148d375dae3fa3b49c642adbfa8a4138da5fcb877afc4ded9a34972158ed70ef3f2d02aa70e3637ce989eb9111ad45fba878fc442bee563330aa27d924609e46763c060e1c3bb2e268bb32b5ba63a2c100bd9b33908fe494a09672d962fe66100ce50b0367b57dc1b4c7ea5c982aa758a070514ca1729dea39c2e78a69eae9c8b26f41c30a95b83f840d6cec41150c438aebb2eee3c6f05452c07db4594b7d5edd11ceba17fdb197f31e7506fc4118f57deff497f7981f148e5b5998e7557685e19cc0cacfba33108d33c25f1e155c1fd0b28596720bf5cc74177346bc347b7fb6f4b375c7f994a52bd6c1b83a73adf45b56d5cdf7cddef1fac6f4b36081644586a5e738132917f186638b0d2331f76b843a88649bf648cb5c8d638b6aca0ef74103680c6849b456950f29a5cdef228598bbfd0015f3a7ed5610d286a14b257b79ecd6f6dac142e9b69ccd8b12b942b6a2baf612ab6a477373c93636efc347a6150afb693aaef5b9767fa5fe79b3f7e5e16161920e5a5f53eaddbe6da7ab59a74aaee3ad7c0dcc59d06abdb229bc690251d0568d0122be7ef6aaf4af17443efc284805db42a9a38ac0446becedccce7a140a6bf193af7b2849cd6c68ecfddb29bb3a151996a12f8e74d1e3f23498c9050ebfeac74761ce78f2c407868e0c02633ee0e4fd9c1011dd713d745a240a1ebce33499670a81789ccd0c87c3e16ac1ef93ea25b2004f5e70b5c4978fd2daffb2f0af810c22b4bb6c8877dff7aa180e076be6ce4ada04a4a67aa5bc09593c5da6c5731e1ceb34f831f493a61d0be4bdbf2bab14c84cc854ebf11016135648b6c7bc34217277d066c2ce8e5035ccba14ea2352c89673bc79ffe3dd5734638849f970097f8b3e9858b50ab66226f8e91e2a21ab26dd822834a0954a367adfeba57d70ac369889005ec2c70d037226377c23592f43cf96cff97800bb2948a56407c4a4ffe6b394ccfde386d81cf7a03822d2be2474e5c82c2ae8de00a3b5c9f428f718d02eac27d71d25d0b490e60044c1969385e95df65ac4d5bdcf98f4d8049b461b900538bc8e1343f0f8297bee1c145bcf608232943d86a37809fe4472b2eddb8245676949d74f829e5f4968efd862069d233f2656f5aa1f840480cf2744ff245109abd726089a13a5264b4889766f6a44212391be0c4e02b2ecfb981dd567429c7874e85902e3c8ad04c8a2cb17b7e5b3cebe9c19c08a50346f9ffb2e92bc4a0590fcfffe1eddec821ed583a682c2692d7288cab478d65cceaa1a346d5f79d6527f46aaa635785dc56ff97b5dbc6b3563c60082805df370b4b1df0253cc14db926ec55c63439f28c0721ba86c189b8c6e43841d330962a61b98be322f86cac4cb4a11509b25bbc61583eed8ffc4acae85d240d608d5c525f2be8368c2f70259f193c92834895dc40749ae5b5d22ef2cdad7076048842c9a2b2167d7f02a4870f7ce755fff87908833c739744da222d0c1c520054a4ef2e2737c036838fff2dd47fcdd8e5e605c92b2a71102e7c74de5511ae5dd7749aeea468cff507a3dbd132bf47251e58617285395dd851870742cdf093bffdcb2fa939d31eddaa67d1fa03b11eef267a5092a298b10dea783239109068b52e60fbc9a3815477a86c118dfcb65a65619355e178d7cffd6dab95108d45b3faf5d14e2424ee77772a6089cd2cb26c748fbc684ae8008904c640d5eb4f40268629ca672c6f0b20177e429be56c6b5b1b18f1d562f308caa0bc8ba657f8cf7e92ac3d130d1143e3d248206f3575c40b60573516bec97e37edb073249a2e5c6dd5f31e6bca989f6b01eca1b4e8c13f14a6d290bd4c63a1ad5eebf2d4726b356c00922c752906cea9851dc4fa119321ec11bd81098b8a2031547f9dce7a143c1533aa9c558ebaad93bd28a31887fcaebf65e</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
     </div>
 
     
