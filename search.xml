@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Crypto库学习</title>
+    <url>/2020/12/15/1/</url>
+    <content><![CDATA[<h1 id="Crypto库"><a href="#Crypto库" class="headerlink" title="Crypto库"></a>Crypto库</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/cipher/cipher.html">Crypto.Cipher</a></td>
+<td>Modules for protecting <strong>confidentiality</strong> that is, for encrypting and decrypting data (example: AES).</td>
+</tr>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/signature/signature.html">Crypto.Signature</a></td>
+<td>Modules for assuring <strong>authenticity</strong>, that is, for creating and verifying digital signatures of messages (example: PKCS#1 v1.5).</td>
+</tr>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/hash/hash.html">Crypto.Hash</a></td>
+<td>Modules for creating cryptographic <strong>digests</strong> (example: SHA-256).</td>
+</tr>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/public_key/public_key.html">Crypto.PublicKey</a></td>
+<td>Modules for generating, exporting or importing <em>public keys</em> (example: RSA or ECC).</td>
+</tr>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/protocol/protocol.html">Crypto.Protocol</a></td>
+<td>Modules for faciliting secure communications between parties, in most cases by leveraging cryptograpic primitives from other modules (example: Shamir’s Secret Sharing scheme).</td>
+</tr>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/io/io.html">Crypto.IO</a></td>
+<td>Modules for dealing with encodings commonly used for cryptographic data (example: PEM).</td>
+</tr>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/random/random.html">Crypto.Random</a></td>
+<td>Modules for generating random data.</td>
+</tr>
+<tr>
+<td><a href="https://www.pycryptodome.org/en/latest/src/util/util.html">Crypto.Util</a></td>
+<td>General purpose routines (example: XOR for byte strings).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>简而言之</p>
+<p>常见对称密码在 Crypto.Cipher 库下，主要有： <code>DES 3DES AES RC4 Salsa20</code><br>        非对称密码在 Crypto.PublicKey 库下，主要有： <code>RSA ECC DSA</code><br>        哈希密码在 Crypto.Hash 库下，常用的有： <code>MD5 SHA-1 SHA-128 SHA-256</code><br>        随机数在 Crypto.Random 库下<br>        实用小工具在 Crypto.Util 库下<br>        数字签名在 Crypto.Signature 库下</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><h2 id="AES加解密"><a href="#AES加解密" class="headerlink" title="AES加解密"></a>AES加解密</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">key = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_key&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">aes = AES.new(key,AES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># encrypt</span></span><br><span class="line">plain_text = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_plain&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">text_enc = aes.encrypt(plain_text)</span><br><span class="line">text_enc_b64 = base64.b64encode(text_enc)</span><br><span class="line">print(text_enc_b64.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># decrypt</span></span><br><span class="line">msg_enc = base64.b64decode(text_enc_b64)</span><br><span class="line">msg = aes.decrypt(msg_enc)</span><br><span class="line">print(msg.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<p>注意：key和明文是需要填充到指定位数的，可以使用<code>ljust</code>或者<code>zfill</code>之类的填充，也可以用<code>Util中的pad()</code>函数填充！</p>
+<h2 id="对称密码DES"><a href="#对称密码DES" class="headerlink" title="对称密码DES"></a>对称密码DES</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> DES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">key = <span class="built_in">bytes</span>(<span class="string">&#x27;test_key&#x27;</span>.ljust(<span class="number">8</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">des = DES.new(key,DES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># encrypt</span></span><br><span class="line">plain_text = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_plain&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">text_enc = des.encrypt(plain_text)</span><br><span class="line">text_enc_b64 = base64.b64encode(text_enc)</span><br><span class="line">print(text_enc_b64.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># decrypt</span></span><br><span class="line">msg_enc = base64.b64decode(text_enc_b64)</span><br><span class="line">msg = des.decrypt(msg_enc)</span><br><span class="line">print(msg.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="非对称密码RSA"><a href="#非对称密码RSA" class="headerlink" title="非对称密码RSA"></a>非对称密码RSA</h2><p>这个库的 RSA 主要是用来<code>生成</code>公钥文件/私钥文件或者<code>读取</code>公钥文件/私钥文件<br>生成公/私钥文件</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"></span><br><span class="line">rsa = RSA.generate(<span class="number">2048</span>) <span class="comment"># 返回的是密钥对象</span></span><br><span class="line"></span><br><span class="line">public_pem = rsa.publickey().exportKey(<span class="string">&#x27;PEM&#x27;</span>) <span class="comment"># 生成公钥字节流</span></span><br><span class="line">private_pem = rsa.exportKey(<span class="string">&#x27;PEM&#x27;</span>) <span class="comment"># 生成私钥字节流</span></span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;public.pem&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">f.write(public_pem) <span class="comment"># 将字节流写入文件</span></span><br><span class="line">f.close()</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;private.pem&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">f.write(private_pem) <span class="comment"># 将字节流写入文件</span></span><br><span class="line">f.close()</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArreg3IX19DbszqSdBKhR</span><br><span class="line">9cm495XAk9PBQJwHiwjKv6S1Tk5h7xL9/fPZIITy1M1k8LwuoSJPac/zcK6rYgMb</span><br><span class="line">DT9tmVLbi6CdWNl5agvUE2WgsB/eifEcfnZ9KiT9xTrpmj5BJql9H+znseA1AzlP</span><br><span class="line">iTukrH1frD3SzZIVnq/pBly3QbsT13UdUhbmIgeqTo8wL9V0Sj+sMFOIZY+xHscK</span><br><span class="line">IeDOv4/JIxw0q2TMTsE3HRgAX9CXvk6u9zJCH3EEzl0w9EQr8TT7ql3GJg2hJ9SD</span><br><span class="line">biebjImLuUii7Nv20qLOpIJ8qR6O531kmQ1gykiSfqj6AHqxkufxTHklCsHj9B8F</span><br><span class="line">8QIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br><span class="line"></span><br><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEowIBAAKCAQEArreg3IX19DbszqSdBKhR9cm495XAk9PBQJwHiwjKv6S1Tk5h</span><br><span class="line">7xL9/fPZIITy1M1k8LwuoSJPac/zcK6rYgMbDT9tmVLbi6CdWNl5agvUE2WgsB/e</span><br><span class="line">ifEcfnZ9KiT9xTrpmj5BJql9H+znseA1AzlPiTukrH1frD3SzZIVnq/pBly3QbsT</span><br><span class="line">13UdUhbmIgeqTo8wL9V0Sj+sMFOIZY+xHscKIeDOv4/JIxw0q2TMTsE3HRgAX9CX</span><br><span class="line">vk6u9zJCH3EEzl0w9EQr8TT7ql3GJg2hJ9SDbiebjImLuUii7Nv20qLOpIJ8qR6O</span><br><span class="line">531kmQ1gykiSfqj6AHqxkufxTHklCsHj9B8F8QIDAQABAoI...</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">读取公/私钥文件加解密：</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> PKCS1_v1_5</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rsa_encrypt</span>(<span class="params">plain</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;public.pem&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = f.read()</span><br><span class="line">        key = RSA.importKey(data)</span><br><span class="line">        rsa = PKCS1_v1_5.new(key)</span><br><span class="line">        cipher = rsa.encrypt(plain)</span><br><span class="line">        <span class="keyword">return</span> base64.b64encode(cipher)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rsa_decrypt</span>(<span class="params">cipher</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;private.pem&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = f.read()</span><br><span class="line">        key = RSA.importKey(data)</span><br><span class="line">        rsa = PKCS1_v1_5.new(key)</span><br><span class="line">        plain = rsa.decrypt(base64.b64decode(cipher),<span class="string">&#x27;ERROR&#x27;</span>) <span class="comment"># &#x27;ERROR&#x27;必需</span></span><br><span class="line">        <span class="keyword">return</span> plain</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    plain_text = <span class="string">b&#x27;This_is_a_test_string!&#x27;</span></span><br><span class="line">    cipher = rsa_encrypt(plain_text)</span><br><span class="line">    print(cipher)</span><br><span class="line">    plain = rsa_decrypt(cipher)</span><br><span class="line">    print(plain)</span><br></pre></td></tr></table></figure>
+<p>注意：RSA 有两种填充方式，一种是 <code>PKCS1_v1_5</code>，另一种是 <code>PKCS1_OAEP</code></p>
+<h2 id="Hash算法"><a href="#Hash算法" class="headerlink" title="Hash算法"></a>Hash算法</h2><p>和 <code>hashlib</code> 库的用法类似，先实例化某个 Hash 算法，再用 update() 调用就可以了！</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> SHA1,MD5</span><br><span class="line"></span><br><span class="line">sha1 = SHA1.<span class="keyword">new</span>()</span><br><span class="line">sha1.update(b<span class="string">&#x27;sha1_test&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(sha1.digest()) <span class="comment"># 返回字节串</span></span><br><span class="line"><span class="built_in">print</span>(sha1.hexdigest()) <span class="comment"># 返回16进制字符串</span></span><br><span class="line">md5 = MD5.<span class="keyword">new</span>()</span><br><span class="line">md5.update(b<span class="string">&#x27;md5_test&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(md5.hexdigest())</span><br></pre></td></tr></table></figure>
+<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>发送发用私钥签名，验证方用公钥验证</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">from Crypto.Signature import pkcs1_15</span><br><span class="line">from Crypto.Hash import SHA256</span><br><span class="line">from Crypto.PublicKey import RSA</span><br><span class="line"></span><br><span class="line"># 签名</span><br><span class="line">message = &#x27;To be signed&#x27;</span><br><span class="line">key = <span class="module-access"><span class="module"><span class="identifier">RSA</span>.</span></span>import<span class="constructor">_key(<span class="params">open</span>(&#x27;<span class="params">private_key</span>.<span class="params">der</span>&#x27;)</span>.read<span class="literal">()</span>)</span><br><span class="line">h = <span class="module-access"><span class="module"><span class="identifier">SHA256</span>.</span></span><span class="keyword">new</span>(message)</span><br><span class="line">signature = pkcs1_15.<span class="keyword">new</span>(key).sign(h)</span><br><span class="line"></span><br><span class="line"># 验证</span><br><span class="line">key = <span class="module-access"><span class="module"><span class="identifier">RSA</span>.</span></span>import<span class="constructor">_key(<span class="params">open</span>(&#x27;<span class="params">public_key</span>.<span class="params">der</span>&#x27;)</span>.read<span class="literal">()</span>)</span><br><span class="line">h = <span class="module-access"><span class="module"><span class="identifier">SHA</span>.</span></span><span class="keyword">new</span>(message)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    pkcs1_15.<span class="keyword">new</span>(key).verify(h, signature):</span><br><span class="line">    print <span class="string">&quot;The signature is valid.&quot;</span></span><br><span class="line">    except (ValueError, TypeError):</span><br><span class="line">        print <span class="string">&quot;The signature is not valid.&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><p>和 <code>random</code> 库类似。第一个函数很常用</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">import Crypto.Random</span><br><span class="line">import <span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random</span><br><span class="line"></span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>get<span class="constructor">_random_bytes(4)</span>) # 得到n字节的随机字节串</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.randrange(<span class="number">1</span>,<span class="number">10</span>,<span class="number">1</span>)) # x到y之间的整数，可以给定step</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.randint(<span class="number">1</span>,<span class="number">10</span>)) # x到y之间的整数</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.getrandbits(<span class="number">16</span>)) # 返回一个最大为N bit的随机整数</span><br></pre></td></tr></table></figure>
+<h2 id="其它功能"><a href="#其它功能" class="headerlink" title="其它功能"></a>其它功能</h2><p>常用到 Util 中的<code>pad()</code>函数来填充密钥</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">from Crypto.Util.Padding import *</span><br><span class="line"></span><br><span class="line"><span class="meta"># 按照规定的几种类型 pad，自定义 pad可以用 ljust()或者 zfill()</span></span><br><span class="line">str1 = b&#x27;helloworld&#x27;</span><br><span class="line">pad_str1 = <span class="built_in">pad</span>(str1,<span class="number">16</span>,&#x27;pkcs7&#x27;) <span class="meta"># 填充类型默认为&#x27;pkcs7&#x27;，还有&#x27;iso7816&#x27;和&#x27;x923&#x27;</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">unpad</span>(pad_str1,<span class="number">16</span>))</span><br><span class="line"><span class="meta"># number</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">GCD</span>(<span class="number">11</span>,<span class="number">143</span>)) <span class="meta"># 最大公约数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">bytes_to_long</span>(b&#x27;hello&#x27;)) <span class="meta"># 字节转整数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">long_to_bytes</span>(<span class="number">0x41424344</span>)) <span class="meta"># 整数转字节</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">getPrime</span>(<span class="number">16</span>)) <span class="meta"># 返回一个最大为 N bit 的随机素数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">getStrongPrime</span>(<span class="number">512</span>)) <span class="meta"># 返回强素数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">inverse</span>(<span class="number">10</span>,<span class="number">5</span>)) <span class="meta"># 求逆元</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(<span class="number">1227</span>)) <span class="meta"># 判断是不是素数</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>Crypto</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020 CISCN Crypto lockrise</title>
     <url>/2021/01/19/10/</url>
     <content><![CDATA[<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> DES</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">sbox=list(range(256))</span></span><br><span class="line"><span class="string">random.shuffle(sbox)</span></span><br><span class="line"><span class="string">print(sbox)</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">sbox = [<span class="number">217</span>, <span class="number">25</span>, <span class="number">248</span>, <span class="number">51</span>, <span class="number">6</span>, <span class="number">37</span>, <span class="number">32</span>, <span class="number">69</span>, <span class="number">96</span>, <span class="number">117</span>, <span class="number">86</span>, <span class="number">108</span>, <span class="number">155</span>, <span class="number">50</span>, <span class="number">27</span>, <span class="number">249</span>, <span class="number">171</span>, <span class="number">82</span>, <span class="number">168</span>, <span class="number">245</span>, <span class="number">228</span>, <span class="number">195</span>, <span class="number">118</span>, <span class="number">187</span>, <span class="number">12</span>, <span class="number">109</span>, <span class="number">99</span>, <span class="number">241</span>,</span><br><span class="line"><span class="number">26</span>, <span class="number">41</span>, <span class="number">194</span>, <span class="number">205</span>, <span class="number">236</span>, <span class="number">185</span>, <span class="number">73</span>, <span class="number">35</span>, <span class="number">139</span>, <span class="number">175</span>, <span class="number">44</span>, <span class="number">116</span>, <span class="number">48</span>, <span class="number">148</span>, <span class="number">22</span>, <span class="number">142</span>, <span class="number">190</span>, <span class="number">114</span>, <span class="number">201</span>, <span class="number">60</span>, <span class="number">59</span>, <span class="number">89</span>, <span class="number">181</span>, <span class="number">13</span>, <span class="number">10</span>, <span class="number">197</span>, <span class="number">151</span>, <span class="number">219</span>, <span class="number">87</span>, <span class="number">198</span>, <span class="number">191</span>, <span class="number">93</span>, <span class="number">152</span>, <span class="number">230</span>, <span class="number">34</span>, <span class="number">124</span>, <span class="number">173</span>, <span class="number">146</span>, <span class="number">226</span>, <span class="number">40</span>, <span class="number">101</span>, <span class="number">165</span>, <span class="number">83</span>, <span class="number">212</span>, <span class="number">206</span>, <span class="number">229</span>, <span class="number">16</span>, <span class="number">95</span>, <span class="number">56</span>, <span class="number">107</span>, <span class="number">144</span>, <span class="number">250</span>, <span class="number">149</span>, <span class="number">153</span>, <span class="number">208</span>, <span class="number">133</span>, <span class="number">145</span>, <span class="number">156</span>, <span class="number">172</span>, <span class="number">162</span>, <span class="number">113</span>, <span class="number">100</span>, <span class="number">183</span>, <span class="number">127</span>, <span class="number">57</span>, <span class="number">223</span>, <span class="number">130</span>, <span class="number">72</span>, <span class="number">135</span>, <span class="number">84</span>, <span class="number">147</span>, <span class="number">15</span>, <span class="number">242</span>, <span class="number">177</span>, <span class="number">42</span>, <span class="number">23</span>, <span class="number">122</span>, <span class="number">54</span>, <span class="number">0</span>, <span class="number">131</span>, <span class="number">166</span>, <span class="number">244</span>, </span><br><span class="line"><span class="number">88</span>, <span class="number">231</span>, <span class="number">94</span>, <span class="number">235</span>, <span class="number">29</span>, <span class="number">125</span>, <span class="number">7</span>, <span class="number">232</span>, <span class="number">110</span>, <span class="number">90</span>, <span class="number">179</span>, <span class="number">75</span>, <span class="number">220</span>, <span class="number">71</span>, <span class="number">251</span>, <span class="number">45</span>, <span class="number">243</span>, <span class="number">207</span>, <span class="number">58</span>, <span class="number">120</span>, <span class="number">184</span>, <span class="number">9</span>, <span class="number">39</span>, <span class="number">218</span>, <span class="number">63</span>, <span class="number">38</span>, <span class="number">254</span>, <span class="number">167</span>, <span class="number">140</span>, <span class="number">53</span>, <span class="number">213</span>, <span class="number">214</span>, <span class="number">80</span>, <span class="number">85</span>, <span class="number">128</span>, <span class="number">8</span>, <span class="number">64</span>, <span class="number">174</span>, <span class="number">132</span>, <span class="number">233</span>, <span class="number">65</span>, <span class="number">200</span>, <span class="number">36</span>, <span class="number">115</span>, <span class="number">215</span>, <span class="number">192</span>, <span class="number">74</span>, <span class="number">203</span>, <span class="number">11</span>, <span class="number">134</span>, <span class="number">104</span>, <span class="number">170</span>, <span class="number">160</span>, <span class="number">227</span>, <span class="number">169</span>, <span class="number">246</span>, <span class="number">141</span>, <span class="number">221</span>, <span class="number">52</span>, <span class="number">21</span>, <span class="number">20</span>, <span class="number">47</span>, <span class="number">199</span>, <span class="number">33</span>, <span class="number">216</span>, <span class="number">182</span>, <span class="number">188</span>, <span class="number">143</span>, <span class="number">138</span>, <span class="number">102</span>, <span class="number">202</span>, <span class="number">105</span>, <span class="number">79</span>, <span class="number">49</span>, <span class="number">253</span>, <span class="number">30</span>, <span class="number">121</span>, <span class="number">103</span>, <span class="number">137</span>, <span class="number">1</span>, <span class="number">211</span>, <span class="number">150</span>, <span class="number">5</span>, <span class="number">55</span>, <span class="number">196</span>, <span class="number">247</span>, <span class="number">240</span>, <span class="number">178</span>, <span class="number">159</span>, <span class="number">24</span>, <span class="number">81</span>, <span class="number">224</span>, <span class="number">210</span>, <span class="number">67</span>, <span class="number">157</span>, <span class="number">91</span>, <span class="number">28</span>, <span class="number">18</span>, <span class="number">186</span>, <span class="number">126</span>, <span class="number">237</span>, <span class="number">98</span>, <span class="number">252</span>, <span class="number">2</span>, <span class="number">239</span>, <span class="number">43</span>, <span class="number">180</span>, <span class="number">209</span>, <span class="number">238</span>, <span class="number">225</span>, <span class="number">68</span>, <span class="number">119</span>, <span class="number">66</span>, <span class="number">46</span>, <span class="number">61</span>, <span class="number">17</span>, <span class="number">31</span>, <span class="number">112</span>, <span class="number">62</span>, <span class="number">158</span>, <span class="number">189</span>, <span class="number">234</span>, <span class="number">193</span>, <span class="number">111</span>, <span class="number">204</span>, <span class="number">19</span>, <span class="number">77</span>, <span class="number">222</span>, <span class="number">164</span>, <span class="number">14</span>, <span class="number">97</span>, <span class="number">3</span>, <span class="number">70</span>, <span class="number">255</span>, <span class="number">78</span>, <span class="number">129</span>, <span class="number">163</span>, <span class="number">92</span>, <span class="number">76</span>, <span class="number">4</span>, <span class="number">123</span>, <span class="number">176</span>, <span class="number">106</span>, <span class="number">161</span>, <span class="number">154</span>, <span class="number">136</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lock</span>(<span class="params">m</span>):</span></span><br><span class="line">    r=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> m:</span><br><span class="line">        r.append(sbox[i])</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peak</span>(<span class="params">m</span>):</span></span><br><span class="line">    r=m[-<span class="number">1</span>:]+m[<span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rise</span>(<span class="params">m,k</span>):</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">len</span>(m)==<span class="built_in">len</span>(k)</span><br><span class="line">    r=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m)):</span><br><span class="line">        r.append(m[i]^k[i])</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line">key=os.urandom(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">secret=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]</span><br><span class="line">r=lock(secret)</span><br><span class="line"><span class="comment">#[25, 248, 51, 6, 37, 32, 69, 96]</span></span><br><span class="line">r=peak(r)</span><br><span class="line"><span class="comment">#[96, 25, 248, 51, 6, 37, 32, 69]</span></span><br><span class="line">r=rise(r,key)</span><br><span class="line"></span><br><span class="line">r=lock(r)</span><br><span class="line">r=peak(r)</span><br><span class="line">r=rise(r,key)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&quot;lockrise:&quot;</span>,r)</span><br><span class="line">print(<span class="string">&quot;k0 ^ k7:&quot;</span>,key[<span class="number">0</span>]^key[-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">secret=os.urandom(<span class="number">8</span>)</span><br><span class="line">r=lock(secret)</span><br><span class="line">r=peak(r)</span><br><span class="line">r=rise(r,key)</span><br><span class="line"></span><br><span class="line">r=lock(r)</span><br><span class="line">r=peak(r)</span><br><span class="line">r=rise(r,key)</span><br><span class="line">print(<span class="string">&quot;encrypted:&quot;</span>,r)</span><br><span class="line">d=DES.new(secret,DES.MODE_ECB)</span><br><span class="line">flag=<span class="string">b&quot;flagxxxxx...xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;</span></span><br><span class="line">print(d.encrypt(flag).<span class="built_in">hex</span>())</span><br></pre></td></tr></table></figure>
@@ -73,76 +146,99 @@
       </tags>
   </entry>
   <entry>
-    <title>Crypto库学习</title>
-    <url>/2020/12/15/1/</url>
-    <content><![CDATA[<h1 id="Crypto库"><a href="#Crypto库" class="headerlink" title="Crypto库"></a>Crypto库</h1><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Package</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/cipher/cipher.html">Crypto.Cipher</a></td>
-<td>Modules for protecting <strong>confidentiality</strong> that is, for encrypting and decrypting data (example: AES).</td>
-</tr>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/signature/signature.html">Crypto.Signature</a></td>
-<td>Modules for assuring <strong>authenticity</strong>, that is, for creating and verifying digital signatures of messages (example: PKCS#1 v1.5).</td>
-</tr>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/hash/hash.html">Crypto.Hash</a></td>
-<td>Modules for creating cryptographic <strong>digests</strong> (example: SHA-256).</td>
-</tr>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/public_key/public_key.html">Crypto.PublicKey</a></td>
-<td>Modules for generating, exporting or importing <em>public keys</em> (example: RSA or ECC).</td>
-</tr>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/protocol/protocol.html">Crypto.Protocol</a></td>
-<td>Modules for faciliting secure communications between parties, in most cases by leveraging cryptograpic primitives from other modules (example: Shamir’s Secret Sharing scheme).</td>
-</tr>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/io/io.html">Crypto.IO</a></td>
-<td>Modules for dealing with encodings commonly used for cryptographic data (example: PEM).</td>
-</tr>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/random/random.html">Crypto.Random</a></td>
-<td>Modules for generating random data.</td>
-</tr>
-<tr>
-<td><a href="https://www.pycryptodome.org/en/latest/src/util/util.html">Crypto.Util</a></td>
-<td>General purpose routines (example: XOR for byte strings).</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>简而言之</p>
-<p>常见对称密码在 Crypto.Cipher 库下，主要有： <code>DES 3DES AES RC4 Salsa20</code><br>        非对称密码在 Crypto.PublicKey 库下，主要有： <code>RSA ECC DSA</code><br>        哈希密码在 Crypto.Hash 库下，常用的有： <code>MD5 SHA-1 SHA-128 SHA-256</code><br>        随机数在 Crypto.Random 库下<br>        实用小工具在 Crypto.Util 库下<br>        数字签名在 Crypto.Signature 库下</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><h2 id="AES加解密"><a href="#AES加解密" class="headerlink" title="AES加解密"></a>AES加解密</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">key = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_key&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">aes = AES.new(key,AES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># encrypt</span></span><br><span class="line">plain_text = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_plain&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">text_enc = aes.encrypt(plain_text)</span><br><span class="line">text_enc_b64 = base64.b64encode(text_enc)</span><br><span class="line">print(text_enc_b64.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># decrypt</span></span><br><span class="line">msg_enc = base64.b64decode(text_enc_b64)</span><br><span class="line">msg = aes.decrypt(msg_enc)</span><br><span class="line">print(msg.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
-<p>注意：key和明文是需要填充到指定位数的，可以使用<code>ljust</code>或者<code>zfill</code>之类的填充，也可以用<code>Util中的pad()</code>函数填充！</p>
-<h2 id="对称密码DES"><a href="#对称密码DES" class="headerlink" title="对称密码DES"></a>对称密码DES</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> DES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">key = <span class="built_in">bytes</span>(<span class="string">&#x27;test_key&#x27;</span>.ljust(<span class="number">8</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">des = DES.new(key,DES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># encrypt</span></span><br><span class="line">plain_text = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_plain&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">text_enc = des.encrypt(plain_text)</span><br><span class="line">text_enc_b64 = base64.b64encode(text_enc)</span><br><span class="line">print(text_enc_b64.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># decrypt</span></span><br><span class="line">msg_enc = base64.b64decode(text_enc_b64)</span><br><span class="line">msg = des.decrypt(msg_enc)</span><br><span class="line">print(msg.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
-<h2 id="非对称密码RSA"><a href="#非对称密码RSA" class="headerlink" title="非对称密码RSA"></a>非对称密码RSA</h2><p>这个库的 RSA 主要是用来<code>生成</code>公钥文件/私钥文件或者<code>读取</code>公钥文件/私钥文件<br>生成公/私钥文件</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"></span><br><span class="line">rsa = RSA.generate(<span class="number">2048</span>) <span class="comment"># 返回的是密钥对象</span></span><br><span class="line"></span><br><span class="line">public_pem = rsa.publickey().exportKey(<span class="string">&#x27;PEM&#x27;</span>) <span class="comment"># 生成公钥字节流</span></span><br><span class="line">private_pem = rsa.exportKey(<span class="string">&#x27;PEM&#x27;</span>) <span class="comment"># 生成私钥字节流</span></span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;public.pem&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">f.write(public_pem) <span class="comment"># 将字节流写入文件</span></span><br><span class="line">f.close()</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;private.pem&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">f.write(private_pem) <span class="comment"># 将字节流写入文件</span></span><br><span class="line">f.close()</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArreg3IX19DbszqSdBKhR</span><br><span class="line">9cm495XAk9PBQJwHiwjKv6S1Tk5h7xL9/fPZIITy1M1k8LwuoSJPac/zcK6rYgMb</span><br><span class="line">DT9tmVLbi6CdWNl5agvUE2WgsB/eifEcfnZ9KiT9xTrpmj5BJql9H+znseA1AzlP</span><br><span class="line">iTukrH1frD3SzZIVnq/pBly3QbsT13UdUhbmIgeqTo8wL9V0Sj+sMFOIZY+xHscK</span><br><span class="line">IeDOv4/JIxw0q2TMTsE3HRgAX9CXvk6u9zJCH3EEzl0w9EQr8TT7ql3GJg2hJ9SD</span><br><span class="line">biebjImLuUii7Nv20qLOpIJ8qR6O531kmQ1gykiSfqj6AHqxkufxTHklCsHj9B8F</span><br><span class="line">8QIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br><span class="line"></span><br><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEowIBAAKCAQEArreg3IX19DbszqSdBKhR9cm495XAk9PBQJwHiwjKv6S1Tk5h</span><br><span class="line">7xL9/fPZIITy1M1k8LwuoSJPac/zcK6rYgMbDT9tmVLbi6CdWNl5agvUE2WgsB/e</span><br><span class="line">ifEcfnZ9KiT9xTrpmj5BJql9H+znseA1AzlPiTukrH1frD3SzZIVnq/pBly3QbsT</span><br><span class="line">13UdUhbmIgeqTo8wL9V0Sj+sMFOIZY+xHscKIeDOv4/JIxw0q2TMTsE3HRgAX9CX</span><br><span class="line">vk6u9zJCH3EEzl0w9EQr8TT7ql3GJg2hJ9SDbiebjImLuUii7Nv20qLOpIJ8qR6O</span><br><span class="line">531kmQ1gykiSfqj6AHqxkufxTHklCsHj9B8F8QIDAQABAoI...</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">读取公/私钥文件加解密：</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> PKCS1_v1_5</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rsa_encrypt</span>(<span class="params">plain</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;public.pem&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = f.read()</span><br><span class="line">        key = RSA.importKey(data)</span><br><span class="line">        rsa = PKCS1_v1_5.new(key)</span><br><span class="line">        cipher = rsa.encrypt(plain)</span><br><span class="line">        <span class="keyword">return</span> base64.b64encode(cipher)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rsa_decrypt</span>(<span class="params">cipher</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;private.pem&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = f.read()</span><br><span class="line">        key = RSA.importKey(data)</span><br><span class="line">        rsa = PKCS1_v1_5.new(key)</span><br><span class="line">        plain = rsa.decrypt(base64.b64decode(cipher),<span class="string">&#x27;ERROR&#x27;</span>) <span class="comment"># &#x27;ERROR&#x27;必需</span></span><br><span class="line">        <span class="keyword">return</span> plain</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    plain_text = <span class="string">b&#x27;This_is_a_test_string!&#x27;</span></span><br><span class="line">    cipher = rsa_encrypt(plain_text)</span><br><span class="line">    print(cipher)</span><br><span class="line">    plain = rsa_decrypt(cipher)</span><br><span class="line">    print(plain)</span><br></pre></td></tr></table></figure>
-<p>注意：RSA 有两种填充方式，一种是 <code>PKCS1_v1_5</code>，另一种是 <code>PKCS1_OAEP</code></p>
-<h2 id="Hash算法"><a href="#Hash算法" class="headerlink" title="Hash算法"></a>Hash算法</h2><p>和 <code>hashlib</code> 库的用法类似，先实例化某个 Hash 算法，再用 update() 调用就可以了！</p>
-<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> SHA1,MD5</span><br><span class="line"></span><br><span class="line">sha1 = SHA1.<span class="keyword">new</span>()</span><br><span class="line">sha1.update(b<span class="string">&#x27;sha1_test&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(sha1.digest()) <span class="comment"># 返回字节串</span></span><br><span class="line"><span class="built_in">print</span>(sha1.hexdigest()) <span class="comment"># 返回16进制字符串</span></span><br><span class="line">md5 = MD5.<span class="keyword">new</span>()</span><br><span class="line">md5.update(b<span class="string">&#x27;md5_test&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(md5.hexdigest())</span><br></pre></td></tr></table></figure>
-<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>发送发用私钥签名，验证方用公钥验证</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">from Crypto.Signature import pkcs1_15</span><br><span class="line">from Crypto.Hash import SHA256</span><br><span class="line">from Crypto.PublicKey import RSA</span><br><span class="line"></span><br><span class="line"># 签名</span><br><span class="line">message = &#x27;To be signed&#x27;</span><br><span class="line">key = <span class="module-access"><span class="module"><span class="identifier">RSA</span>.</span></span>import<span class="constructor">_key(<span class="params">open</span>(&#x27;<span class="params">private_key</span>.<span class="params">der</span>&#x27;)</span>.read<span class="literal">()</span>)</span><br><span class="line">h = <span class="module-access"><span class="module"><span class="identifier">SHA256</span>.</span></span><span class="keyword">new</span>(message)</span><br><span class="line">signature = pkcs1_15.<span class="keyword">new</span>(key).sign(h)</span><br><span class="line"></span><br><span class="line"># 验证</span><br><span class="line">key = <span class="module-access"><span class="module"><span class="identifier">RSA</span>.</span></span>import<span class="constructor">_key(<span class="params">open</span>(&#x27;<span class="params">public_key</span>.<span class="params">der</span>&#x27;)</span>.read<span class="literal">()</span>)</span><br><span class="line">h = <span class="module-access"><span class="module"><span class="identifier">SHA</span>.</span></span><span class="keyword">new</span>(message)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    pkcs1_15.<span class="keyword">new</span>(key).verify(h, signature):</span><br><span class="line">    print <span class="string">&quot;The signature is valid.&quot;</span></span><br><span class="line">    except (ValueError, TypeError):</span><br><span class="line">        print <span class="string">&quot;The signature is not valid.&quot;</span></span><br></pre></td></tr></table></figure>
-<h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><p>和 <code>random</code> 库类似。第一个函数很常用</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">import Crypto.Random</span><br><span class="line">import <span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random</span><br><span class="line"></span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>get<span class="constructor">_random_bytes(4)</span>) # 得到n字节的随机字节串</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.randrange(<span class="number">1</span>,<span class="number">10</span>,<span class="number">1</span>)) # x到y之间的整数，可以给定step</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.randint(<span class="number">1</span>,<span class="number">10</span>)) # x到y之间的整数</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.getrandbits(<span class="number">16</span>)) # 返回一个最大为N bit的随机整数</span><br></pre></td></tr></table></figure>
-<h2 id="其它功能"><a href="#其它功能" class="headerlink" title="其它功能"></a>其它功能</h2><p>常用到 Util 中的<code>pad()</code>函数来填充密钥</p>
-<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">from Crypto.Util.Padding import *</span><br><span class="line"></span><br><span class="line"><span class="meta"># 按照规定的几种类型 pad，自定义 pad可以用 ljust()或者 zfill()</span></span><br><span class="line">str1 = b&#x27;helloworld&#x27;</span><br><span class="line">pad_str1 = <span class="built_in">pad</span>(str1,<span class="number">16</span>,&#x27;pkcs7&#x27;) <span class="meta"># 填充类型默认为&#x27;pkcs7&#x27;，还有&#x27;iso7816&#x27;和&#x27;x923&#x27;</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">unpad</span>(pad_str1,<span class="number">16</span>))</span><br><span class="line"><span class="meta"># number</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">GCD</span>(<span class="number">11</span>,<span class="number">143</span>)) <span class="meta"># 最大公约数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">bytes_to_long</span>(b&#x27;hello&#x27;)) <span class="meta"># 字节转整数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">long_to_bytes</span>(<span class="number">0x41424344</span>)) <span class="meta"># 整数转字节</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">getPrime</span>(<span class="number">16</span>)) <span class="meta"># 返回一个最大为 N bit 的随机素数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">getStrongPrime</span>(<span class="number">512</span>)) <span class="meta"># 返回强素数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">inverse</span>(<span class="number">10</span>,<span class="number">5</span>)) <span class="meta"># 求逆元</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(<span class="number">1227</span>)) <span class="meta"># 判断是不是素数</span></span><br></pre></td></tr></table></figure>
+    <title>区块链安全入门</title>
+    <url>/2021/03/10/12/</url>
+    <content><![CDATA[<h1 id="区块链学习"><a href="#区块链学习" class="headerlink" title="区块链学习"></a>区块链学习</h1><p><img src="/2021/03/10/12/image-20210306223141693.png" alt="avatar"></p>
+<h2 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h2><p><img src="/2021/03/10/12/image-20210306221505322.png" alt="avatar"></p>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p><strong>Smart Contract，是一种旨在以信息化方式传播、验证或执行合同的计算机协议</strong></p>
+<p>本质上来说，智能合约是一段程序，它以计算机指令的方式实现了传统合约的自动化处理。简单讲，智能合约就是双方在区块链资产上交易时，触发执行的一段代码，这段代码就是智能合约。“智能合约程序不只是一个可以自动执行的计算机程序，它本身就是一个系统参与者，对接收到的信息进行回应，可以接收和储存价值，也可以向外发送信息和价值。这个程序就像一个可以被信任的人，可以临时保管资产，总是按照事先的规则执行操作。”</p>
+<p>智能合约的设计目标是，执行一般的合同条件，最大限度地减少恶意和意外的状况，最大限度地减少使用信任中介</p>
+<p><img src="/2021/03/10/12/image-20210306222800930.png" alt="avatar"></p>
+<h2 id="Solidity合约调用方式"><a href="#Solidity合约调用方式" class="headerlink" title="Solidity合约调用方式"></a>Solidity合约调用方式</h2><ul>
+<li>call</li>
+</ul>
+<p>最常用的调用方式，调用后内置变量 msg 的值会修改为调用者，执行环境为被调用者的运行环境</p>
+<ul>
+<li>delegetcall</li>
+</ul>
+<p>调用后内置变量 msg 的值不会修改为调用者，但执行环境为调用者的运行环境</p>
+<ul>
+<li><p>callcode</p>
+<p>调用后内置变量 msg 的值会修改为调用者，但执行环境为调用者的运行环境</p>
+</li>
+</ul>
+<h2 id="DASP-TOP-10"><a href="#DASP-TOP-10" class="headerlink" title="DASP TOP 10"></a>DASP TOP 10</h2><h3 id="1-高级可持续威胁"><a href="#1-高级可持续威胁" class="headerlink" title="1.高级可持续威胁"></a>1.高级可持续威胁</h3><p>高级可持续威胁会导致区块链系统被入侵，权限被控制，最终导致资金被盗取，敏感数据被泄露等系列严重问题</p>
+<p>事件：</p>
+<ul>
+<li>Mt.Gox 攻击公司内部人员电脑渗透进内网修改比特币价格进行交易</li>
+<li>Coincheck 使用热钱包，且未实行多重签名系统</li>
+<li>Fomo3D 基于BAPT (区块链高级持续威胁)，对区块链基础设施，智能合约进行攻击</li>
+</ul>
+<h3 id="2-失控的币值膨胀"><a href="#2-失控的币值膨胀" class="headerlink" title="2.失控的币值膨胀"></a>2.失控的币值膨胀</h3><p>铸币总数限制部分的程序设计和实现 有漏洞，则可能导致铸币总数失控，甚至超出设定发币总数多倍，致使币值失控通胀</p>
+<ul>
+<li>BEC  币值控制部分的代码 出现了整数溢出漏洞，导致出现无限铸币的情况</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(balances[_from] &lt; _fee + _value) 	revert();</span><br></pre></td></tr></table></figure>
+<p>这段代码本意是检查账户余额是否大于转帐余额加上转账费用，但是这两个参数都可以由攻击者控制。当<code>_value</code> 的值足够大大于2^256-1时，会导致 <code>_value+_fee</code>发生整数上溢，使得 <code>_value+_fee的</code>值等于零，从而绕过检查，仍然支付成功，使得账户凭空获得大量数字货币</p>
+<h3 id="3-失效的权限控制"><a href="#3-失效的权限控制" class="headerlink" title="3.失效的权限控制"></a>3.失效的权限控制</h3><p>由于权限控制在设计或编码过程中的疏忽和缺陷，导致本来应该限制使用范围的重 要函数或权限没有控制好范围，从而被攻击者调用这些重要函数或者使用权限实施攻击</p>
+<ul>
+<li>Parity 钱包  将下列初始化函数设置为public 导致其他合约也能调用，以至于钱包的所有者被修改</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initContract</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">	owner = msg.sender;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译器漏洞     编写构造函数过程中不注意也会导致越权调用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Owned</span>(<span class="params"></span>) <span class="title">public</span></span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//solidity &lt;=^0.4.22</span></span><br><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="title">constructor</span>(<span class="params"></span>) <span class="title">public</span> &#123;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//solidity &gt;=^0.4.22</span></span><br></pre></td></tr></table></figure>
+<p>导致构造函数被初始化成普通函数，可以被任意人调用，容易导致owner权限被盗取</p>
+<p><a href>https://paper.seebug.org/741/</a></p>
+<ul>
+<li>Call调用限制</li>
+</ul>
+<p>call是最常用的调用方式，调用后内置变量msg的值会被修改为调用者，但执行环境是被调用者的运行环境，如果合约中有函数以 msg.sender 作为关键变量的代码逻辑，比如向 msg.sender 转账，那么就会导致越权操作。</p>
+<p>先来看两个函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">address addr</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">require</span>(isAuth(msg.sender));</span><br><span class="line">addr.transfer(<span class="built_in">this</span>.balance);</span><br><span class="line">&#125;<span class="comment">//合约拥有者或合约本身拥有取款操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAuth</span>(<span class="params">address src</span>) <span class="title">internal</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (src == address(<span class="built_in">this</span>)) &#123; <span class="comment">//检查是否合约拥有者或合约本身</span></span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (src == owner) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//发起恶意怕拼接请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callFunc</span>(<span class="params">bytes data</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">this</span>.call(data);</span><br><span class="line"> <span class="comment">//this.call(bytes4(keccak256(&quot;withdraw(address)&quot;)), target); //利用代码示意</span></span><br><span class="line"> <span class="comment">//后面会总结一篇三种交互方式的安全问题</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-不安全的共识协议"><a href="#4-不安全的共识协议" class="headerlink" title="4.不安全的共识协议"></a>4.不安全的共识协议</h3><p>共识协议由于存在某些设计之初未考虑到的漏洞，导致漏洞可能被攻击者识别和利 用，从而损害链上参与者的利益</p>
+<ul>
+<li>Krypton    遭遇51%攻击—回滚交易实现双花，DDOS攻击网络节点</li>
+<li>ETC  51% 算力攻击双花交易，篡改后使得被替换的块的交易无法追溯</li>
+</ul>
+<h3 id="5-考虑不充分的程序逻辑"><a href="#5-考虑不充分的程序逻辑" class="headerlink" title="5.考虑不充分的程序逻辑"></a>5.考虑不充分的程序逻辑</h3><p>由于软件设计和编码的错误原因，存在没有考虑到的异常分支，导致程序逻辑可以 被攻击者利用，以至于陷入设计者未预期的流程，造成重大损失</p>
+<ul>
+<li>The DAO  </li>
+</ul>
+<p><a href>https://blog.csdn.net/u011721501/article/details/79450122</a></p>
+<h3 id="6-不严谨的业务策略"><a href="#6-不严谨的业务策略" class="headerlink" title="6.不严谨的业务策略"></a>6.不严谨的业务策略</h3><p>目前比较突出的一种业务策略类问题是利用高额的以太费用和技术手段让以太坊 堵塞，从而获得游戏中的大奖。但根据场景不一样，会有许多不一样的业务问题，这些 也都会对产品的公平性，乃至产品的生存造成重大影响，需要特别注意！</p>
+<ul>
+<li>FOMO3D</li>
+</ul>
+<p>类似于竞拍中自己出价后，使用技术手段使得以太坊拥堵，使得其他玩家无法出价，获得最后的胜利！</p>
+<p>​    实现方法</p>
+<ol>
+<li>和矿主合谋，让矿主在我的交易后，不再打包其他购买KEY的交易，可能性几乎为零</li>
+<li>在自己成功购买KEY之后，把以太坊堵塞，让其无法打包其他购买KEY的交易。</li>
+</ol>
+<p><a href>https://mp.weixin.qq.com/s/s_RCF_EDlptQpm3d7mzApA</a></p>
+<h3 id="7-校验不严格的交易逻辑"><a href="#7-校验不严格的交易逻辑" class="headerlink" title="7.校验不严格的交易逻辑"></a>7.校验不严格的交易逻辑</h3><p>交易的校验逻辑不够严密，以致攻击者可以构造假的交易行为，但却被校验方验证 通过，误认为真的交易行为。或者提交了真的交易操作，但是通过时间差，黑名单等因 素，让交易操作产生回滚来实现，实际上的交易动作并没有完成，而商家仅验证是否有 交易行为的话，就可能导致资金上的损失。</p>
+<ul>
+<li>EOSBET</li>
+<li>回滚类攻击      利用时间差</li>
+<li>BetDice      黑名单</li>
+</ul>
+<h3 id="8-脆弱的随机数机制"><a href="#8-脆弱的随机数机制" class="headerlink" title="8.脆弱的随机数机制"></a>8.脆弱的随机数机制</h3><p>这里指的不仅仅是伪随机函数的问题，而是整个随机数生成机制不够安全，导致可 以被攻击者提前获取或猜测到随机数的结果，以实施攻击。</p>
+<h3 id="9-存在缺陷的激励机制"><a href="#9-存在缺陷的激励机制" class="headerlink" title="9.存在缺陷的激励机制"></a>9.存在缺陷的激励机制</h3><p>激励机制是区块链的重要环节，但若开发者设计的激励机制存在可以被利用的漏洞， 就可能会给开发者或用户带来损失。</p>
+<ul>
+<li>Eligius 矿池     块代扣攻击 挖出不上交</li>
+</ul>
+<h3 id="10-日志记录和监控不足"><a href="#10-日志记录和监控不足" class="headerlink" title="10.日志记录和监控不足"></a>10.日志记录和监控不足</h3><p>日志记录和监控的问题对区块链团队和公司来说非常很重要。如果没有足够的日志 记录和监控，被攻击的过程中，你会不知道，不能及时止损。发生安全事件后，你没有 办法调查，也没有办法改进以避免再犯同样的错误。所以日志记录和监控不足的问题也 很严重！</p>
+<ul>
+<li>未知的攻击手法无法追溯主要是没有完善的日志记录和监控</li>
+</ul>
 ]]></content>
       <categories>
-        <category>python第三方库</category>
+        <category>区块链安全</category>
       </categories>
       <tags>
-        <tag>Crypto</tag>
-        <tag>Python</tag>
+        <tag>区块链安全</tag>
       </tags>
   </entry>
   <entry>
@@ -346,102 +442,6 @@
 <p><a href="http://remix.hubwiz.com/">中文版</a></p>
 <p><a href="https://www.jianshu.com/p/8e9882f626f0">简单使用</a></p>
 <p><a href="https://remix-ide.readthedocs.io/en/latest/">官方文档</a></p>
-]]></content>
-      <categories>
-        <category>区块链安全</category>
-      </categories>
-      <tags>
-        <tag>区块链安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>区块链安全入门</title>
-    <url>/2021/03/10/12/</url>
-    <content><![CDATA[<h1 id="区块链学习"><a href="#区块链学习" class="headerlink" title="区块链学习"></a>区块链学习</h1><p><img src="/2021/03/10/12/image-20210306223141693.png" alt="avatar"></p>
-<h2 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h2><p><img src="/2021/03/10/12/image-20210306221505322.png" alt="avatar"></p>
-<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p><strong>Smart Contract，是一种旨在以信息化方式传播、验证或执行合同的计算机协议</strong></p>
-<p>本质上来说，智能合约是一段程序，它以计算机指令的方式实现了传统合约的自动化处理。简单讲，智能合约就是双方在区块链资产上交易时，触发执行的一段代码，这段代码就是智能合约。“智能合约程序不只是一个可以自动执行的计算机程序，它本身就是一个系统参与者，对接收到的信息进行回应，可以接收和储存价值，也可以向外发送信息和价值。这个程序就像一个可以被信任的人，可以临时保管资产，总是按照事先的规则执行操作。”</p>
-<p>智能合约的设计目标是，执行一般的合同条件，最大限度地减少恶意和意外的状况，最大限度地减少使用信任中介</p>
-<p><img src="/2021/03/10/12/image-20210306222800930.png" alt="avatar"></p>
-<h2 id="Solidity合约调用方式"><a href="#Solidity合约调用方式" class="headerlink" title="Solidity合约调用方式"></a>Solidity合约调用方式</h2><ul>
-<li>call</li>
-</ul>
-<p>最常用的调用方式，调用后内置变量 msg 的值会修改为调用者，执行环境为被调用者的运行环境</p>
-<ul>
-<li>delegetcall</li>
-</ul>
-<p>调用后内置变量 msg 的值不会修改为调用者，但执行环境为调用者的运行环境</p>
-<ul>
-<li><p>callcode</p>
-<p>调用后内置变量 msg 的值会修改为调用者，但执行环境为调用者的运行环境</p>
-</li>
-</ul>
-<h2 id="DASP-TOP-10"><a href="#DASP-TOP-10" class="headerlink" title="DASP TOP 10"></a>DASP TOP 10</h2><h3 id="1-高级可持续威胁"><a href="#1-高级可持续威胁" class="headerlink" title="1.高级可持续威胁"></a>1.高级可持续威胁</h3><p>高级可持续威胁会导致区块链系统被入侵，权限被控制，最终导致资金被盗取，敏感数据被泄露等系列严重问题</p>
-<p>事件：</p>
-<ul>
-<li>Mt.Gox 攻击公司内部人员电脑渗透进内网修改比特币价格进行交易</li>
-<li>Coincheck 使用热钱包，且未实行多重签名系统</li>
-<li>Fomo3D 基于BAPT (区块链高级持续威胁)，对区块链基础设施，智能合约进行攻击</li>
-</ul>
-<h3 id="2-失控的币值膨胀"><a href="#2-失控的币值膨胀" class="headerlink" title="2.失控的币值膨胀"></a>2.失控的币值膨胀</h3><p>铸币总数限制部分的程序设计和实现 有漏洞，则可能导致铸币总数失控，甚至超出设定发币总数多倍，致使币值失控通胀</p>
-<ul>
-<li>BEC  币值控制部分的代码 出现了整数溢出漏洞，导致出现无限铸币的情况</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(balances[_from] &lt; _fee + _value) 	revert();</span><br></pre></td></tr></table></figure>
-<p>这段代码本意是检查账户余额是否大于转帐余额加上转账费用，但是这两个参数都可以由攻击者控制。当<code>_value</code> 的值足够大大于2^256-1时，会导致 <code>_value+_fee</code>发生整数上溢，使得 <code>_value+_fee的</code>值等于零，从而绕过检查，仍然支付成功，使得账户凭空获得大量数字货币</p>
-<h3 id="3-失效的权限控制"><a href="#3-失效的权限控制" class="headerlink" title="3.失效的权限控制"></a>3.失效的权限控制</h3><p>由于权限控制在设计或编码过程中的疏忽和缺陷，导致本来应该限制使用范围的重 要函数或权限没有控制好范围，从而被攻击者调用这些重要函数或者使用权限实施攻击</p>
-<ul>
-<li>Parity 钱包  将下列初始化函数设置为public 导致其他合约也能调用，以至于钱包的所有者被修改</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initContract</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">	owner = msg.sender;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>编译器漏洞     编写构造函数过程中不注意也会导致越权调用</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Owned</span>(<span class="params"></span>) <span class="title">public</span></span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//solidity &lt;=^0.4.22</span></span><br><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="title">constructor</span>(<span class="params"></span>) <span class="title">public</span> &#123;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//solidity &gt;=^0.4.22</span></span><br></pre></td></tr></table></figure>
-<p>导致构造函数被初始化成普通函数，可以被任意人调用，容易导致owner权限被盗取</p>
-<p><a href>https://paper.seebug.org/741/</a></p>
-<ul>
-<li>Call调用限制</li>
-</ul>
-<p>call是最常用的调用方式，调用后内置变量msg的值会被修改为调用者，但执行环境是被调用者的运行环境，如果合约中有函数以 msg.sender 作为关键变量的代码逻辑，比如向 msg.sender 转账，那么就会导致越权操作。</p>
-<p>先来看两个函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">address addr</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">require</span>(isAuth(msg.sender));</span><br><span class="line">addr.transfer(<span class="built_in">this</span>.balance);</span><br><span class="line">&#125;<span class="comment">//合约拥有者或合约本身拥有取款操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAuth</span>(<span class="params">address src</span>) <span class="title">internal</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (src == address(<span class="built_in">this</span>)) &#123; <span class="comment">//检查是否合约拥有者或合约本身</span></span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (src == owner) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//发起恶意怕拼接请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callFunc</span>(<span class="params">bytes data</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">this</span>.call(data);</span><br><span class="line"> <span class="comment">//this.call(bytes4(keccak256(&quot;withdraw(address)&quot;)), target); //利用代码示意</span></span><br><span class="line"> <span class="comment">//后面会总结一篇三种交互方式的安全问题</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-不安全的共识协议"><a href="#4-不安全的共识协议" class="headerlink" title="4.不安全的共识协议"></a>4.不安全的共识协议</h3><p>共识协议由于存在某些设计之初未考虑到的漏洞，导致漏洞可能被攻击者识别和利 用，从而损害链上参与者的利益</p>
-<ul>
-<li>Krypton    遭遇51%攻击—回滚交易实现双花，DDOS攻击网络节点</li>
-<li>ETC  51% 算力攻击双花交易，篡改后使得被替换的块的交易无法追溯</li>
-</ul>
-<h3 id="5-考虑不充分的程序逻辑"><a href="#5-考虑不充分的程序逻辑" class="headerlink" title="5.考虑不充分的程序逻辑"></a>5.考虑不充分的程序逻辑</h3><p>由于软件设计和编码的错误原因，存在没有考虑到的异常分支，导致程序逻辑可以 被攻击者利用，以至于陷入设计者未预期的流程，造成重大损失</p>
-<ul>
-<li>The DAO  </li>
-</ul>
-<p><a href>https://blog.csdn.net/u011721501/article/details/79450122</a></p>
-<h3 id="6-不严谨的业务策略"><a href="#6-不严谨的业务策略" class="headerlink" title="6.不严谨的业务策略"></a>6.不严谨的业务策略</h3><p>目前比较突出的一种业务策略类问题是利用高额的以太费用和技术手段让以太坊 堵塞，从而获得游戏中的大奖。但根据场景不一样，会有许多不一样的业务问题，这些 也都会对产品的公平性，乃至产品的生存造成重大影响，需要特别注意！</p>
-<ul>
-<li>FOMO3D</li>
-</ul>
-<p>类似于竞拍中自己出价后，使用技术手段使得以太坊拥堵，使得其他玩家无法出价，获得最后的胜利！</p>
-<p>​    实现方法</p>
-<ol>
-<li>和矿主合谋，让矿主在我的交易后，不再打包其他购买KEY的交易，可能性几乎为零</li>
-<li>在自己成功购买KEY之后，把以太坊堵塞，让其无法打包其他购买KEY的交易。</li>
-</ol>
-<p><a href>https://mp.weixin.qq.com/s/s_RCF_EDlptQpm3d7mzApA</a></p>
-<h3 id="7-校验不严格的交易逻辑"><a href="#7-校验不严格的交易逻辑" class="headerlink" title="7.校验不严格的交易逻辑"></a>7.校验不严格的交易逻辑</h3><p>交易的校验逻辑不够严密，以致攻击者可以构造假的交易行为，但却被校验方验证 通过，误认为真的交易行为。或者提交了真的交易操作，但是通过时间差，黑名单等因 素，让交易操作产生回滚来实现，实际上的交易动作并没有完成，而商家仅验证是否有 交易行为的话，就可能导致资金上的损失。</p>
-<ul>
-<li>EOSBET</li>
-<li>回滚类攻击      利用时间差</li>
-<li>BetDice      黑名单</li>
-</ul>
-<h3 id="8-脆弱的随机数机制"><a href="#8-脆弱的随机数机制" class="headerlink" title="8.脆弱的随机数机制"></a>8.脆弱的随机数机制</h3><p>这里指的不仅仅是伪随机函数的问题，而是整个随机数生成机制不够安全，导致可 以被攻击者提前获取或猜测到随机数的结果，以实施攻击。</p>
-<h3 id="9-存在缺陷的激励机制"><a href="#9-存在缺陷的激励机制" class="headerlink" title="9.存在缺陷的激励机制"></a>9.存在缺陷的激励机制</h3><p>激励机制是区块链的重要环节，但若开发者设计的激励机制存在可以被利用的漏洞， 就可能会给开发者或用户带来损失。</p>
-<ul>
-<li>Eligius 矿池     块代扣攻击 挖出不上交</li>
-</ul>
-<h3 id="10-日志记录和监控不足"><a href="#10-日志记录和监控不足" class="headerlink" title="10.日志记录和监控不足"></a>10.日志记录和监控不足</h3><p>日志记录和监控的问题对区块链团队和公司来说非常很重要。如果没有足够的日志 记录和监控，被攻击的过程中，你会不知道，不能及时止损。发生安全事件后，你没有 办法调查，也没有办法改进以避免再犯同样的错误。所以日志记录和监控不足的问题也 很严重！</p>
-<ul>
-<li>未知的攻击手法无法追溯主要是没有完善的日志记录和监控</li>
-</ul>
 ]]></content>
       <categories>
         <category>区块链安全</category>
@@ -686,23 +686,189 @@
   <entry>
     <title>区块链面试总结</title>
     <url>/2021/06/30/18/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="4a20eb574ed656017225cc910eb2205d1561660b8d24af82055561cea840602c">5a244dcfd602656d65a7a239fc7ff7061d2ee1703ab6fd175462fe3ff63eb3cd13db8697d79d0f89948da893a4b0027b11c5cf08c0671a3331301b2fdd0febcf0e27034c2e884f1bc6016a07b6063eaf46a5b25634e691e3807811629532f5131b55519a6274dc46784ba5b573499910ee1863ea3dd52df70c20a627caf598936762b3954e0a5aac82f150e080d415e6516ffbabd0d06a1268b2ecd7f8a506902daf7a03cccf91adde4466d2df1690fbb683e77a89a03aba72cb4221576f5fbf30e7b205c23ad843684325da38062ab30ef7f3f73b0e24379eaa818e5304d76b024a9b31a298f74d3416d57b13ab7db25bbfe36de2a8543363bb831ab199bbd1c6a190ef5e1283624ea4876f6b8dbcba840ee27b98236bf3b918073f5ccecab77a6d00dc6bc3ec21b9c7610ff35afea8a8d2ef14dd316ac16cc10299cd7c2fc70d801010f01dc51b5604c433b0c04dfff2378a00a17417cb1242842514b7c55c25478117dfc7d4b8cb73e943416dd29b618c21a171f5e45edd94f162fd171d93e714286f4c7c983261ead5fbf51cbe6919e7aa95779727c9f7023fc12e406141cfce0fdf7ce74d2da9b994194c15662c6d9649c859e135dbd06f9d7bb53abd79cc64705a61f44753730df93d2f73859ea2391cb34aa87126c008f079532dacf550da06803c45f00d4ac6dafbb23b600d8dba0f2cccf3797555e210693f9c47fdc34bbb5ce0def6126406a8c29cb3a097ad1e02b6a80c3bbe7aae4f6b6a6f01da0ce396697f0530e9f10434644859392ccde172ecd4b02c9e9f52a0f4d2f8a48e467264b128a39e327b9333235226c9b84b2319764e0dab79b42ee7eade9a4f07fbdd622765308e93cf98f6f732155b440c11df98583268ed49305f3a3e884f55a98f6333353866a7cedbba7b7e986737873c8b9dec48c4d8a3b6326144abfaf98f8fca73b911c7a88c5f640875a4734cd232a3514641fde13203bb1d4599e874b620d369ca5ffbf2cc03dd19a752fd0a2f693077f28862dfa8e913cadca3303e26c08349d58e995c729d37fe465203c73d852eb154eac3e893c219ba2cf0c3376a203a2ccc8c04c90d486227601e2b5aaa481ad841ab5fc9e68f044ee7fefd558202057a9b9fc291ca7f6a2c4927f6592f6d9d716d4cd491b5875741dacf22402dab3e55ca67dc735ed6b01ef5651daf7e847a208e442e9f6d8d11129986a8e914276954cc3965fa0ed383c43bd3ba135127a789b80effaae722e80a6437118dcd156d8b11e0576c5bedb9741524e353c92a3f6626a1cff81d8e653d88ece618a7641c445cb6adaee9d084e9e732f9bfe601198c6fa6fbf78443b1b455b68a31245a9f2cc4055a992de83512fff8092d33fa5bd54e57f5febb4b7a95e802f1e11ba34a346dec69a6bf5cae75779b8bce74636db7c791de627578027aeca2b72308925351aa2dfd7ce80890735ab37679c828c5486ba176f6dbc0a7c39cfbfd455ee78150dbcb30bfd66ad6ebb2d14665023146046ce4cafde71045a309494ec69428c94adc2b5acc1a2d7ee70a14044523ed0c784d8d19afa592a5a386a2aecbd176465afcc6679f561612a3d1d04a2301c6b5d15f1c02b6313cb187e59a2fac643f26ba10a1bf83b4d46d93ed55ebf863ef0141b3cd194966131289ebc65fcd9e210648ec4eb22ed7b66a482ff833ae6951c1cd7f7e2b6c5e6840cafb3542c8d0a8dc1fb5831d947d5853a0c7568003b7962f8445542e5ced88c0ea3e15193b0f00ff18b0708208131b70b8fb2972800c69dd7d651d28fecb5e08c8bba2fb42a19a226a6cdbe466a94648a4bf7e57a847f8d173e883d47dd4d91211b12045bfafc48049939026f9e2fdc645b750aa497c302bd915134c104ccfb151dfe3f247e8057bd441dbf8dc631fb639279ac663a32ae38435b0096f0ba59629b0c7f0b0c2631042996aa21efba862eeade5cff155c88a42f39ba750ae69ff6827e4e4ac863eb62fc767460e2274dcf85945c09fa77ee9f76d9a9b8986135b4711c42e38ea070d59c3deb975a3a99c0235676474b30df98de1417ca3541118fe16f1fa1f541929411db8fd710e0312f27d5ebd5c2fb627342e4a31758c201e3356ad0670bcc0c1b5a7c13a653b18cd62bac0f99eb12b15b3f9905f4ec074b92ab9327708af7de8513bf82b08878c090885e082a94d5a043d3a07bb1ff1f6be24488bd391b1676fc35a8b3d5f9a0f48e307a5048afa9a0a8464a7118f27ad45a427bfb044b1abbdb27324677202b2d623a4a38a69e76e8d6bebeb14c897d7ca82905c857003c0e961f45c098b344c2388704c944fa6512a9385c2bc2e0d89541efa265e7e10112e32b1f6c3c6aaa3b7ae8aa98ff921c9be75379dc79b7592bda23aad450c7dcc057b277a5c984858dedb83e7319ee5979a6cb7397ad80e8811cd85d36b4c829dd6b635520bcacdc0b1eb45ba6df2be15e7f6c5f1704d3205e6f30a9950424d1a5a18a4c680632ca6442473e08a4437e274a1ccb94e37fbfd15a93b76d0bd118d11606351ba1b1a1edf39e59c811a8089011f0b957e069e397738bc50a08c50702c92adadc094522eaa20d1bb904f4d66c7a05cece92a0233344d0e33b3c53782910ae84c01c5273e3ec0a726f8c56742786efcfd69b968a67dc5bf32b3da626bf8808bd816c0cdb50135cb3fa2ebb5f67cf8559c508b9d9dbd420052c62545b83d5c5a8a7c3f177ad15d46a38c71dcca807a6bb7badc63bd84e96753242fa4fa439ffb51b455cba8bff90c9daa8be664505531a02f0e5de2af714ffaa5b7579d2a257386e7da2be21f8abdb7fb2e220ea1611bb2f80714cd247d86b98f71ef3b25c052f081a1ecc6293042a2c650132d4aeed224c17fca426f19a67e37dd43b2fa952236f523783d867db427215da0085663f3f660b9686719a7ea7364f178b0ecab06882742c8ce8f79c8f339175235a9b322efb8034924055d4bb9cff80606580e1d644f1c3e408bcdafdd84ce75bebc26acdf17197f18fd2cbbae2b6e322f81c32a78961c72402b86f81f233370a1f547ad18611aa9b28be326a11d7d82b26800e6e8851442d1994b9a4e639ad471adc58d255d886c0b8ebb37d4716309e60f83bac85febbe0f1796cddec54eebfa2f51fc8c484118448a0fea49c7e406ae862ae921ddd14e9b59495a71be71d9ea6e0218b91ab5af8dcd4b0a4aace3bfeea4f4c97f66723d07554d7e3796d5cfe75302c8fd2621273b8040c2d9eea4ef6ffe9b913ac558ec6ed052365ea62c5b69e75efe354133b25580bb1144f30df80413b3d1d37cce06ed3f8a8a410c5488b2c550e5f973742da382d6887285157b707130336cabe77241bb3fb616c5b36095ea2619508d04dd0130ccfdd56dc9cf67dff2b89c658dc238ede899115e463141ff667bd0c288ea51c1d935abd2c6af028a35478334a4af2e164fdfd8114ea80adffd3d26de5c674b6401ee5f3d18328a769013cf33727f15bfe82a0e949ca952d4db8c003e1dccba19f16e4396e0f6e8740c0121d18d14c568ad86cf87fae4aeb1b67b23802ebc38fbb5134283dc7569ff559223b578f697141e5bbf1771a11b3f36296bb771f8eb5e90709390feee33f454e19ba84d1edcfdbf8917b48d99f646f72564873df9cf48f6894c72cf82d42af11f57797682df6758d1386d94b592d8674f94118f6a1c989755986d7b24722eaf32862c1e7ddf98d72cc793cbcbc32c7c36179a24fd2243a2a88751fe268769535e21de112b4605da039cfe983bd4771d63a30f58d003e500338ca98a55993c4b80e5ab9039086062282d01ae9148fd1b5b49928d04f0e0948bef698d9017a81dc363127fea4ad65e3a62399604e7bfca0962ca9da2da0ec94f01d87be3ba8ff115e4379a8c1f4f24a6df6a1b3a7c26aee11682fbdab3020c69f0a5f966a5b32888c616e469bb3ab57dec685897e38e18bcd19cb27bb397afa982c2daa0543209afc047d3f8ae18b31800510b0606ba970d3546dc43a2b1cb0661a618a2c42b535287ebf532b4b1bb2a78ea679c24ed41a3feb29fac3860664d9ea1f044a44850f49b6d271e8884234c82a4481992060fea708ef6022dee83841bf045ddfebc7b37560451f03b87f9314e01d1bb028d13560bd47503f3d25c47bfaebe054af71e9584956c25141256f0957998595ba6a4780b41b18f1839b7d6fab82a4655d9bf4b96f7a469f0ca4120c852096d8809160256ff55e5e4f91805aac912f93769a908a19397900f962884715b092d5e2d8989b437d2e7ea2f9a74e58257b9e571ab6c6fe4bdb63371582716987e1c9f4d2404816b1c4c17aa7dcdf90195e985c4c43d31408b656b3d7e0beba21ab326604b3ee7c2274ec3cf958f111b57fa3a0fbba872b8b5b508e6537b167e970702a80f0d9301f47b469c6a85693037f0ba381a627c9ce66cc5857f64dc7239acb6e9e02e8632eaf6130272156bd5f01ee693368dd7b68f28ba0993be180199ee5823d8702ca94489e4b70d896d08157c477bd70dbb79f42ca37f09823160cb9ca58c622a4d23c079dfe84138ecc363814e4405881a8f217730d77157fc5f05b2ac0f21cd2f1aa1c90eefe089158a118434929f34729686b432a6609c0f3b9d3535eac4ab2ea40c3d56e196b132334c79f082b928dbe96edb838d83d17be2a243d8ade483d33904400181853bd2e259a2b5f52da294d7f1eec87e7acd8eff8f9f7ed498acfd0eb74cb8c90b38145c5b8f8b5d215992234937fbc219afff1644d0a1c92c69f315ac95f6fa4ae60e40637901a21e78477e7145d111398eb1e47fb159bdf3e4a7d0831116c83cb48987111a6aa48a16c270e3380561177f9408aa0ceb98869ed0cd6e22d28b3bef93dfc676010b838acd8dbf54439d3dc59ccae0f47e6231ded456a620efafa462e2abdce29ee23b68eee5bc76ff7d67d14af4fe7546be68f3a00c2feb570f367cec13553bef973af413e3c340f773306a9aaafb9516fb0d0ea63c56179718c76bedf6aad9cec0fd0c42d866d42f18cdb428f39346acaa9f4af32ba29c954936b1ceb4281ca1e301bf68c39fdc40c15b7251e733cbd0052e5dd96bbfbc56d66be2cb6f79ab5f0d8cb3a744a6018ebeefd91b1904d41e7af501a61d716254a6392951bb137b8b21812193069846654d061bd4e5751eb79225a1b4267dcd70d96a95e3563568a969a945c5fc3c9dc7156acce232d7fe1de50b9ecd780acc636ae3927af4f6c5db282c3a557d42a3a13c99eca17c5c62c1cc88c83c96656f433a917c7aae5d4b6e78dc6bd465062b1ab887b069f021a37701913e15d033ef099bf5bfe4bf6e96111341934a189214fcbec818ef19f910e4bac181e9ce14023abf0cca2b77d0b155bc3796d026a7b105428a1a867e835e1e31dbc8944a5d7e88a270fa93dd6f1ecd432ef7006cd5cdab816d965b13ae732621b5306bfd2c0f37928aa3b3b9a029936e75388aa54ebfd0cfa0885089cc69f9104e2702f17f6c2c639957867992291a7a235982915d6efbc2a08f8bcb3957dd15b0acccc8b394a5a541be182223e0e533e29d004a1200762fb57fe0d5c826f56cac205e3b4cadc00043090b407a14c113f5970f8b997110b4c9071f13520f5219b8adc9f887a039acc21c19f30ca7c1e434ff66f930cde6487eb469657dbb6f1587f0277ab7f3a93ea9b80eae91b5702ebc634b0f00424e2fc9cb9b7c3711516abe8ba19ecbbe516eee9330e383acd1ee413f0d752bdb894776581b493234671e9fb5a1c493cc0343fcf39027e7c504c4e59ddb8b5bdd2e5b056256d1b150de1e07ba3135589fd8d6f7e9b0b12c16089b39fb04a2cd2d044449edf403aea5dafcb58b59bbf1b03ad61f369f39e96e4084bbba1eb8a6190f90a355abdc8da46e2db8950d7fbf8d8af52aa1b4f4037424dbcc5c1c801b0eed708382a024c839d6ab7163cb864c75895e4bbc9b78ab1c31ea410100207f0ad760bd0f1b7995e9afef0db392e724b99b637f68f4d00bd9e4dba0c9cbb6d5be0c94009d4d57d1dbced5bcf03ca2b49330c9e1d4ace4b3a2b5e6f78d7058ebf7a5a030859b056a0bc182d2489c9473e79f6a7d3a36eaf9b8ea61293205cc6dd5ba68065c770973fa17b26e7313fbfb1916250140c3e86f015a2c053b1f0868af025e4c12c03a793bb8ff064040b1e95f2cc8a572ab0366a985147a6ab51e5d5a59bd5b59e4c432bfc7d72618a20f86d536c0ba590d0e5d4184ad0970e3ce29132920e17dc01babccbeacc8ef5685e9892ff2ca8c3b5b5e59812438471cf6bc782c7222897a865fee77a74c69dd12bfad93941199593437d26554acca8ea06e28d3d6e56a1c821102198ba352644a6ea99d23b1022c68f844f0987ba53f266905c3b91196d04f1913492b23563f00f92799809aedfb7092bbba37499023ee162711e10265880e5709a03fbadfe389b5a5e6b1529ba808b47e24ee61f70aa41e5de8e244853ecb40e13ad9b7293d65981885697650443d26f4151a7fe8bdc348e3e48bd6ec47d488b8c437847daa994861658828ce5be48d97b0520a89a14e9cf7c31905b8f1b64196da9130602bde77afe3f74ef0194435d7276e5ee94aff83033fd503609abad356212e1cd019ffccb62266bee4683776df0c15d10ee0e97a722b2bb45788340cff093aeeac48d31258d478fe8c51702b0cab4cb707b7b0c599280c9b64e4e82758e5012471c3a99e806c92defda58f77b27aa3f69457f60894d7b00af2ae00153a6acf6f1c22d5973d472ae1fd76f08d927d3c9776bf4488104974b16e5d45c8f7dc8212018b9a597c914ccd598d5995749b830bb9c6a17512d489df7a629af5c8c525dde8587d0a5d0c6ffd9157ba1eddad3939a1bdde595e983e00deab61352ec2fbbc7ec5fd2b7c258b03c4edfb08</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+    <content><![CDATA[<h1 id="长亭区块链面试总结"><a href="#长亭区块链面试总结" class="headerlink" title="长亭区块链面试总结"></a>长亭区块链面试总结</h1><p>昨天才投的简历，很快啊，啪的一下，下午就有小姐姐和我约面试，然后今天十一点左右面了试，简单总结一下我不会的几个点</p>
+<h2 id="共识机制"><a href="#共识机制" class="headerlink" title="共识机制"></a>共识机制</h2><ul>
+<li>POW 工作证明机制</li>
+<li>POS 权益证明机制</li>
+<li>DPOS 选举机制</li>
+<li>BFT 拜占庭容错</li>
+</ul>
+<p>找到一个写的比较多的<a href="https://github.com/blockchainGuide/blockchainguide/tree/main/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E6%A0%88/%E6%AD%BB%E7%A3%95%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95">链接</a></p>
+<h2 id="Uniswap协议"><a href="#Uniswap协议" class="headerlink" title="Uniswap协议"></a>Uniswap协议</h2><p><code>Uniswap</code>是一个基于以太坊的自动代币交换协议，它的设计目标是：易用性、<code>gas</code>高利用率、抗审查性和零抽租。</p>
+<ul>
+<li><p>ease-of-use（易用性）：<code>Token A</code>换<code>Token B</code>，在<code>Uniswap</code>也只要发出一笔交易就能完成兑换，在其它交易所中可能需要发两笔交易：第一笔将<code>Token A</code>换成某种媒介货币，如<code>ETH</code>, <code>DAI</code> 等，然后再发第二笔交易换成<code>Token B</code>。</p>
+</li>
+<li><p><code>gas efficiency</code>（<code>gas</code>高利用率）：在<code>Uniswap</code>上消耗的<code>gas</code>量是以太坊上的几家主流去中化交易所中最低的，也就代表在Uniswap交易要付的矿工费最少。</p>
+</li>
+<li><p><code>censorship resistance</code>（抗审查性）：抗审查性体现在<code>Uniswap</code>上架新<code>Token</code>没有门槛，任何人都能在<code>Uniswap</code>上架任何<code>Token</code>。这在去中心交易所中很少见，虽然大多数的去中心化交易所不会像中心化交易所那样向你收取上币费，但还是需要提交上币申请，通过审查后运营团队才会让你的<code>Token</code>可以在他们的交易所上交易。下面是各去中心化交易所上币规则的详情：</p>
+</li>
+<li><p><code>zero rent extraction</code>（零抽租）:在<code>Uniswap</code>协议设计中，开发团队不会从交易中抽取费用，交易中的所有费用都归还给流动性提供者。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU5MzMxNTk2Nw==&amp;mid=2247486616&amp;idx=1&amp;sn=129856d69177a4ad2c8dfeecb91653eb&amp;chksm=fe131d88c964949e753fad0b4e56e839fdcde46acf86bb2197fd62964f39620785f9ebae06e7&amp;scene=21#wechat_redirect">详解</a></p>
+</li>
+</ul>
+<h2 id="DEFI"><a href="#DEFI" class="headerlink" title="DEFI"></a>DEFI</h2><p>DeFi的全称是Decentralized Finance，即“去中心化金融”，也被称为“开放式金融”，当前几乎全部的DeFi项目都在以太坊的区块链上进行。</p>
+<p>这一块之前确实没有了解到，后面会注重学习</p>
+<h2 id="solidity-三种调用异同"><a href="#solidity-三种调用异同" class="headerlink" title="solidity 三种调用异同"></a>solidity 三种调用异同</h2><ul>
+<li>call: 最常用的调用方式，调用后内置变量 msg 的值会修改为调用者，执行环境为被调用者的运行环境(合约的 storage)。</li>
+<li>delegatecall: 调用后内置变量 msg 的值不会修改为调用者，但执行环境为调用者的运行环境。</li>
+<li>callcode: 调用后内置变量 msg 的值会修改为调用者，但执行环境为调用者的运行环境。</li>
+<li><a href="https://cloud.tencent.com/developer/article/1158344">分析</a></li>
+</ul>
+<h1 id="EIP"><a href="#EIP" class="headerlink" title="EIP"></a>EIP</h1><p>EIPs（Ethereum Improvement Proposals, 以太坊改进建议），是公开征集、讨论改进以太坊的措施的途径，以太坊的任何一次更新的内容，都来自EIPs。</p>
+<p>EIP有Draft、Last Call、Accepted、Final这四种状态。</p>
+<ul>
+<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-606">EIP-606</a></strong>：Homestead分叉</li>
+<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-609">EIP-609</a></strong>：拜占庭分叉</li>
+<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-779">EIP-779</a></strong>：DAO分叉</li>
+<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-1013">EIP-1013</a></strong>：君士坦丁堡分叉</li>
+<li><strong><a href="https%3A//eips.ethereum.org/EIPS/eip-1679">EIP-1679</a></strong>:  伊斯坦布尔分叉</li>
+<li><strong><a href>EIP 1559</a></strong>:  伦敦硬分叉(尚未升级)</li>
+</ul>
+<p>学习清单++</p>
+<h2 id="NFT"><a href="#NFT" class="headerlink" title="NFT"></a>NFT</h2><p>数字货币收藏品和非同质化代币</p>
+]]></content>
       <categories>
         <category>面试</category>
       </categories>
       <tags>
         <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能合约变量储存机制详解</title>
+    <url>/2021/07/09/19/</url>
+    <content><![CDATA[<h1 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h1><p>最近在研究以太坊存储机制，写一篇文章总结一下</p>
+<h1 id="0x02-存储机制"><a href="#0x02-存储机制" class="headerlink" title="0x02 存储机制"></a>0x02 存储机制</h1><p>每个在以太坊虚拟机（EVM）中运行的智能合约的状态都在链上永久地存储着。这些值存储在一个巨大的数组中，数组的长度为2^256，下标从零开始且每一个数组能够储存32字节(256个比特)长度的值。并且存储是稀疏的，并没有那么密集。</p>
+<h1 id="0x03-变量类型"><a href="#0x03-变量类型" class="headerlink" title="0x03 变量类型"></a>0x03 变量类型</h1><p>Solidity的数据变量类型分为两类</p>
+<ul>
+<li>值类型-value type</li>
+<li>引用类型-reference type</li>
+</ul>
+<p>下面列举常用的变量类型</p>
+<h2 id="值类型"><a href="#值类型" class="headerlink" title="值类型"></a>值类型</h2><ul>
+<li>布尔型(bool) 2bit(0/1)</li>
+<li>整型(int/uint)  根据关键字的不同表示不同长度，int8表示8bits有符号数</li>
+<li>定长浮点型(fixed/ufixed) Solidity 还没有完全支持定长浮点型。可以声明定长浮点型的变量，但不能给它们赋值或把它们赋值给其他变量</li>
+<li>地址类型(adress) 160bits</li>
+<li>地址类型成员变量(balance,transfer….)  <ul>
+<li>.balance  uint256(256bits)</li>
+<li>transfer()  uint256(256bits)</li>
+</ul>
+</li>
+<li>定长字节数组(byte[1]/bytes[1]) 定义数组时定义长度</li>
+</ul>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><ul>
+<li><p>不定长字节数组类型(bytes[]/byte[],string,uint[]….)</p>
+</li>
+<li><p>结构体(struct)</p>
+</li>
+<li>映射(mapping)</li>
+</ul>
+<h1 id="0x04-简单分析"><a href="#0x04-简单分析" class="headerlink" title="0x04 简单分析"></a>0x04 简单分析</h1><p>写一个简单值类型的合约</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;</span><br><span class="line"></span><br><span class="line">contract TEST&#123;</span><br><span class="line">    bool a=<span class="literal">false</span>;</span><br><span class="line">    bool b=<span class="literal">true</span>;</span><br><span class="line">    int16 c=<span class="number">32767</span>;</span><br><span class="line">    uint16 d=<span class="number">0x32</span>;</span><br><span class="line">    byte e=<span class="number">10</span>;</span><br><span class="line">    bytes1 f=<span class="number">11</span>;</span><br><span class="line">    bytes2 g=<span class="number">22</span>;</span><br><span class="line">    uint h=<span class="number">0x1</span>; <span class="comment">//uint是uint256的简称</span></span><br><span class="line">    address i=<span class="number">0xbc6581e11c216B17aDf5192E209a7F95a49e6837</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优化存储原则：如果下一个变量长度和上一个变量长度加起来不超过256bits，它们就会存储在同一个插槽里</p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707162324839.png" alt></p>
+<p>根据<a href="https://ropsten.etherscan.io/tx/0xf9c22d427b6fdd2e3f29346104fd2f2b1badd318e86debea444adcdba37f821d#statechange">交易查询</a>到的存储在以太坊虚拟机上面的值，下面进行分析</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0x0000000000000000000000000000000000000000000000160b0a00327fff0100</span> slot0</span><br><span class="line"><span class="comment">//0x00 a false</span></span><br><span class="line"><span class="comment">//0x01 b true</span></span><br><span class="line"><span class="comment">//0x7fff c 32767</span></span><br><span class="line"><span class="comment">//0x0032 d 0x32</span></span><br><span class="line"><span class="comment">//0x0a e 10</span></span><br><span class="line"><span class="comment">//0x0b f 11</span></span><br><span class="line"><span class="comment">//0x0016 g 22</span></span><br><span class="line"><span class="number">0x0000000000000000000000000000000000000000000000000000000000000001</span> slot1</span><br><span class="line"><span class="comment">// h 0x1</span></span><br><span class="line"><span class="number">0x000000000000000000000000bc6581e11c216b17adf5192e209a7f95a49e6837</span> slot2</span><br><span class="line"><span class="comment">// i 0x2</span></span><br></pre></td></tr></table></figure>
+<p>从上面可以看出</p>
+<ul>
+<li>各个类型的存储长度</li>
+<li>存储顺序从后往前</li>
+<li>存储优化原则</li>
+<li>byte.length==bytes1.length==8bits</li>
+</ul>
+<h1 id="0x05-数组类型"><a href="#0x05-数组类型" class="headerlink" title="0x05 数组类型"></a>0x05 数组类型</h1><h2 id="定长数组"><a href="#定长数组" class="headerlink" title="定长数组"></a>定长数组</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;</span><br><span class="line"></span><br><span class="line">contract TEST&#123;</span><br><span class="line"></span><br><span class="line">    bytes8[<span class="number">5</span>] a = [byte(<span class="number">0x6a</span>),<span class="number">0x68</span>,<span class="number">0x79</span>,<span class="number">0x75</span>];</span><br><span class="line">    bool b=<span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707202744781.png" alt="image-20210707202744781"></p>
+<p>可以看的我虽然规定了了长度为5，但是实际上只用了4个，所以就只是用了四个bytes8的空间</p>
+<p>是不是可以加一个，编译器会报错</p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707203030190.png" alt="image-20210707203030190"></p>
+<h2 id="变长数组"><a href="#变长数组" class="headerlink" title="变长数组"></a>变长数组</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;</span><br><span class="line"></span><br><span class="line">contract TEST&#123;</span><br><span class="line">    uint[] a=[<span class="number">0x77</span>,<span class="number">0x88</span>,<span class="number">0x99</span>];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        a.push(<span class="number">0x66</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707175504159.png" alt="image-20210707175504159"></p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707175512656.png" alt="image-20210707175512656"></p>
+<p>根据<a href="https://ropsten.etherscan.io/tx/0xf15acc653de386bc58eb1b9d83ad4afb6b6cf0f57560786076d4d86579b77c1f#statechange">交易查询</a>到的存储在以太坊虚拟机上面的值，下面进行分析</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0x0000000000000000000000000000000000000000000000000000000000000003</span> slot0</span><br><span class="line"><span class="comment">//存储的是数组a的长度3</span></span><br><span class="line"><span class="number">0x0000000000000000000000000000000000000000000000000000000000000077</span> slotx</span><br><span class="line"><span class="comment">//a[0]</span></span><br><span class="line"><span class="number">0x0000000000000000000000000000000000000000000000000000000000000088</span> slot(x+<span class="number">1</span>)</span><br><span class="line"><span class="comment">//a[1]</span></span><br><span class="line"><span class="number">0x0000000000000000000000000000000000000000000000000000000000000099</span> slot(x+<span class="number">2</span>)</span><br><span class="line"><span class="comment">//a[2]</span></span><br></pre></td></tr></table></figure>
+<p>Storage Address的由来   x=keccak_256(slot) slot是指数组长度存储的位置，此处对应的就是0，对应的值就是</p>
+<blockquote>
+<p>0x0000000000000000000000000000000000000000000000000000000000000000</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sha3</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">byte32</span>(<span class="params">i</span>):</span></span><br><span class="line">    <span class="keyword">return</span> binascii.unhexlify(<span class="string">&#x27;%064x&#x27;</span>%i) <span class="comment">#计算时需要进行填充</span></span><br><span class="line"></span><br><span class="line">a=sha3.keccak_256(byte32(<span class="number">0</span>)).hexdigest()</span><br><span class="line">print(a)</span><br><span class="line"><span class="comment">#0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563 x</span></span><br></pre></td></tr></table></figure>
+<p>此后a[1],a[2]对应偏移1，2个插槽</p>
+<p>然后我们在调用add()函数看，发生了什么</p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707182204458.png" alt="image-20210707182204458"></p>
+<p>第一步改变了数组a的长度</p>
+<p>第二步在a[2]后面的一个插槽写入0x66</p>
+<h1 id="0x06-字符串类型"><a href="#0x06-字符串类型" class="headerlink" title="0x06 字符串类型"></a>0x06 字符串类型</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;</span><br><span class="line"></span><br><span class="line">contract TEST&#123;</span><br><span class="line"></span><br><span class="line">    string a=<span class="string">&#x27;whoami&#x27;</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707204019929.png" alt="image-20210707204019929"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *b=0x77686f616d69print(long_to_bytes(b))<span class="comment">#b&#x27;whoami&#x27;#0xc代表字符串长度 每个字母占2个十六进制位</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;contract TEST&#123;    string a=<span class="string">&#x27;先知社区&#x27;</span>;    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707204158617.png" alt="image-20210707204158617"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *b=0xe58588e79fa5e7a4bee58cbaprint(long_to_bytes(b).decode(<span class="string">&#x27;utf-8&#x27;</span>))<span class="comment">#先知社区#0x18 每个汉字占6个十六进制位</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;contract TEST&#123;    string a=<span class="string">&#x27;Genius only means hard-working all one\&#x27;s life.&#x27;</span>;    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707205948395.png" alt="image-20210707205948395"></p>
+<p>此时的存储方式和数组类似</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *b=0x47656e697573206f6e6c79206d65616e7320686172642d776f726b696e6720616c6c206f6e652773206c6966652eprint(long_to_bytes(b))<span class="comment">#b&quot;Genius only means hard-working all one&#x27;s life.&quot;</span></span><br></pre></td></tr></table></figure>
+<p>思考了一下，比如像下面这样写，调用add函数后会发生什么</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;contract TEST&#123;    string a=<span class="string">&#x27;abcdf&#x27;</span>;    <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;        a=<span class="string">&#x27;Genius only means hard-working all one\&#x27;s life.&#x27;</span>;     &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707210511744.png" alt="image-20210707210511744"></p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707210522311.png" alt="image-20210707210522311"></p>
+<h1 id="0x07-结构体类型"><a href="#0x07-结构体类型" class="headerlink" title="0x07 结构体类型"></a>0x07 结构体类型</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;contract TEST&#123;    struct test&#123;        bool a;        uint8 b;        uint c;        string d;    &#125;    test student=test(<span class="literal">true</span>,<span class="number">0x01</span>,<span class="number">0xff</span>,<span class="string">&#x27;abcd&#x27;</span>);    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707223419898.png" alt="image-20210707223419898"></p>
+<p>依旧按照存储优化原则</p>
+<ul>
+<li>a，b slot0</li>
+<li>c        slot1</li>
+<li>d        slot2</li>
+</ul>
+<p>如果d超出了32字节，那么此时x=x=keccak_256(2)</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;contract TEST&#123;    struct test&#123;        bool a;        uint8 b;        uint c;        string d;    &#125;    test[] student;    <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;        student.push(test(<span class="literal">true</span>,<span class="number">0x01</span>,<span class="number">0xff</span>,<span class="string">&#x27;abcd&#x27;</span>));    &#125;    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707225522239.png" alt="image-20210707225522239"></p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707225547430.png" alt="image-20210707225547430"></p>
+<p>和变长数组存储类似，只不过以结构体长度为一个存储周期改变</p>
+<h1 id="0x08-映射类型"><a href="#0x08-映射类型" class="headerlink" title="0x08 映射类型"></a>0x08 映射类型</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;contract TEST&#123;    mapping(<span class="function"><span class="params">address</span>=&gt;</span>uint) blance;    <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;        blance[<span class="number">0xbc6581e11c216B17aDf5192E209a7F95a49e6837</span>]=<span class="number">0x01</span>;    &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210707230541895.png" alt="image-20210707230541895"></p>
+<p>计算的规则是这样的，x=keccak_256(key+slot)</p>
+<ul>
+<li>key代表映射类型的关键字</li>
+<li>slot代表定义映射类型变量对应的插槽</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sha3import binasciidef byte32(i):    <span class="keyword">return</span> binascii.unhexlify(<span class="string">&#x27;%064x&#x27;</span>%i)key=<span class="number">0xbc6581e11c216B17aDf5192E209a7F95a49e6837b</span>=byte32(key)+byte32(<span class="number">0</span>)a=sha3.keccak_256(b).hexdigest()print(a)<span class="comment">#21d25f73dd60df1532a052f5f1044cb0f7986a3f609d8674628447c29af248fb</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.25</span>;contract TEST&#123;    mapping(<span class="function"><span class="params">uint8</span>=&gt;</span>string) blance;    <span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;        blance[<span class="number">0xb</span>]=<span class="string">&quot;Genius only means hard-working all one&#x27;s life.&quot;</span>;    &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210708222534789.png" alt="image-20210708222534789"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sha3import binasciidef byte32(i):    <span class="keyword">return</span> binascii.unhexlify(<span class="string">&#x27;%064x&#x27;</span>%i)key=<span class="number">0xbb</span>=byte32(key)+byte32(<span class="number">0</span>)a=sha3.keccak_256(b).hexdigest()print(a)<span class="comment">#9115655cbcdb654012cf1b2f7e5dbf11c9ef14e152a19d5f8ea75a329092d5a6 slota=sha3.keccak_256(byte32(slot)).hexdigest()#3f6f2497fb590e494002b67c712e1fba86767d2906fb8e1ddae48d2b7d91908b</span></span><br></pre></td></tr></table></figure>
+<h1 id="0x09-综合练习"><a href="#0x09-综合练习" class="headerlink" title="0x09 综合练习"></a>0x09 综合练习</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity &gt;<span class="number">0.5</span><span class="number">.0</span>;contract StorageExample6 &#123;    uint256 a = <span class="number">11</span>;    uint8 b = <span class="number">12</span>;    uint128 c = <span class="number">13</span>;    bool d = <span class="literal">true</span>;    uint128 e =  <span class="number">14</span>;    uint256[] public array =  [<span class="number">401</span>,<span class="number">402</span>,<span class="number">403</span>,<span class="number">405</span>,<span class="number">406</span>];    address owner;    mapping(<span class="function"><span class="params">address</span> =&gt;</span> UserInfo) public users;    string  str=<span class="string">&quot;name value&quot;</span>;    struct UserInfo &#123;        string name;        uint8 age;        uint8 weight;        uint256[] orders;        uint64[<span class="number">3</span>] lastLogins;    &#125;   <span class="title">constructor</span>(<span class="params"></span>)<span class="title">public</span> &#123;       owner=msg.sender;       addUser(owner,<span class="string">&quot;admin&quot;</span>,<span class="number">17</span>,<span class="number">120</span>);   &#125;   <span class="function"><span class="keyword">function</span> <span class="title">addUser</span>(<span class="params">address user,string memory name,uint8 age,uint8 weight</span>) <span class="title">public</span> </span>&#123;       <span class="built_in">require</span>(age&gt;<span class="number">0</span> &amp;&amp; age &lt;<span class="number">100</span> ,<span class="string">&quot;bad age&quot;</span>);       uint256[] memory orders;       uint64[<span class="number">3</span>] memory logins;       users[user] = UserInfo(&#123;           <span class="attr">name</span>: name, <span class="attr">age</span>:    age,  <span class="attr">weight</span>:weight,           <span class="attr">orders</span>:orders,  <span class="attr">lastLogins</span>:logins       &#125;);   &#125;   <span class="function"><span class="keyword">function</span> <span class="title">addLog</span>(<span class="params">address user,uint64 id1,uint64 id2,uint64 id3</span>) <span class="title">public</span></span>&#123;       UserInfo storage u = users[user];       assert(u.age&gt;<span class="number">0</span>);       u.lastLogins[<span class="number">0</span>]=id1;       u.lastLogins[<span class="number">1</span>]=id2;       u.lastLogins[<span class="number">2</span>]=id3;   &#125;   <span class="function"><span class="keyword">function</span> <span class="title">addOrder</span>(<span class="params">address user,uint256 orderID</span>) <span class="title">public</span></span>&#123;       UserInfo storage u = users[user];       assert(u.age&gt;<span class="number">0</span>);       u.orders.push(orderID);   &#125;   <span class="function"><span class="keyword">function</span> <span class="title">getLogins</span>(<span class="params">address user</span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint64,uint64,uint64</span>)</span>&#123;        UserInfo storage u = users[user];       <span class="keyword">return</span>  (u.lastLogins[<span class="number">0</span>],u.lastLogins[<span class="number">1</span>],u.lastLogins[<span class="number">2</span>]);   &#125;   <span class="function"><span class="keyword">function</span> <span class="title">getOrders</span>(<span class="params">address user</span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint256[] memory</span>)</span>&#123;        UserInfo storage u = users[user];       <span class="keyword">return</span>  u.orders;   &#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>避免太过冗长，放个图</p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210708223819206.png" alt></p>
+<h1 id="0x10-解题练习"><a href="#0x10-解题练习" class="headerlink" title="0x10 解题练习"></a>0x10 解题练习</h1><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">web3.eth.get<span class="constructor">StorageAt(<span class="params">address</span>, <span class="params">position</span> [, <span class="params">defaultBlock</span>] [, <span class="params">callback</span>])</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>address</code>：String - 要读取的地址</li>
+<li><code>position</code>：Number - 存储中的索引编号</li>
+<li><code>defaultBlock</code>：Number|String - 可选，使用该参数覆盖 web3.eth.defaultBlock 属性值</li>
+<li><code>callback</code>：Function - 可选的回调函数, 其第一个参数为错误对象，第二个参数为结果。</li>
+</ul>
+<p>举两个简单的题目</p>
+<h2 id="题目一-—Vault"><a href="#题目一-—Vault" class="headerlink" title="题目一 —Vault"></a><a href="https://ethernaut.openzeppelin.com/">题目一</a> —Vault</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MITpragma solidity ^0.6.0;contract Vault &#123;  bool public locked;  bytes32 private password;  constructor(bytes32 _password) public &#123;    locked = true;    password = _password;  &#125;  function unlock(bytes32 _password) public &#123;    if (password == _password) &#123;      locked = false;    &#125;  &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>定义为私有变量只能组织其他合约访问，但是无法阻止公开访问</p>
+<p>按照其代码，可以知道password的存储位置是1</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">web3</span><span class="selector-class">.eth</span><span class="selector-class">.getStorageAt</span>(<span class="selector-tag">contract</span><span class="selector-class">.address</span>, 1)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210617154923739.png" alt="image-20210617154923739"></p>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210617155309438.png" alt="image-20210617155309438"></p>
+<p>直接使用</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">contract.unlock(<span class="string">&quot;A very strong secret password :\)&quot;</span>)<span class="regexp">//</span>密码错误</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">contract</span>.unlock(web<span class="number">3</span>.utils.hexToBytes(&#x27;<span class="number">0</span>x<span class="number">412076657279207374726</span>f<span class="number">6</span>e<span class="number">67207365637265742070617373776</span>f<span class="number">7264203</span>a<span class="number">29</span>&#x27;))</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/09/19/../../program/Typora/conclusion/img/image-20210617161012697.png" alt="image-20210617161012697"></p>
+<h2 id="题目二-—Lock-Box"><a href="#题目二-—Lock-Box" class="headerlink" title="题目二 —Lock Box"></a><a href="https://blockchainctf.securityinnovation.com/#/">题目二</a> —Lock Box</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">pragma solidity <span class="number">0.4</span><span class="number">.24</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;../CtfFramework.sol&quot;</span>;</span><br><span class="line"></span><br><span class="line">contract Lockbox1 is CtfFramework&#123;</span><br><span class="line"></span><br><span class="line">    uint256 private pin;</span><br><span class="line"></span><br><span class="line">    <span class="title">constructor</span>(<span class="params">address _ctfLauncher, address _player</span>) <span class="title">public</span> <span class="title">payable</span></span><br><span class="line">        <span class="title">CtfFramework</span>(<span class="params">_ctfLauncher, _player</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        pin = now%<span class="number">10000</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">unlock</span>(<span class="params">uint256 _pin</span>) <span class="title">external</span> <span class="title">ctf</span></span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(pin == _pin, <span class="string">&quot;Incorrect PIN&quot;</span>);</span><br><span class="line">        msg.sender.transfer(address(<span class="built_in">this</span>).balance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>读取私有变量</li>
+<li>constructor只在构造的时候执行一次</li>
+</ul>
+<p><img src="/2021/07/09/19/image-20210708230008949.png" alt="image-20210708230008949"></p>
+<p><img src="/2021/07/09/19/image-20210708230028957.png" alt="image-20210708230028957"></p>
+]]></content>
+      <categories>
+        <category>区块链安全</category>
+      </categories>
+      <tags>
+        <tag>区块链安全</tag>
       </tags>
   </entry>
   <entry>
@@ -726,39 +892,6 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 <p><strong>9.扩展欧几里得</strong></p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>python第三方库</category>
-      </categories>
-      <tags>
-        <tag>Crypto</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>secrets库</title>
-    <url>/2020/12/15/4/</url>
-    <content><![CDATA[<h1 id="secrets库"><a href="#secrets库" class="headerlink" title="secrets库"></a>secrets库</h1><blockquote>
-<p>secrets是python3.6加入到标准库的,使用secrets模块，可以生成适用于处理机密信息（如密码，帐户身份验证，安全令牌）的加密强随机数。</p>
-</blockquote>
-<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> secrets</span><br></pre></td></tr></table></figure>
-<h3 id="SystemRandom"><a href="#SystemRandom" class="headerlink" title="SystemRandom"></a>SystemRandom</h3><p>它是使用OS提供的最高质量源生成随机数的类。 有关更多详细信息，请参阅random.SystemRandom。</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">secrets</span><span class="selector-class">.SystemRandom</span>()</span><br><span class="line"></span><br><span class="line">&lt;<span class="selector-tag">random</span><span class="selector-class">.SystemRandom</span> <span class="selector-tag">at</span> 0<span class="selector-tag">x7fd537094418</span>&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="choice-sequence"><a href="#choice-sequence" class="headerlink" title="choice(sequence)"></a>choice(sequence)</h3><p>从非空序列中选择一个元素。</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.choice([<span class="number">23</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br></pre></td></tr></table></figure>
-<h3 id="randbelow"><a href="#randbelow" class="headerlink" title="randbelow"></a>randbelow</h3><p>[0,n) 取0-n之间的整数</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbelow(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">6</span></span><br></pre></td></tr></table></figure>
-<h3 id="randbits-k"><a href="#randbits-k" class="headerlink" title="randbits(k)"></a>randbits(k)</h3><p>随机不超过k位的整数</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbits(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">426</span></span><br></pre></td></tr></table></figure>
-<h2 id="token生成"><a href="#token生成" class="headerlink" title="token生成"></a>token生成</h2><p>secret模块还提供用于生成适合于重置密码和难以想象的URL的安全令牌的功能。</p>
-<h3 id="token-bytes"><a href="#token-bytes" class="headerlink" title="token_bytes"></a>token_bytes</h3><figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">secrets.token_bytes(nbytes=10)</span><br><span class="line"></span><br><span class="line">b&#x27;<span class="symbol">\x</span>ca<span class="symbol">\x</span>feQ<span class="symbol">\x</span>03&amp;<span class="symbol">\x</span>8b7<span class="symbol">\x</span>d7&amp;<span class="symbol">\x</span>af&#x27;</span><br></pre></td></tr></table></figure>
-<p>返回包含nbytes个字节的字节字符串。 如果nbytes为None或未给出，则使用有效的默认值。</p>
-<h3 id="token-hex"><a href="#token-hex" class="headerlink" title="token_hex"></a>token_hex</h3><p>返回十六进制随机文本字符串。 该字符串有n个字节的随机字节，每个字节转换为两个十六进制数字。 如果nbytes为None或未给出，则使用有效的默认值。</p>
-<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">secrets.token_hex()</span><br><span class="line"></span><br><span class="line">&#x27;494ee83c2a42ce3dc488b059eb64a<span class="number">50628667</span>e9f2c939a<span class="number">8767</span>2d3d6a<span class="number">174825</span>2a&#x27;</span><br></pre></td></tr></table></figure>
-<h3 id="token-urlsafe"><a href="#token-urlsafe" class="headerlink" title="token_urlsafe"></a>token_urlsafe</h3><p>返回随机字节为nbytes的URL安全文本字符串。 文本以Base64编码，每个字节平均约为1.3个字符。 如果nbytes为None或未给出，则使用有效的默认值。</p>
-<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">secrets.token_urlsafe()</span><br><span class="line"></span><br><span class="line">&#x27;giZFsPv9ch4OGWvuqihEIkj0LwOsHDOjgGHoqDeTvb8&#x27;</span><br></pre></td></tr></table></figure>
-<h3 id="compare-digest"><a href="#compare-digest" class="headerlink" title="compare_digest"></a>compare_digest</h3><p>字符串比较的安全方式,减少攻击风险。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">secrets.compare_digest(<span class="string">&quot;e&quot;</span>,<span class="string">&quot;E&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>python第三方库</category>
@@ -815,6 +948,39 @@
         <tag>Crypto</tag>
         <tag>Python</tag>
         <tag>Rsa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>secrets库</title>
+    <url>/2020/12/15/4/</url>
+    <content><![CDATA[<h1 id="secrets库"><a href="#secrets库" class="headerlink" title="secrets库"></a>secrets库</h1><blockquote>
+<p>secrets是python3.6加入到标准库的,使用secrets模块，可以生成适用于处理机密信息（如密码，帐户身份验证，安全令牌）的加密强随机数。</p>
+</blockquote>
+<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> secrets</span><br></pre></td></tr></table></figure>
+<h3 id="SystemRandom"><a href="#SystemRandom" class="headerlink" title="SystemRandom"></a>SystemRandom</h3><p>它是使用OS提供的最高质量源生成随机数的类。 有关更多详细信息，请参阅random.SystemRandom。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">secrets</span><span class="selector-class">.SystemRandom</span>()</span><br><span class="line"></span><br><span class="line">&lt;<span class="selector-tag">random</span><span class="selector-class">.SystemRandom</span> <span class="selector-tag">at</span> 0<span class="selector-tag">x7fd537094418</span>&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="choice-sequence"><a href="#choice-sequence" class="headerlink" title="choice(sequence)"></a>choice(sequence)</h3><p>从非空序列中选择一个元素。</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.choice([<span class="number">23</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br></pre></td></tr></table></figure>
+<h3 id="randbelow"><a href="#randbelow" class="headerlink" title="randbelow"></a>randbelow</h3><p>[0,n) 取0-n之间的整数</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbelow(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">6</span></span><br></pre></td></tr></table></figure>
+<h3 id="randbits-k"><a href="#randbits-k" class="headerlink" title="randbits(k)"></a>randbits(k)</h3><p>随机不超过k位的整数</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbits(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">426</span></span><br></pre></td></tr></table></figure>
+<h2 id="token生成"><a href="#token生成" class="headerlink" title="token生成"></a>token生成</h2><p>secret模块还提供用于生成适合于重置密码和难以想象的URL的安全令牌的功能。</p>
+<h3 id="token-bytes"><a href="#token-bytes" class="headerlink" title="token_bytes"></a>token_bytes</h3><figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">secrets.token_bytes(nbytes=10)</span><br><span class="line"></span><br><span class="line">b&#x27;<span class="symbol">\x</span>ca<span class="symbol">\x</span>feQ<span class="symbol">\x</span>03&amp;<span class="symbol">\x</span>8b7<span class="symbol">\x</span>d7&amp;<span class="symbol">\x</span>af&#x27;</span><br></pre></td></tr></table></figure>
+<p>返回包含nbytes个字节的字节字符串。 如果nbytes为None或未给出，则使用有效的默认值。</p>
+<h3 id="token-hex"><a href="#token-hex" class="headerlink" title="token_hex"></a>token_hex</h3><p>返回十六进制随机文本字符串。 该字符串有n个字节的随机字节，每个字节转换为两个十六进制数字。 如果nbytes为None或未给出，则使用有效的默认值。</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">secrets.token_hex()</span><br><span class="line"></span><br><span class="line">&#x27;494ee83c2a42ce3dc488b059eb64a<span class="number">50628667</span>e9f2c939a<span class="number">8767</span>2d3d6a<span class="number">174825</span>2a&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="token-urlsafe"><a href="#token-urlsafe" class="headerlink" title="token_urlsafe"></a>token_urlsafe</h3><p>返回随机字节为nbytes的URL安全文本字符串。 文本以Base64编码，每个字节平均约为1.3个字符。 如果nbytes为None或未给出，则使用有效的默认值。</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">secrets.token_urlsafe()</span><br><span class="line"></span><br><span class="line">&#x27;giZFsPv9ch4OGWvuqihEIkj0LwOsHDOjgGHoqDeTvb8&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="compare-digest"><a href="#compare-digest" class="headerlink" title="compare_digest"></a>compare_digest</h3><p>字符串比较的安全方式,减少攻击风险。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">secrets.compare_digest(<span class="string">&quot;e&quot;</span>,<span class="string">&quot;E&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>python第三方库</category>
+      </categories>
+      <tags>
+        <tag>Crypto</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -976,35 +1142,6 @@
       </tags>
   </entry>
   <entry>
-    <title>某次面试</title>
-    <url>/2021/01/19/9/</url>
-    <content><![CDATA[<h3 id="三面报告"><a href="#三面报告" class="headerlink" title="三面报告"></a>三面报告</h3><h2 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c=<span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n=<span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br></pre></td></tr></table></figure>
-<p><img src="/2021/01/19/9/3-1.jpg" alt="avatar"></p>
-<p>看着识字感觉有点熟悉，类似与RSA的低加密指数分解攻击，试一下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line">m = gmpy2.iroot(c,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#(mpz(1690512188248851376925542155690365), True)</span></span><br><span class="line"><span class="comment">#另一解n- m[0]</span></span><br><span class="line"><span class="comment">#108607598680742993231063442886639267104372362086743097715265004177975148274702</span></span><br><span class="line">print(long_to_bytes(m[<span class="number">0</span>]))</span><br><span class="line"><span class="comment">#b&#x27;SYC&#123;good_job!&#125;&#x27;</span></span><br><span class="line">print(long_to_bytes(n-m[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
-<p>在思考一下，和RSA的低加密指数分解攻击有点类似的Rabin算法（是一种基于模平方和模平方根的非对称加密算法）。尝试用yafu，factordb分解n，失败。在验证一下n是不是素数。</p>
-<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(n))</span><br><span class="line"><span class="meta">#1</span></span><br></pre></td></tr></table></figure>
-<p>那就说明不是Rabin加密。</p>
-<p>看提示要探索x背后的秘密，回想之前数论学习里面的二次同余式的知识，试一下。</p>
-<h2 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h2><p>一个数 a，如果不是p 的倍数且模 p同余于某个数的平方，则称 a为模p 的 <strong>二次剩余</strong> 。而一个不是 p的倍数的数 b，不同余于任何数的平方，则b称 为模 p的 <strong>非二次剩余</strong> 。</p>
-<h3 id="是否有解"><a href="#是否有解" class="headerlink" title="是否有解"></a>是否有解</h3><h4 id="引入勒让德符号"><a href="#引入勒让德符号" class="headerlink" title="引入勒让德符号"></a>引入勒让德符号</h4><p><img src="/2021/01/19/9/3-2.jpg" alt="avatar"></p>
-<p>通过勒让德符号可以判断一个数 是否为二次剩余，具体判断 是否为 的二次剩余，需要通过欧拉判别准则来实现</p>
-<h4 id="欧拉判别准则"><a href="#欧拉判别准则" class="headerlink" title="欧拉判别准则"></a>欧拉判别准则</h4><p><img src="/2021/01/19/9/3-3.jpg" alt="avatar"></p>
-<h4 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：<img src="/2021/01/19/9/3-4.jpg" alt="avatar"></h4><h3 id="Cipolla算法"><a href="#Cipolla算法" class="headerlink" title="Cipolla算法"></a>Cipolla算法</h3><p>Cipolla算法是解决二次剩余强有力的工具，一个脑洞大开的算法</p>
-<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p><img src="/2021/01/19/9/3-5.jpg" alt="avater"></p>
-<p><img src="/2021/01/19/9/3-6.jpg" alt="avater"></p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    a = random.randint(<span class="number">1</span>,n)</span><br><span class="line">    i=a*a - c</span><br><span class="line">    <span class="keyword">if</span>(gmpy2.legendre(i,n) == -<span class="number">1</span>):</span><br><span class="line">        i_sqrt = gmpy2.sqrt(i)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">x = gmpy2.powmod(a+i_sqrt,n+<span class="number">1</span>//<span class="number">2</span>,n)</span><br><span class="line">print(x,-x%n)</span><br></pre></td></tr></table></figure>
-<h3 id="非预期解"><a href="#非预期解" class="headerlink" title="非预期解"></a>非预期解</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">3</span>):</span><br><span class="line">    ans = <span class="built_in">pow</span>(c, (n + <span class="number">1</span>) // <span class="number">4</span>, n)</span><br><span class="line">    print(ans, -ans % n)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>数论</tag>
-        <tag>二次剩余</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ElGamal加密算法</title>
     <url>/2021/01/19/8/</url>
     <content><![CDATA[<h1 id="ELGAMAL"><a href="#ELGAMAL" class="headerlink" title="ELGAMAL"></a>ELGAMAL</h1><p>在密码学中，ElGamal加密算法是一个基于迪菲-赫尔曼密钥交换的非对称加密算法。它在1985年由塔希尔·盖莫尔提出。GnuPG和PGP等很多密码学系统中都应用到了ElGamal算法。</p>
@@ -1039,6 +1176,35 @@
       <tags>
         <tag>Crypto</tag>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>某次面试</title>
+    <url>/2021/01/19/9/</url>
+    <content><![CDATA[<h3 id="三面报告"><a href="#三面报告" class="headerlink" title="三面报告"></a>三面报告</h3><h2 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c=<span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n=<span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/01/19/9/3-1.jpg" alt="avatar"></p>
+<p>看着识字感觉有点熟悉，类似与RSA的低加密指数分解攻击，试一下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line">m = gmpy2.iroot(c,<span class="number">2</span>)</span><br><span class="line"><span class="comment">#(mpz(1690512188248851376925542155690365), True)</span></span><br><span class="line"><span class="comment">#另一解n- m[0]</span></span><br><span class="line"><span class="comment">#108607598680742993231063442886639267104372362086743097715265004177975148274702</span></span><br><span class="line">print(long_to_bytes(m[<span class="number">0</span>]))</span><br><span class="line"><span class="comment">#b&#x27;SYC&#123;good_job!&#125;&#x27;</span></span><br><span class="line">print(long_to_bytes(n-m[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+<p>在思考一下，和RSA的低加密指数分解攻击有点类似的Rabin算法（是一种基于模平方和模平方根的非对称加密算法）。尝试用yafu，factordb分解n，失败。在验证一下n是不是素数。</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(n))</span><br><span class="line"><span class="meta">#1</span></span><br></pre></td></tr></table></figure>
+<p>那就说明不是Rabin加密。</p>
+<p>看提示要探索x背后的秘密，回想之前数论学习里面的二次同余式的知识，试一下。</p>
+<h2 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h2><p>一个数 a，如果不是p 的倍数且模 p同余于某个数的平方，则称 a为模p 的 <strong>二次剩余</strong> 。而一个不是 p的倍数的数 b，不同余于任何数的平方，则b称 为模 p的 <strong>非二次剩余</strong> 。</p>
+<h3 id="是否有解"><a href="#是否有解" class="headerlink" title="是否有解"></a>是否有解</h3><h4 id="引入勒让德符号"><a href="#引入勒让德符号" class="headerlink" title="引入勒让德符号"></a>引入勒让德符号</h4><p><img src="/2021/01/19/9/3-2.jpg" alt="avatar"></p>
+<p>通过勒让德符号可以判断一个数 是否为二次剩余，具体判断 是否为 的二次剩余，需要通过欧拉判别准则来实现</p>
+<h4 id="欧拉判别准则"><a href="#欧拉判别准则" class="headerlink" title="欧拉判别准则"></a>欧拉判别准则</h4><p><img src="/2021/01/19/9/3-3.jpg" alt="avatar"></p>
+<h4 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：<img src="/2021/01/19/9/3-4.jpg" alt="avatar"></h4><h3 id="Cipolla算法"><a href="#Cipolla算法" class="headerlink" title="Cipolla算法"></a>Cipolla算法</h3><p>Cipolla算法是解决二次剩余强有力的工具，一个脑洞大开的算法</p>
+<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p><img src="/2021/01/19/9/3-5.jpg" alt="avater"></p>
+<p><img src="/2021/01/19/9/3-6.jpg" alt="avater"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = <span class="number">2857831458617919915448348973202449428172975402344447845149753833225</span></span><br><span class="line">n = <span class="number">108607598680742993231063442886639267104372363777255285964116381103517303965067</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    a = random.randint(<span class="number">1</span>,n)</span><br><span class="line">    i=a*a - c</span><br><span class="line">    <span class="keyword">if</span>(gmpy2.legendre(i,n) == -<span class="number">1</span>):</span><br><span class="line">        i_sqrt = gmpy2.sqrt(i)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">x = gmpy2.powmod(a+i_sqrt,n+<span class="number">1</span>//<span class="number">2</span>,n)</span><br><span class="line">print(x,-x%n)</span><br></pre></td></tr></table></figure>
+<h3 id="非预期解"><a href="#非预期解" class="headerlink" title="非预期解"></a>非预期解</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (n % <span class="number">4</span> == <span class="number">3</span>):</span><br><span class="line">    ans = <span class="built_in">pow</span>(c, (n + <span class="number">1</span>) // <span class="number">4</span>, n)</span><br><span class="line">    print(ans, -ans % n)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>数论</tag>
+        <tag>二次剩余</tag>
       </tags>
   </entry>
   <entry>
