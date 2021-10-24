@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="零知识证明的概念很火，最近迎来了“寒武纪爆炸”，趁机来学习一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="零知识证明初探">
+<meta property="og:url" content="https://zpano.cn/2021/08/31/25/index.html">
+<meta property="og:site_name" content="Zpano&#39;s Blog">
+<meta property="og:description" content="零知识证明的概念很火，最近迎来了“寒武纪爆炸”，趁机来学习一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zpano.cn/2021/08/31/25/0fef5f44a0e04f4ab3dc483a3ee09ffe.png">
+<meta property="article:published_time" content="2021-08-30T16:13:57.000Z">
+<meta property="article:modified_time" content="2021-08-30T16:17:25.000Z">
+<meta property="article:author" content="Zpano">
+<meta property="article:tag" content="零知识证明">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zpano.cn/2021/08/31/25/0fef5f44a0e04f4ab3dc483a3ee09ffe.png">
+
+
+<link rel="canonical" href="https://zpano.cn/2021/08/31/25/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>零知识证明初探 | Zpano's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zpano's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不负韶华，不负野心</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%8B%AC%E7%9A%84%E6%95%85%E4%BA%8B"><span class="nav-number">2.</span> <span class="nav-text">数独的故事</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E4%B8%89%E7%9D%80%E8%89%B2%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">地图三着色问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#P-NP%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">P&#x3D;NP？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E6%80%A7%E8%B4%A8"><span class="nav-number">5.</span> <span class="nav-text">三个性质</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zpano"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zpano</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zpano.cn/2021/08/31/25/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zpano">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zpano's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          零知识证明初探
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-08-31 00:13:57 / 修改时间：00:17:25" itemprop="dateCreated datePublished" datetime="2021-08-31T00:13:57+08:00">2021-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" itemprop="url" rel="index"><span itemprop="name">零知识证明</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">零知识证明的概念很火，最近迎来了“寒武纪爆炸”，趁机来学习一下。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>​    零知识证明技术是现代密码学三大基础之一，由 S.Goldwasser、S.Micali 及 C.Rackoff 在 20 世纪 80 年代初提出。早期的零知识证明由于其效率和可用性等限制，未得到很好的利用，仅停留在理论层面。直到近年来，零知识证明的理论研究才开始不断突破，同时区块链也为零知识证明创造了大展拳脚的机会，因而走进大众视野。</p>
+<h1 id="数独的故事"><a href="#数独的故事" class="headerlink" title="数独的故事"></a>数独的故事</h1><p>​    数独大家都很熟悉， 玩家需要根据9×9盘面上的已知数字，推理出所有剩余空格的数字，并</p>
+<blockquote>
+<p>满足每一行、每一列、每一个粗线宫（3*3）内的数字均含1-9，不重复 。<br>——以下简称数独规则</p>
+</blockquote>
+<p>​    数独盘面是个九宫，每一宫又分为九个小格。 在这八十一格中给出一定的已知数字和解题条件，利用逻辑和推理，在其他的空格上填入1-9的数字。<br>​    现在有一个问题，假如我知道某个数独的答案，如何向张三证明我有答案。<br>​    诚然，最简单的方法是把答案给张三看。张三就能通过校验来判断我是否有答案。但是这带来一个风险，如果我和张三之间存在交易，张三知道答案之后不愿意付相应的报酬，这就会对我产生损失。这就带来另外一个问题。<br>​    如何在不给张三看答案的情况下，证明我有答案。<br>​    简单建立一个思路，给张三直接看答案也是让其检验答案满足数独规则，如果能够证明我的数独满足规则，也就间接证明我有答案。所以我把多个完整的数独拆分成九行，九列，九个九宫格，然后打乱装进袋子里。<br>​    然后让张三选择验证行，验证列，验证九宫格。张三选择按照行来验证，他打开九个袋子，发现上面的数字都满足数独规则。此时张三发现，我可以刻意构造一种满足的序列来欺骗他。我急忙解释：但是我事先不知道你会选择行还是选择列抑或是九宫格。张三要求多次验证，经过多次验证，发现我提供的都满足数独规则，张三将信将疑的选择相信我有数独的答案。<br>​    当然，细推上面的故事，会发现很多漏洞，比如</p>
+<blockquote>
+<p>张三可以根据其中的一个正确答案去反推出他需要的答案，只要知道的数字足够，完完全全可以降低推理的难度。<br>我也可以伪造一个完全不是该数独的答案，以此来蒙骗张三。</p>
+</blockquote>
+<p>​    这些并不是重点，重点在于这个故事可以让大家对<strong>零知识证明</strong>有一个大致的印象。零知识证明的本质就是在不揭晓我所知道或拥有的某样东西的前提下，向别人<strong>证明</strong>我有<strong>很大几率</strong>确实知道或拥有这个东西。<br>​    这点和某些加密算法的思想很类似，RSA的公钥破解在理论上是可行的，但是在现实中被破解的概率非常小就能保证该密码算法的安全性。再比如哈希算法，一定存在多个输入对应一个输出，但是在现实中我们很难找到第二个输入去对应一个已知的输出。这难道就是概率学？</p>
+<h1 id="地图三着色问题"><a href="#地图三着色问题" class="headerlink" title="地图三着色问题"></a>地图三着色问题</h1><p>​    三色问题是如何用三种颜色染色一个地图，保证任意两个相邻的地区都是不同的颜色。我们把这个地图三染色问题转变成一个连通图的顶点三染色问题，假设每个地区都有一个首府(节点)，然后把相邻的节点连接起来，这样地图染色问题可以变成一个连通图的顶点染色问题。<br>​    下面的问题就是已知一个确定的连通图，如何不公布结果的情况下证明我知道染色的方案。假设连通图是下图所示</p>
+<p>​                                                    <img src="/2021/08/31/25/0fef5f44a0e04f4ab3dc483a3ee09ffe.png" alt="img"><br>​    如果你曾经看过任何加密相关文章，你可能知道，解决这种困境的正确方法，就是想出一个绝对疯狂的技术手段 。<br>​    用帽子🎩！！！<br>​    下面简述运作原理，我在一张空白的纸上画出带有着色方案的连通图，然后在每个节点上面盖上帽子。此时的张三并允许选择任意一条边，我就会将改边对应的两个顶点的帽子揭开展示给张三看，确实是不同的颜色。这也只能证明我可能没有撒谎。张三认为他只进行了一轮的观察，不足以完全相信我。假设有E条边，张三受骗的概率[(E-1)/E] * [(E-1)/E]，这是非常高的。所以需要多次验证，保证受骗的概率降到极低。经过E^2验证之后，可以将受骗概率降到极低。当然每一次验证我都会随机更换成另外三种颜色，防止张三通过验证前后串起来从而得到所有的答案。一个据此设计的在线<a target="_blank" rel="noopener" href="http://web.mit.edu/~ezyang/Public/graph/svg.html">demo</a><br>​    但是你可能会有疑问，这个问题似乎没有什么现实的意义。让我们来一步一步探索。<br>​    地图三着色问题属于<a href="(http://en.wikipedia.org/wiki/NP_(complexity">NP问题</a>)(非确定性多项式难题)，是指一个复杂问题不能确定是否在多项式时间内找到答案，但是可以在多项式时间内验证答案是否正确。最有趣的地方再有三色问题是一个NPC(Non-deterministic Polynomial Complete)问题。<br>​    建议阅读这篇<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29176963/article/details/82776543">文章</a>，也就是说我们任何其他属于这一类的NP问题都可以转化为这个问题的实例。那在现实什么问题属于这类NP问题呢，比如分配蜂窝网格，要求每两个电塔不具有相同波段，避免信号📶干扰，但是电塔只允许传播三种波段的信号，此时我们就可以转化为上述的三色问题进行解决。更多有趣的内容在<a target="_blank" rel="noopener" href="http://people.csail.mit.edu/silvio/Selected%20Scientific%20Papers/Zero%20Knowledge/Proofs_That_Yield_Nothing_But_Their_Validity_or_All_Languages_in_NP_Have_Zero-Knowledge_Proof_Systems.pdf">论文</a></p>
+<h1 id="P-NP？"><a href="#P-NP？" class="headerlink" title="P=NP？"></a>P=NP？</h1><blockquote>
+<p>证明P=NP同时也是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/千禧年大奖难题">千禧年大奖难题</a>之一 </p>
+</blockquote>
+<p>NPC问题存在着一个令人惊讶的性质，即如果一个NPC问题存在多项式时间的算法，则所有的NP问题都可以在多项式时间内求解，即P=NP成立！！目前已经发现3000+的NPC问题。</p>
+<h1 id="三个性质"><a href="#三个性质" class="headerlink" title="三个性质"></a>三个性质</h1><ul>
+<li><p>完整性(completeness)：V无法欺骗P。若P知道一个定理的证明方法，则P使V以绝对优势的概率相信他能证明。</p>
+</li>
+<li><p>可靠性(Soundness)：P无法欺骗V。换言之，若P不知道一个定理的证明方法，则P使V相信他会证明定理的概率很低。</p>
+</li>
+<li><p>零知识性(Zero-knowledgeness)：V无法获取任何额外的知识。</p>
+</li>
+</ul>
+<p>​    一个完备的零知识证明需要同时具备以上三种性质。其实也对应来三大难点，需要设计出能满足证明的方法，证明者在证明过程中不能作弊(方法不存在可以利用的缺陷或漏洞)，验证者无法在证明过程中获取被证明对象的部分或完整内容(对证明者形成威胁)。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Zpano
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zpano.cn/2021/08/31/25/" title="零知识证明初探">https://zpano.cn/2021/08/31/25/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" rel="tag"># 零知识证明</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/19/24/" rel="prev" title="XSURGE 闪电贷攻击事件简单分析">
+                  <i class="fa fa-chevron-left"></i> XSURGE 闪电贷攻击事件简单分析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/08/26/" rel="next" title="2021WMCTF 1+2=3 复现">
+                  2021WMCTF 1+2=3 复现 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zpano</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">190k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="区块链安全入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链安全入门">
+<meta property="og:url" content="https://zpano.cn/2021/03/10/12/index.html">
+<meta property="og:site_name" content="Zpano&#39;s Blog">
+<meta property="og:description" content="区块链安全入门">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zpano.cn/2021/03/10/12/image-20210306223141693.png">
+<meta property="og:image" content="https://zpano.cn/2021/03/10/12/image-20210306221505322.png">
+<meta property="og:image" content="https://zpano.cn/2021/03/10/12/image-20210306222800930.png">
+<meta property="article:published_time" content="2021-03-10T14:53:36.000Z">
+<meta property="article:modified_time" content="2021-09-08T08:46:12.000Z">
+<meta property="article:author" content="Zpano">
+<meta property="article:tag" content="区块链安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zpano.cn/2021/03/10/12/image-20210306223141693.png">
+
+
+<link rel="canonical" href="https://zpano.cn/2021/03/10/12/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>区块链安全入门 | Zpano's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zpano's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不负韶华，不负野心</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">区块链学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81"><span class="nav-number">1.1.</span> <span class="nav-text">比特币</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">智能合约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solidity%E5%90%88%E7%BA%A6%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">Solidity合约调用方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DASP-TOP-10"><span class="nav-number">1.4.</span> <span class="nav-text">DASP TOP 10</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%AB%98%E7%BA%A7%E5%8F%AF%E6%8C%81%E7%BB%AD%E5%A8%81%E8%83%81"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.高级可持续威胁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A4%B1%E6%8E%A7%E7%9A%84%E5%B8%81%E5%80%BC%E8%86%A8%E8%83%80"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.失控的币值膨胀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%A4%B1%E6%95%88%E7%9A%84%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.失效的权限控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.不安全的共识协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%80%83%E8%99%91%E4%B8%8D%E5%85%85%E5%88%86%E7%9A%84%E7%A8%8B%E5%BA%8F%E9%80%BB%E8%BE%91"><span class="nav-number">1.4.5.</span> <span class="nav-text">5.考虑不充分的程序逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%B8%8D%E4%B8%A5%E8%B0%A8%E7%9A%84%E4%B8%9A%E5%8A%A1%E7%AD%96%E7%95%A5"><span class="nav-number">1.4.6.</span> <span class="nav-text">6.不严谨的业务策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%A0%A1%E9%AA%8C%E4%B8%8D%E4%B8%A5%E6%A0%BC%E7%9A%84%E4%BA%A4%E6%98%93%E9%80%BB%E8%BE%91"><span class="nav-number">1.4.7.</span> <span class="nav-text">7.校验不严格的交易逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%84%86%E5%BC%B1%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.8.</span> <span class="nav-text">8.脆弱的随机数机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%AD%98%E5%9C%A8%E7%BC%BA%E9%99%B7%E7%9A%84%E6%BF%80%E5%8A%B1%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.9.</span> <span class="nav-text">9.存在缺陷的激励机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%92%8C%E7%9B%91%E6%8E%A7%E4%B8%8D%E8%B6%B3"><span class="nav-number">1.4.10.</span> <span class="nav-text">10.日志记录和监控不足</span></a></li></ol></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zpano"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zpano</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zpano.cn/2021/03/10/12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zpano">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zpano's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          区块链安全入门
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-10 22:53:36" itemprop="dateCreated datePublished" datetime="2021-03-10T22:53:36+08:00">2021-03-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-09-08 16:46:12" itemprop="dateModified" datetime="2021-09-08T16:46:12+08:00">2021-09-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">区块链安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">区块链安全入门</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="区块链学习"><a href="#区块链学习" class="headerlink" title="区块链学习"></a>区块链学习</h1><p><img src="/2021/03/10/12/image-20210306223141693.png" alt="avatar"></p>
+<h2 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h2><p><img src="/2021/03/10/12/image-20210306221505322.png" alt="avatar"></p>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p><strong>Smart Contract，是一种旨在以信息化方式传播、验证或执行合同的计算机协议</strong></p>
+<p>本质上来说，智能合约是一段程序，它以计算机指令的方式实现了传统合约的自动化处理。简单讲，智能合约就是双方在区块链资产上交易时，触发执行的一段代码，这段代码就是智能合约。“智能合约程序不只是一个可以自动执行的计算机程序，它本身就是一个系统参与者，对接收到的信息进行回应，可以接收和储存价值，也可以向外发送信息和价值。这个程序就像一个可以被信任的人，可以临时保管资产，总是按照事先的规则执行操作。”</p>
+<p>智能合约的设计目标是，执行一般的合同条件，最大限度地减少恶意和意外的状况，最大限度地减少使用信任中介</p>
+<p><img src="/2021/03/10/12/image-20210306222800930.png" alt="avatar"></p>
+<h2 id="Solidity合约调用方式"><a href="#Solidity合约调用方式" class="headerlink" title="Solidity合约调用方式"></a>Solidity合约调用方式</h2><ul>
+<li>call</li>
+</ul>
+<p>最常用的调用方式，调用后内置变量 msg 的值会修改为调用者，执行环境为被调用者的运行环境</p>
+<ul>
+<li>delegetcall</li>
+</ul>
+<p>调用后内置变量 msg 的值不会修改为调用者，但执行环境为调用者的运行环境</p>
+<ul>
+<li><p>callcode</p>
+<p>调用后内置变量 msg 的值会修改为调用者，但执行环境为调用者的运行环境</p>
+</li>
+</ul>
+<h2 id="DASP-TOP-10"><a href="#DASP-TOP-10" class="headerlink" title="DASP TOP 10"></a>DASP TOP 10</h2><h3 id="1-高级可持续威胁"><a href="#1-高级可持续威胁" class="headerlink" title="1.高级可持续威胁"></a>1.高级可持续威胁</h3><p>高级可持续威胁会导致区块链系统被入侵，权限被控制，最终导致资金被盗取，敏感数据被泄露等系列严重问题</p>
+<p>事件：</p>
+<ul>
+<li>Mt.Gox 攻击公司内部人员电脑渗透进内网修改比特币价格进行交易</li>
+<li>Coincheck 使用热钱包，且未实行多重签名系统</li>
+<li>Fomo3D 基于BAPT (区块链高级持续威胁)，对区块链基础设施，智能合约进行攻击</li>
+</ul>
+<h3 id="2-失控的币值膨胀"><a href="#2-失控的币值膨胀" class="headerlink" title="2.失控的币值膨胀"></a>2.失控的币值膨胀</h3><p>铸币总数限制部分的程序设计和实现 有漏洞，则可能导致铸币总数失控，甚至超出设定发币总数多倍，致使币值失控通胀</p>
+<ul>
+<li>BEC  币值控制部分的代码 出现了整数溢出漏洞，导致出现无限铸币的情况</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(balances[_from] &lt; _fee + _value) 	revert();</span><br></pre></td></tr></table></figure>
+<p>这段代码本意是检查账户余额是否大于转帐余额加上转账费用，但是这两个参数都可以由攻击者控制。当<code>_value</code> 的值足够大大于2^256-1时，会导致 <code>_value+_fee</code>发生整数上溢，使得 <code>_value+_fee的</code>值等于零，从而绕过检查，仍然支付成功，使得账户凭空获得大量数字货币</p>
+<h3 id="3-失效的权限控制"><a href="#3-失效的权限控制" class="headerlink" title="3.失效的权限控制"></a>3.失效的权限控制</h3><p>由于权限控制在设计或编码过程中的疏忽和缺陷，导致本来应该限制使用范围的重 要函数或权限没有控制好范围，从而被攻击者调用这些重要函数或者使用权限实施攻击</p>
+<ul>
+<li>Parity 钱包  将下列初始化函数设置为public 导致其他合约也能调用，以至于钱包的所有者被修改</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initContract</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">	owner = msg.sender;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编译器漏洞     编写构造函数过程中不注意也会导致越权调用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">Owned</span>(<span class="params"></span>) <span class="title">public</span></span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//solidity &lt;=^0.4.22</span></span><br><span class="line">contract Owned &#123;</span><br><span class="line"> <span class="title">constructor</span>(<span class="params"></span>) <span class="title">public</span> &#123;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//solidity &gt;=^0.4.22</span></span><br></pre></td></tr></table></figure>
+<p>导致构造函数被初始化成普通函数，可以被任意人调用，容易导致owner权限被盗取</p>
+<p><a href>https://paper.seebug.org/741/</a></p>
+<ul>
+<li>Call调用限制</li>
+</ul>
+<p>call是最常用的调用方式，调用后内置变量msg的值会被修改为调用者，但执行环境是被调用者的运行环境，如果合约中有函数以 msg.sender 作为关键变量的代码逻辑，比如向 msg.sender 转账，那么就会导致越权操作。</p>
+<p>先来看两个函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">address addr</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">require</span>(isAuth(msg.sender));</span><br><span class="line">addr.transfer(<span class="built_in">this</span>.balance);</span><br><span class="line">&#125;<span class="comment">//合约拥有者或合约本身拥有取款操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAuth</span>(<span class="params">address src</span>) <span class="title">internal</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (src == address(<span class="built_in">this</span>)) &#123; <span class="comment">//检查是否合约拥有者或合约本身</span></span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">if</span> (src == owner) &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//发起恶意怕拼接请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callFunc</span>(<span class="params">bytes data</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line"> <span class="built_in">this</span>.call(data);</span><br><span class="line"> <span class="comment">//this.call(bytes4(keccak256(&quot;withdraw(address)&quot;)), target); //利用代码示意</span></span><br><span class="line"> <span class="comment">//后面会总结一篇三种交互方式的安全问题</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-不安全的共识协议"><a href="#4-不安全的共识协议" class="headerlink" title="4.不安全的共识协议"></a>4.不安全的共识协议</h3><p>共识协议由于存在某些设计之初未考虑到的漏洞，导致漏洞可能被攻击者识别和利 用，从而损害链上参与者的利益</p>
+<ul>
+<li>Krypton    遭遇51%攻击—回滚交易实现双花，DDOS攻击网络节点</li>
+<li>ETC  51% 算力攻击双花交易，篡改后使得被替换的块的交易无法追溯</li>
+</ul>
+<h3 id="5-考虑不充分的程序逻辑"><a href="#5-考虑不充分的程序逻辑" class="headerlink" title="5.考虑不充分的程序逻辑"></a>5.考虑不充分的程序逻辑</h3><p>由于软件设计和编码的错误原因，存在没有考虑到的异常分支，导致程序逻辑可以 被攻击者利用，以至于陷入设计者未预期的流程，造成重大损失</p>
+<ul>
+<li>The DAO  </li>
+</ul>
+<p><a href>https://blog.csdn.net/u011721501/article/details/79450122</a></p>
+<h3 id="6-不严谨的业务策略"><a href="#6-不严谨的业务策略" class="headerlink" title="6.不严谨的业务策略"></a>6.不严谨的业务策略</h3><p>目前比较突出的一种业务策略类问题是利用高额的以太费用和技术手段让以太坊 堵塞，从而获得游戏中的大奖。但根据场景不一样，会有许多不一样的业务问题，这些 也都会对产品的公平性，乃至产品的生存造成重大影响，需要特别注意！</p>
+<ul>
+<li>FOMO3D</li>
+</ul>
+<p>类似于竞拍中自己出价后，使用技术手段使得以太坊拥堵，使得其他玩家无法出价，获得最后的胜利！</p>
+<p>​    实现方法</p>
+<ol>
+<li>和矿主合谋，让矿主在我的交易后，不再打包其他购买KEY的交易，可能性几乎为零</li>
+<li>在自己成功购买KEY之后，把以太坊堵塞，让其无法打包其他购买KEY的交易。</li>
+</ol>
+<p><a href>https://mp.weixin.qq.com/s/s_RCF_EDlptQpm3d7mzApA</a></p>
+<h3 id="7-校验不严格的交易逻辑"><a href="#7-校验不严格的交易逻辑" class="headerlink" title="7.校验不严格的交易逻辑"></a>7.校验不严格的交易逻辑</h3><p>交易的校验逻辑不够严密，以致攻击者可以构造假的交易行为，但却被校验方验证 通过，误认为真的交易行为。或者提交了真的交易操作，但是通过时间差，黑名单等因 素，让交易操作产生回滚来实现，实际上的交易动作并没有完成，而商家仅验证是否有 交易行为的话，就可能导致资金上的损失。</p>
+<ul>
+<li>EOSBET</li>
+<li>回滚类攻击      利用时间差</li>
+<li>BetDice      黑名单</li>
+</ul>
+<h3 id="8-脆弱的随机数机制"><a href="#8-脆弱的随机数机制" class="headerlink" title="8.脆弱的随机数机制"></a>8.脆弱的随机数机制</h3><p>这里指的不仅仅是伪随机函数的问题，而是整个随机数生成机制不够安全，导致可 以被攻击者提前获取或猜测到随机数的结果，以实施攻击。</p>
+<h3 id="9-存在缺陷的激励机制"><a href="#9-存在缺陷的激励机制" class="headerlink" title="9.存在缺陷的激励机制"></a>9.存在缺陷的激励机制</h3><p>激励机制是区块链的重要环节，但若开发者设计的激励机制存在可以被利用的漏洞， 就可能会给开发者或用户带来损失。</p>
+<ul>
+<li>Eligius 矿池     块代扣攻击 挖出不上交</li>
+</ul>
+<h3 id="10-日志记录和监控不足"><a href="#10-日志记录和监控不足" class="headerlink" title="10.日志记录和监控不足"></a>10.日志记录和监控不足</h3><p>日志记录和监控的问题对区块链团队和公司来说非常很重要。如果没有足够的日志 记录和监控，被攻击的过程中，你会不知道，不能及时止损。发生安全事件后，你没有 办法调查，也没有办法改进以避免再犯同样的错误。所以日志记录和监控不足的问题也 很严重！</p>
+<ul>
+<li>未知的攻击手法无法追溯主要是没有完善的日志记录和监控</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Zpano
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zpano.cn/2021/03/10/12/" title="区块链安全入门">https://zpano.cn/2021/03/10/12/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" rel="tag"># 区块链安全</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/19/11/" rel="prev" title="高斯消元求解">
+                  <i class="fa fa-chevron-left"></i> 高斯消元求解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/21/13/" rel="next" title="读《以太坊技术详解与实战》笔记（上）">
+                  读《以太坊技术详解与实战》笔记（上） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zpano</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">190k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

