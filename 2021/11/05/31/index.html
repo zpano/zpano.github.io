@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="随便写一写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链安全入门">
+<meta property="og:url" content="https://zpano.cn/2021/11/05/31/index.html">
+<meta property="og:site_name" content="Zpano&#39;s Blog">
+<meta property="og:description" content="随便写一写">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20210319172138759.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211102105133029.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/rXwGgGZ.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20210809155217529.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/Merkle_tree.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211102105133029.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/24_transaction-struct.png!de">
+<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/19_ethereum-full-block-data-struct.png!de">
+<meta property="article:published_time" content="2021-11-05T08:31:54.000Z">
+<meta property="article:modified_time" content="2021-11-05T08:35:06.736Z">
+<meta property="article:author" content="Zpano">
+<meta property="article:tag" content="区块链安全">
+<meta property="article:tag" content="智能合约安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zpano.cn/2021/11/code/typora/img/image-20210319172138759.png">
+
+
+<link rel="canonical" href="https://zpano.cn/2021/11/05/31/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>区块链安全入门 | Zpano's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zpano's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不负韶华，不负野心</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86%E5%8C%BA%E5%9D%97%E9%93%BE"><span class="nav-number">1.</span> <span class="nav-text">认识区块链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8F%91%E5%B1%95%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="nav-number">2.</span> <span class="nav-text">区块链发展的三个阶段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E5%B8%B8%E8%A7%81%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">区块链常见密码算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5%E8%A7%A3%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">重要概念解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A6%E6%88%B7%E5%9C%B0%E5%9D%80"><span class="nav-number">4.1.</span> <span class="nav-text">账户地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%99%E9%A2%9D"><span class="nav-number">4.2.</span> <span class="nav-text">余额</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E7%BB%AD%E8%B4%B9"><span class="nav-number">4.3.</span> <span class="nav-text">手续费</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97"><span class="nav-number">4.4.</span> <span class="nav-text">区块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E9%93%BE%E7%A7%81%E9%93%BE%E8%81%94%E7%9B%9F%E9%93%BE"><span class="nav-number">4.5.</span> <span class="nav-text">公链私链联盟链</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E7%82%B9%E5%8E%86%E5%8F%B2"><span class="nav-number">5.</span> <span class="nav-text">一点点历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%9E%90%E6%AF%94%E7%89%B9%E5%B8%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">6.</span> <span class="nav-text">浅析比特币的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E7%9A%84%E6%9E%84%E6%88%90"><span class="nav-number">6.1.</span> <span class="nav-text">区块的构成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E5%92%8C%E9%93%BE"><span class="nav-number">6.2.</span> <span class="nav-text">区块和链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E7%89%B9%E5%B8%81"><span class="nav-number">6.3.</span> <span class="nav-text">比特币</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%9E%90%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">7.</span> <span class="nav-text">浅析以太坊的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E5%A4%B4"><span class="nav-number">7.1.</span> <span class="nav-text">区块头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E4%BD%93"><span class="nav-number">7.2.</span> <span class="nav-text">区块体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">7.3.</span> <span class="nav-text">交易数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E6%A0%91"><span class="nav-number">7.4.</span> <span class="nav-text">四种树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">7.5.</span> <span class="nav-text">分布结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%94%9F%E6%88%90"><span class="nav-number">7.6.</span> <span class="nav-text">地址生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E8%BF%87%E7%A8%8B"><span class="nav-number">7.7.</span> <span class="nav-text">交易过程</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zpano"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zpano</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zpano.cn/2021/11/05/31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zpano">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zpano's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          区块链安全入门
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-11-05 16:31:54 / 修改时间：16:35:06" itemprop="dateCreated datePublished" datetime="2021-11-05T16:31:54+08:00">2021-11-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">区块链安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">随便写一写</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="认识区块链"><a href="#认识区块链" class="headerlink" title="认识区块链"></a>认识区块链</h1><ul>
+<li><p>定义：区块链是一种分布式，去中心化的计算与存储架构，本质上可以说是一种数据库，并使用密码算法使其可信</p>
+</li>
+<li><p>区块链解决什么：如何用一种可信赖的方式记录数据，使得用户可以信任区块链系统记录的数据而无需假设节点的可信性</p>
+</li>
+<li><p><strong>三个重要的部分</strong>：区块链的数据结构、分布式存储与一致性协议、共识机制</p>
+<ul>
+<li>数据结构：下图是比特币的数据结构，对于其他的在此基础上有所扩展</li>
+</ul>
+<p><img src="/2021/11/05/31/../../code/typora/img/image-20210319172138759.png" alt="image-20210319172138759"></p>
+<ul>
+<li>分布式存储与一致性协议：即去中心化的存储，一致性协议保证分布式系统一致性</li>
+</ul>
+<p>系统中各个节点组成一个P2P网络，每个节点均分别执行、验证和记录相同的交易，每个节点都可以在本地存储完整的区块链数据</p>
+<ul>
+<li>共识机制：用以激励矿工挖矿，保证区块链的运行<ul>
+<li>POW</li>
+<li>POS</li>
+<li>DPOS</li>
+<li>EOS</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>一句话概括：区块链的本质是存储在数据库的数据，通过去中心化分布式存储使其足够可信，遵守一致性协议使得数据的读写变得合理，利用共识机制使得区块链保持运行下去，最后完善外围应用让我们使用它变得方便。当然，密码算法是保证其所有的上述行为可信的根本原因。</p>
+<h1 id="区块链发展的三个阶段"><a href="#区块链发展的三个阶段" class="headerlink" title="区块链发展的三个阶段"></a>区块链发展的三个阶段</h1><p>区块链被普遍认可的三个发展阶段，分别在三个重要的部分有巨大的差别，下面是三个阶段最具代表性的产物</p>
+<ul>
+<li>比特币—区块链1.0：数字货币阶段，处于对新兴技术的好奇，人们热衷于如何让获得它，并在区块链上进行交易。随着1万比特币兑换两个披萨的事件后(这大概是历史上最贵的两个披萨了吧)，比特币第一次与现实的物品画上了等号，迎来了巨大的发展，这对区块链的发展具有里程碑的意义<ul>
+<li><a target="_blank" rel="noopener" href="https://bitcointalk.org/index.php?topic=137.0">聊天</a>     <a target="_blank" rel="noopener" href="https://btc.com/btc/transaction/a1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d">交易</a></li>
+</ul>
+</li>
+<li>以太坊—区块链2.0：可编程金融阶段，以智能合约的开发和应用为代表。智能合约，这是一种以信息方式传播、验证或执行合同的计算机协议。智能合约可以不通过第三方进行可信交易，且交易可追踪、不可逆转。区块链技术得以在包括股票、清算、私募股权等众多金融领域崭露头角，正在颠覆传统的金融领域。例如DEFI类合约，Uniswap协议等等</li>
+<li>Eos—区块链3.0：可编程社会阶段，随着区块链的进一步发展，“去中心化”功能及“数据防伪” 功能得到发展，逐渐应用到公证、仲裁、审计、域名、物流、医疗、邮件、鉴证、投票等其他领域中来，应用范围扩大到了整个社会。例如隐私保护，零知识证明等综合应用。</li>
+</ul>
+<h1 id="区块链常见密码算法"><a href="#区块链常见密码算法" class="headerlink" title="区块链常见密码算法"></a>区块链常见密码算法</h1><ul>
+<li><p>哈希算法</p>
+<ul>
+<li>MD5</li>
+<li>SHA-3</li>
+<li>RIPEMD</li>
+</ul>
+</li>
+</ul>
+<p>作用：区块计算哈希值、区块和交易的完整性验证等等</p>
+<ul>
+<li><p>对称加密算法</p>
+<ul>
+<li>AES</li>
+<li>PBKDF2</li>
+<li>SCRYPT</li>
+</ul>
+</li>
+</ul>
+<p>作用：用于加密传输</p>
+<ul>
+<li><p>非对称加密算法</p>
+<ul>
+<li>RSA</li>
+<li>ECC</li>
+</ul>
+</li>
+</ul>
+<p>作用：利用私钥生成公钥，交易签名等等</p>
+<p>！！！私钥即资产，私钥代表你对账户的所有权，私钥丢失意味着资产丢失，私钥被窃取意味着资产被盗取。</p>
+<h1 id="重要概念解析"><a href="#重要概念解析" class="headerlink" title="重要概念解析"></a>重要概念解析</h1><h2 id="账户地址"><a href="#账户地址" class="headerlink" title="账户地址"></a>账户地址</h2><p>相当于银行卡账号，但是其具备匿名性，不必提供必要的信息，只需要你掌握私钥即可，同时为了防止私钥丢失，引入助记词等帮助恢复私钥。私钥经过一系列的密码算法可以生成账户地址，当然不同的链会采取不同的算法</p>
+<h2 id="余额"><a href="#余额" class="headerlink" title="余额"></a>余额</h2><p>我如何证明我有1000比特币？通过记账本，上面记录了张三给我转账800比特币，李四给我转账200比特币，加起来1000，就可以证明我拥有1000比特币。</p>
+<p>A：<img src="/2021/11/05/31/../../code/typora/img/image-20211102105133029.png" alt="image-20211102105133029"></p>
+<p>我如何给张三转100比特币，本质上是在记账本上写入这个行为，并同步给全网的记账本，就能证明我给张三转了100比特币。同时我的余额会减少100，张三的余额会增加100</p>
+<h2 id="手续费"><a href="#手续费" class="headerlink" title="手续费"></a>手续费</h2><p>因为你的每一次转账行为都会被记录在全网的账本里面，这是需要消耗资源的，同时矿工挖出区块也是需要算力，这都是需要💰作为支撑的，它们为你证明这笔交易，相应的你需要付出报酬</p>
+<h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>区块是用来记录每一笔交易的，一个区块可以包含数笔交易。因为区块链上的交易时间是不确定的，而且提交交易广播到全网所有的记账本同步是需要时间的，如果每成交一笔就同步一次无疑造成大量的浪费。但是一次同步数笔，可以降低这种消耗。同时利用哈希算法使得区块更加可信。</p>
+<h2 id="公链私链联盟链"><a href="#公链私链联盟链" class="headerlink" title="公链私链联盟链"></a>公链私链联盟链</h2><p>公有链是指全世界任何人都可以随时进入到系统中读取数据、发送可确认交易、竞争记账的区块链。公有链通常被认为是“完全去中心化”的，因为没有任何个人或者机构可以控制或篡改其中数据的读写。</p>
+<p>私链是指其写入权限仅在一个组织手里的区块链。读取权限或者对外开放，或者被任意程度地进行了限制。相关的应用囊括数据库管理、审计、甚至一个公司，尽管在有些情况下希望它能有公共的可审计性，但在很多的情形下，公共的可读性并非是必须的。</p>
+<p>联盟链开放程度和去中心化程度是有所限制的。其参与者是被提前筛选出来或者直接指定的，数据库的读取权限可能是公开的，也可能像写入权限一样只限于系统的参与者。</p>
+<p>现在还有一种概念叫侧链，可以理解为区块链的一种扩展协议。早期“侧链”是为了解决比特币区块链技术的限制问题。侧链就像是一条条通路，将不同的区块链互相连接在一起，以实现区块链的扩展。侧链完全独立于比特币区块链，但是这两个账本之间能够“互相操作”，实现交互。</p>
+<h1 id="一点点历史"><a href="#一点点历史" class="headerlink" title="一点点历史"></a>一点点历史</h1><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/265992968">感兴趣可以看看</a></p>
+<p>在未来区块链技术<del>或许</del>可以成为互联网基础协议，各类应用场景完善的情况下，颠覆TCP/IP、HTTP，WWW不是不可能</p>
+<h1 id="浅析比特币的数据结构"><a href="#浅析比特币的数据结构" class="headerlink" title="浅析比特币的数据结构"></a>浅析比特币的数据结构</h1><p>本文中我们将进一步了解比特币的数据结构，去熟悉区块链的某些问题</p>
+<h2 id="区块的构成"><a href="#区块的构成" class="headerlink" title="区块的构成"></a>区块的构成</h2><p>区块的主要构成是区块头和区块体</p>
+<p>区块头用以记录版本，前一区块哈希，区块高度，时间戳等信息</p>
+<p>区块体记录本区块包含的交易的细节信息等等</p>
+<h2 id="区块和链"><a href="#区块和链" class="headerlink" title="区块和链"></a>区块和链</h2><p><img src="/2021/11/05/31/../../code/typora/img/rXwGgGZ.png" alt="Imgur"></p>
+<p>通过previous hash将每一个区块链接起来，可以从后往前遍历，形成顺序关系。当然也可以用区块高度，时间戳来标识。</p>
+<h2 id="比特币"><a href="#比特币" class="headerlink" title="比特币"></a>比特币</h2><p>从比特币源码看区块头的定义 <a target="_blank" rel="noopener" href="https://github.com/bitcoin-sv/bitcoin-sv/blob/d9b12a23db/src/primitives/block.h#L21"> block.h#L21</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CBlockHeader</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// header</span></span><br><span class="line">    <span class="keyword">int32_t</span> nVersion;</span><br><span class="line">    uint256 hashPrevBlock;</span><br><span class="line">    uint256 hashMerkleRoot;</span><br><span class="line">    <span class="keyword">uint32_t</span> nTime;</span><br><span class="line">    <span class="keyword">uint32_t</span> nBits;</span><br><span class="line">    <span class="keyword">uint32_t</span> nNonce;</span><br><span class="line"></span><br><span class="line">    CBlockHeader() &#123; SetNull(); &#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">长度（字节）</th>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">nVersion</td>
+<td style="text-align:left">版本号，用来跟踪软件或协议的升级</td>
+</tr>
+<tr>
+<td style="text-align:left">32</td>
+<td style="text-align:left">hashPrevBlock</td>
+<td style="text-align:left">前一个区块（父区块）的哈希值</td>
+</tr>
+<tr>
+<td style="text-align:left">32</td>
+<td style="text-align:left">hashMerkleRoot</td>
+<td style="text-align:left">一个哈希值，表示这个区块中全部交易构成的Merkle树的根</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">nTime</td>
+<td style="text-align:left">区块创建的时间，Unix时间戳格式</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">nBits</td>
+<td style="text-align:left">难度目标，该区块工作量证明算法的难度目标</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">nNonce</td>
+<td style="text-align:left">一个用于证明工作量的计数器</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从比特币的区块链浏览器上看一个<a target="_blank" rel="noopener" href="https://www.blockchain.com/btc/block/100000">交易</a></p>
+<p><img src="/2021/11/05/31/../../code/typora/img/image-20210809155217529.png" alt="image-20210809155217529"></p>
+<p>找出我们需要的信息，注意进制转换和字节翻转</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">01000000  <span class="comment"># nVersion 00000001</span></span><br><span class="line">50120119172a610421a6c3011dd330d9df07b63616c2cc1f1cd0020000000000  <span class="comment"># hashPrevBlock</span></span><br><span class="line">6657a9252aacd5c0b2940996ecff952228c3067cc38d4885efb5a4ac4247e9f3  <span class="comment"># hashMerkleRoot</span></span><br><span class="line">37221b4d  <span class="comment"># nTime    北京时间 2010-12-29 19:57 转换为时间戳为 1293623863‬ = 0x4d1b2237</span></span><br><span class="line">4c86041b  <span class="comment"># nBits		 453281356 = 0x1b04864c</span></span><br><span class="line">0f2b5710  <span class="comment"># nNonce   274148111 = 0x10572b0f</span></span><br></pre></td></tr></table></figure>
+<p>Q：如何得到区块哈希(Hash)？</p>
+<p>A：先对区块头数据做sha-256得到s1，再对s1做sha-256得到s2，再对s2做字节翻转得到Hash</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="built_in">str</span>=<span class="string">&#x27;0100000050120119172a610421a6c3011dd330d9df07b63616c2cc1f1cd00200000000006657a9252aacd5c0b2940996ecff952228c3067cc38d4885efb5a4ac4247e9f337221b4d4c86041b0f2b5710&#x27;</span></span><br><span class="line">data = binascii.a2b_hex(<span class="built_in">str</span>)</span><br><span class="line">s1 = hashlib.sha256(data).hexdigest()</span><br><span class="line">print(s1)</span><br><span class="line">s1 = binascii.a2b_hex(s1)</span><br><span class="line">s2 = hashlib.sha256(s1).hexdigest()</span><br><span class="line">print(s2)</span><br><span class="line">print(<span class="string">&#x27;&#x27;</span>.join(<span class="built_in">reversed</span>([s2[i:i+<span class="number">2</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(s2), <span class="number">2</span>)])))</span><br><span class="line"><span class="comment"># 00844eeb8713eb62bc33df34ca0cfa7af2ee152a6b16788fd3f2fea69861f3c8</span></span><br><span class="line"><span class="comment"># 06e533fd1ada86391f3f6c343204b0d278d4aaec1c0b20aa27ba030000000000</span></span><br><span class="line"><span class="comment"># 000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506</span></span><br></pre></td></tr></table></figure>
+<p>Q：nBits的作用是什么？</p>
+<p>A：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/128097006">区块链工作证明难度值及难度值调整详解</a></p>
+<p>本文引用的交易中，目标值为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="built_in">hex</span>(<span class="number">0x04864c</span> * <span class="number">2</span>**(<span class="number">8</span> * (<span class="number">0x1b</span> - <span class="number">3</span>)))[<span class="number">2</span>:]</span><br><span class="line">print(a.rjust(<span class="number">64</span>,<span class="string">&#x27;0&#x27;</span>))</span><br><span class="line"><span class="comment"># 000000000004864c000000000000000000000000000000000000000000000000</span></span><br><span class="line"><span class="comment"># 000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506 Hash</span></span><br></pre></td></tr></table></figure>
+<p>而本区块的哈希值小于目标值的，验证成功，出块。</p>
+<p>Q：nNonce代表什么？</p>
+<p>A：比特币证明挖出区块的方式是sha256(data + nNonce) &lt;= target。而找到这个正确的 nNonce 就是挖矿的过程。比如对于sha256(‘helloword+nNonce’)我们想要计算出要找出前4位是<code>0</code>的哈希值，需要计算67859次得到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash256(<span class="string">&quot;Hello67859&quot;</span>) = 00002e4af0b80d706ae749d22247d91d9b1c2e91547d888e5e7a91bcc0982b87</span><br></pre></td></tr></table></figure>
+<p>对于这个区块来说，nNonce=67859。用以证明挖矿成功，出块。本文引用的交易中，nNonce=274148111，大致可以代表为了挖出本区块进行了274148111*2次计算，因为计算一次区块哈希需要进行两次的sha-256运算</p>
+<p>Q：区块体的数据结构呢</p>
+<p>A：主要是记录交易的细节，发送方接收方交易数额等，<a target="_blank" rel="noopener" href="https://aaron67.cc/2018/12/27/bitcoin-transaction-data-structure/">作为简单了解即可</a></p>
+<p>Q：什么是默克尔树(merkle tree)呢？</p>
+<p>A：我们知道区块头的哈希值是用来连接不同区块的，而默克尔树则是用于连接区块包含的每一笔交易的。它的结构和二叉树很像，只不过将指针换成了哈希值。具体示意图如下</p>
+<p><img src="/2021/11/05/31/../../code/typora/img/Merkle_tree.png" alt="Merkle_tree"></p>
+<p>之后我们将Root存储到区块头，也就是hashMerkleRoot。</p>
+<p>Q：一笔交易是怎么样被写入”账本”中的？</p>
+<p>A：首先，用户发起交易，并使用公钥进行签名，提交交易给节点，节点进行验证</p>
+<ol>
+<li>账户使用是否有足够的金额进行支付</li>
+<li>使用其公钥生成地址，验证是否为交易中的支付地址</li>
+<li>使用公钥去解开数字签名，保证私钥属实</li>
+</ol>
+<p>验证交易真实性之后，这笔交易会被广播到全网确认，本文引用的交易就经过了594918个节点的确认，最后经过矿工打包成区块，并同步到全网节点写入数据库后，这笔交易才能完全生效</p>
+<p>Q：比特币地址是怎么生成的？</p>
+<p>A：<img src="/2021/11/05/31/../../code/typora/img/image-20211102105133029.png" alt="image-20211102105133029"></p>
+<p>私钥根据随机的种子生成，通过ECDSA算法生成<strong>公钥</strong>。经过SHA-256，RIPEMD160运算生成<strong>公钥哈希</strong>。将<strong>版本号00</strong>加上公钥哈希进行双SHA-256运算取前四字节为<strong>校验码</strong>。版本号➕公钥哈希➕校验码进行Base58转换生成比特币地址</p>
+<h1 id="浅析以太坊的数据结构"><a href="#浅析以太坊的数据结构" class="headerlink" title="浅析以太坊的数据结构"></a>浅析以太坊的数据结构</h1><p>本文中我们将进一步了解以太坊的数据结构，去熟悉区块链的某些问题</p>
+<h2 id="区块头"><a href="#区块头" class="headerlink" title="区块头"></a>区块头</h2><p>从以太坊源码看区块头<a target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum/blob/5441a8fa47249a9165ece43a2924efe2c7bcdba0/core/types/block.go#L69">block.go#L69</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Header <span class="keyword">struct</span> &#123;</span><br><span class="line">	ParentHash  common.Hash    <span class="string">`json:&quot;parentHash&quot;       gencodec:&quot;required&quot;`</span></span><br><span class="line">	UncleHash   common.Hash    <span class="string">`json:&quot;sha3Uncles&quot;       gencodec:&quot;required&quot;`</span></span><br><span class="line">	Coinbase    common.Address <span class="string">`json:&quot;miner&quot;            gencodec:&quot;required&quot;`</span></span><br><span class="line">	Root        common.Hash    <span class="string">`json:&quot;stateRoot&quot;        gencodec:&quot;required&quot;`</span></span><br><span class="line">	TxHash      common.Hash    <span class="string">`json:&quot;transactionsRoot&quot; gencodec:&quot;required&quot;`</span></span><br><span class="line">	ReceiptHash common.Hash    <span class="string">`json:&quot;receiptsRoot&quot;     gencodec:&quot;required&quot;`</span></span><br><span class="line">	Bloom       Bloom          <span class="string">`json:&quot;logsBloom&quot;        gencodec:&quot;required&quot;`</span></span><br><span class="line">	Difficulty  *big.Int       <span class="string">`json:&quot;difficulty&quot;       gencodec:&quot;required&quot;`</span></span><br><span class="line">	Number      *big.Int       <span class="string">`json:&quot;number&quot;           gencodec:&quot;required&quot;`</span></span><br><span class="line">	GasLimit    <span class="keyword">uint64</span>         <span class="string">`json:&quot;gasLimit&quot;         gencodec:&quot;required&quot;`</span></span><br><span class="line">	GasUsed     <span class="keyword">uint64</span>         <span class="string">`json:&quot;gasUsed&quot;          gencodec:&quot;required&quot;`</span></span><br><span class="line">	Time        <span class="keyword">uint64</span>         <span class="string">`json:&quot;timestamp&quot;        gencodec:&quot;required&quot;`</span></span><br><span class="line">	Extra       []<span class="keyword">byte</span>         <span class="string">`json:&quot;extraData&quot;        gencodec:&quot;required&quot;`</span></span><br><span class="line">	MixDigest   common.Hash    <span class="string">`json:&quot;mixHash&quot;`</span></span><br><span class="line">	Nonce       BlockNonce     <span class="string">`json:&quot;nonce&quot;`</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// BaseFee was added by EIP-1559 and is ignored in legacy headers.</span></span><br><span class="line">	BaseFee *big.Int <span class="string">`json:&quot;baseFeePerGas&quot; rlp:&quot;optional&quot;`</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<table>
+   <tr>
+      <td>名称</td>
+      <td>类型</td>
+      <td>意义</td>
+   </tr>
+   <tr>
+      <td>parentHash</td>
+      <td>common.Hash</td>
+      <td>父区块的哈希值</td>
+   </tr>
+   <tr>
+      <td>UncleHash</td>
+      <td>common.Hash</td>
+      <td>叔父区块列表的哈希值</td>
+   </tr>
+   <tr>
+      <td>Coinbase</td>
+      <td>common.Address</td>
+      <td>打包该区块的矿工的地址，用于接收矿工费</td>
+   </tr>
+   <tr>
+      <td>Root</td>
+      <td>common.Hash</td>
+      <td>stateRoot状态树的根哈希值</td>
+   </tr>
+   <tr>
+      <td>TxHash</td>
+      <td>common.Hash</td>
+      <td>transactionsRoot交易树的根哈希值</td>
+   </tr>
+   <tr>
+      <td>ReceiptHash</td>
+      <td>common.Hash</td>
+      <td>receiptsRoot收据树的根哈希值</td>
+   </tr>
+   <tr>
+      <td>Bloom</td>
+      <td>Bloom</td>
+      <td>交易收据日志组成的Bloom过滤器</td>
+   </tr>
+   <tr>
+      <td>Difficulty</td>
+      <td>*Big.Int</td>
+      <td>本区块的难度</td>
+   </tr>
+   <tr>
+      <td>Number</td>
+      <td>*Big.Int</td>
+      <td>本区块块号，区块号从0号开始算起</td>
+   </tr>
+   <tr>
+      <td>GasLimit</td>
+      <td>uint64</td>
+      <td>本区块中所有交易消耗的Gas上限，这个数值不等于所有交易的中Gas limit字段的和</td>
+   </tr>
+   <tr>
+      <td>GasUsed</td>
+      <td>uint64</td>
+      <td>本区块中所有交易使用的Gas之和</td>
+   </tr>
+   <tr>
+      <td>Time</td>
+      <td>*big.Int</td>
+      <td>区块产生的unix时间戳，一般是打包区块的时间，这个字段不是出块的时间戳</td>
+   </tr>
+   <tr>
+      <td>Extra</td>
+      <td>[]byte</td>
+      <td>区块的附加数据</td>
+   </tr>
+   <tr>
+      <td>MixDigest</td>
+      <td>common.Hash</td>
+      <td>哈希值，与Nonce的组合用于工作量计算</td>
+   </tr>
+   <tr>
+      <td>Nonce</td>
+      <td>BlockNonce</td>
+      <td>区块产生时的随机值</td>
+   </tr>
+</table>
+
+
+<p>和比特币中的区块链一样，以太坊中的区块链仍然使用了parentHash连接前一个区块，通过这个字段，所有的区块最终都能回溯到创始块。<br>值得一提的是，区块的时间戳并不是出块的时间，矿工在挖矿的时候区块的时间戳一般是确定的，所以这个区块的时间戳，是矿工开始挖这个区块的时间。<br>Gas Limit是用于限制区块中的交易个数用的。具体由每个矿工自己设置，有些矿工觉得本区块的Gas Limit太大，可以在挖下一个区块时间Gas Limit下调1/1024 ,觉得Gas Limit太小的时候，就会上调1/1024。整个区块链中区块的大小，就是所有矿工微调的平均值。以太坊中正是通过Gas Limit来限制区块的大小。</p>
+<h2 id="区块体"><a href="#区块体" class="headerlink" title="区块体"></a>区块体</h2><p>区块体 Body 中只有两项数据：交易集合和叔辈区块头集合。交易促使以太坊世界态进行转变。从创世状态开始，每一个区块中的交易执行促使了以太坊世界态的转变。下一个状态是在上一个状态中执行交易或其他操作使得状态由A状态转变为B状态。<br>而交易则为状态转变的催化酶，一个区块中的所有交易执行完成后，将使得以太坊进入一个新的状态。状态转变过程中记录了一些起始变量和结果数据，分别是交易默克尔哈希值transactionsRoot、交易回执默克尔哈希值 receiptRoot、事件布隆值logsBloom、新状态的默克尔哈希值stateRoot。</p>
+<h2 id="交易数据结构"><a href="#交易数据结构" class="headerlink" title="交易数据结构"></a>交易数据结构</h2><p>下图是以太坊交易数据结构，根据用途，我将其划分为四部分。</p>
+<p><img src="/2021/11/05/31/../../code/typora/img/24_transaction-struct.png!de" alt="以太坊交易数据结构">开头nonce是一个 uint64 类型的数字，称之为随机数。用于撤销交易、防止双花和修改以太坊账户的 Nonce 值 —表示账户的交易次数。</p>
+<p>第二部分是关于交易执行限制的设置，gas 为愿意供以太坊虚拟机运行的燃料上限。 <code>gasPrice</code> 是愿意支付的燃料单价。<code>gasPrcie * gas</code> 则为愿意为这笔交易支付的最高手续费。关于 gas 更多内容请阅读<a target="_blank" rel="noopener" href="https://learnblockchain.cn/books/geth/part1/gas.html">《理解Gas和手续费》</a>。</p>
+<p>我从程序执行逻辑上可以这样解释第三部分。是交易发送者输入以太坊虚拟机执行此交易的初始信息： 虚拟机操作对象（接收方 To）、从交易发送方转移到操作对象的资产（Value），以及虚拟机运行时入参(input)。其中 To 为空时，意味着虚拟机无可操作对象，此时虚拟机将利用 input 内容部署一个新合约。</p>
+<p>第四部分是交易发送方对交易的签名结果，可以利用交易内容和签名结果反向推导出签名者，即交易发送方地址。</p>
+<p>四部分内容的组合，解决了交易安全问题、实现了智能合约的互动方式以及提供了灵活可调整的交易手续费。</p>
+<h2 id="四种树"><a href="#四种树" class="headerlink" title="四种树"></a>四种树</h2><ol>
+<li>StateRoot：状态树的根哈希值</li>
+<li>TransactionsRoot：交易树的根哈希值</li>
+<li>ReceiptsRoot：收据树的根哈希值 </li>
+<li>StorageRoot：账户存储树的根哈希值</li>
+</ol>
+<p>（1）状态树包括了从地址到账户状态之间的映射。状态树的根节点哈希值由区块保存（在 stateRoot 字段），它标示了区块创建时的当前状态。整个网络中只有一个状态树。<br>状态标识了以太坊这台分布式计算机的硬盘。它是从地址到账户状态的映射。<br>（2）交易树包含了一个区块中的所有交易信息。由区块头（在 transactionsRoot 区域）保存交易树的根节点哈希值。每个区块都有一棵交易树。<br>交易标示了系统中的状态转移。它可以是资金的转移、消息调用或是合约的部署。<br>（3）交易收据树包含了一个区块中所有交易的收据信息。同样由区块头（在 receiptsRoot 区域）保存交易收据树的根节点哈希值；每个区块都有对应的交易收据树。<br>（4）账户存储树保存了与某一智能合约相关的数据信息。由账户状态保存账户存储树的根节点哈希值（在 storageRoot 字段）。每个账户都有一个账户存储树。<br>账户状态保存着每个以太坊账户的状态信息。账户状态同样保存着账户状态树的 storageRoot，后者包含了该账户的存储数据。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/itleaks/article/details/79992072">MPT原理</a></p>
+<h2 id="分布结构图"><a href="#分布结构图" class="headerlink" title="分布结构图"></a>分布结构图</h2><p><img src="/2021/11/05/31/../../code/typora/img/19_ethereum-full-block-data-struct.png!de" alt="以太坊区块结构"></p>
+<h2 id="地址生成"><a href="#地址生成" class="headerlink" title="地址生成"></a>地址生成</h2><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">第一步：私钥 (<span class="keyword">private</span> key)</span><br><span class="line">　　伪随机数产生的<span class="number">256</span>bit私钥示例(<span class="number">256</span>bit  <span class="number">16</span>进制<span class="number">32</span>字节)</span><br><span class="line">　　<span class="number">18e14</span>a<span class="number">7</span>b<span class="number">6</span>a<span class="number">307</span>f<span class="number">426</span>a<span class="number">94</span>f<span class="number">8114701e7</span><span class="keyword">c</span><span class="number">8e774</span>e<span class="number">7</span>f<span class="number">9</span>a<span class="number">47e2</span><span class="keyword">c</span><span class="number">2035</span>db<span class="number">29</span>a<span class="number">206321725</span></span><br><span class="line">第二步：公钥 (public key)</span><br><span class="line">　　<span class="number">1</span>. 采用椭圆曲线数字签名算法ECDSA-secp<span class="number">256</span>k<span class="number">1</span>将私钥（<span class="number">32</span>字节）映射成公钥（<span class="number">65</span>字节）（前缀<span class="number">04</span>+X公钥+Y公钥）：</span><br><span class="line">　　<span class="number">04</span></span><br><span class="line">　　<span class="number">50863</span>ad<span class="number">64</span>a<span class="number">87</span>ae<span class="number">8</span>a<span class="number">2</span>fe<span class="number">83</span><span class="keyword">c</span><span class="number">1</span>af<span class="number">1</span>a<span class="number">8403</span>cb<span class="number">53</span>f<span class="number">53e486</span>d<span class="number">8511</span>dad<span class="number">8</span>a<span class="number">04887e5</span>b<span class="number">2352</span></span><br><span class="line">　　<span class="number">2</span>cd<span class="number">470243453</span>a<span class="number">299</span>fa<span class="number">9e77237716103</span>abc<span class="number">11</span>a<span class="number">1</span>df<span class="number">38855</span>ed<span class="number">6</span>f<span class="number">2</span>ee<span class="number">187e9</span><span class="keyword">c</span><span class="number">582</span>ba<span class="number">6</span></span><br><span class="line">　　<span class="number">2</span>. 拿公钥（去掉前缀非压缩公钥）来hash，计算公钥的 Keccak<span class="number">-256</span> 哈希值（<span class="number">32</span>bytes）：</span><br><span class="line">　　fc<span class="number">12</span>ad<span class="number">814631</span>ba<span class="number">689</span>f<span class="number">7</span>abe<span class="number">671016</span>f<span class="number">75</span><span class="keyword">c</span><span class="number">54</span><span class="keyword">c</span><span class="number">607</span>f<span class="number">082</span>ae<span class="number">6</span>b<span class="number">0881</span>fac<span class="number">0</span>abeda<span class="number">21781</span></span><br><span class="line">　　<span class="number">3</span>. 取上一步结果取后<span class="number">20</span>bytes即以太坊地址：</span><br><span class="line">　　<span class="number">1016</span>f<span class="number">75</span><span class="keyword">c</span><span class="number">54</span><span class="keyword">c</span><span class="number">607</span>f<span class="number">082</span>ae<span class="number">6</span>b<span class="number">0881</span>fac<span class="number">0</span>abeda<span class="number">21781</span></span><br><span class="line">第三步：地址 (address)</span><br><span class="line">　　<span class="number">0x1016f75c54c607f082ae6b0881fac0abeda21781</span></span><br></pre></td></tr></table></figure>
+<p>上述所有的keccak-256的运算的输入消息均为字节形式，如果当作字符串处理，会导致生成的以太坊地址不对。</p>
+<h2 id="交易过程"><a href="#交易过程" class="headerlink" title="交易过程"></a>交易过程</h2><p>以太坊中“交易”是指存储从外部账户发出的消息的签名数据包。交易包含消息的接收者、用于确认发送者的签名、以太币账户余额、要发送的数据和两个被称为STARTGAS和GASPRICE的数值。<br>为了防止代码的指数型爆炸和无限循环，每笔交易需要对执行代码所引发的计算步骤-包括初始消息和所有执行中引发的消息-做出限制。<br>STARTGAS就是限制，GASPRICE是每一计算步骤需要支付矿工的费用。如果执行交易的过程中，“用完了GAS”，所有的状态改变恢复原状态，但是已经支付的交易费用不可收回了。如果执行交易中止时还剩余瓦斯，那么这些瓦斯将退还给发送者。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Zpano
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zpano.cn/2021/11/05/31/" title="区块链安全入门">https://zpano.cn/2021/11/05/31/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" rel="tag"># 区块链安全</a>
+              <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/" rel="tag"># 智能合约安全</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/22/30/" rel="prev" title="首届可信链区块链安全攻防大赛Solidity合约全解">
+                  <i class="fa fa-chevron-left"></i> 首届可信链区块链安全攻防大赛Solidity合约全解
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zpano</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">199k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:01</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
