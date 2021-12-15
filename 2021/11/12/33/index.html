@@ -31,20 +31,20 @@
 <meta property="og:site_name" content="Zpano&#39;s Blog">
 <meta property="og:description" content="前几天参加了一个比赛，上面有一道题目与Poly Network 事件攻击手法类似，写一篇文章来总结一下。简单说一下攻击的点在于函数签名值的爆破，错误的设置合约owner。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024153527420.png">
-<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024193711092.png">
-<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024193807987.png">
-<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024163126593.png">
-<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024163204353.png">
-<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024163402002.png">
-<meta property="og:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024164912828.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/12/33/image-20211024153527420.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/12/33/image-20211024193711092.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/12/33/image-20211024193807987.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/12/33/image-20211024163126593.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/12/33/image-20211024163204353.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/12/33/image-20211024163402002.png">
+<meta property="og:image" content="https://zpano.cn/2021/11/12/33/image-20211024164912828.png">
 <meta property="article:published_time" content="2021-11-12T14:46:20.000Z">
-<meta property="article:modified_time" content="2021-11-12T14:48:27.859Z">
+<meta property="article:modified_time" content="2021-12-15T07:14:50.868Z">
 <meta property="article:author" content="Zpano">
 <meta property="article:tag" content="区块链安全">
 <meta property="article:tag" content="智能合约安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zpano.cn/2021/11/code/typora/img/image-20211024153527420.png">
+<meta name="twitter:image" content="https://zpano.cn/2021/11/12/33/image-20211024153527420.png">
 
 
 <link rel="canonical" href="https://zpano.cn/2021/11/12/33/">
@@ -325,10 +325,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-11-12 22:46:20 / 修改时间：22:48:27" itemprop="dateCreated datePublished" datetime="2021-11-12T22:46:20+08:00">2021-11-12</time>
+      <time title="创建时间：2021-11-12 22:46:20" itemprop="dateCreated datePublished" datetime="2021-11-12T22:46:20+08:00">2021-11-12</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-15 15:14:50" itemprop="dateModified" datetime="2021-12-15T15:14:50+08:00">2021-12-15</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -379,7 +385,7 @@
 <p>在这段代码中，我们想要实现触发SendFlag事件必须要有owner权限，而changeOwner函数权限也掌握在owner中，我们无法突破。但是让我们来看另一段代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Airdrop.sol</span><br><span class="line">function TransferOrAirDrop(address to, bool isTransfer, bytes calldata _method, uint256 amount) external &#123;</span><br><span class="line">        if (isTransfer) &#123;</span><br><span class="line">            bytes memory returnData;</span><br><span class="line">            bool success;</span><br><span class="line">            (success, returnData) &#x3D; token.call(abi.encodePacked(bytes4(keccak256(abi.encodePacked(_method, &quot;(address,address,uint256)&quot;))),abi.encode(msg.sender,to,amount)));</span><br><span class="line"></span><br><span class="line">            require(success, &quot;executeProposal failed&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            bytes memory returnData;</span><br><span class="line">            bool isFristAirDropFlag;</span><br><span class="line">            bool success;</span><br><span class="line">            if(AirDropCount[msg.sender] &#x3D;&#x3D; 0) &#123;</span><br><span class="line">                isFristAirDropFlag &#x3D; true;</span><br><span class="line">            &#125; else if (AirDropCount[msg.sender] &gt; 2) &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            (success, returnData) &#x3D; token.call(abi.encodePacked(bytes4(keccak256(abi.encodePacked(_method, &quot;(bool,address)&quot;))), abi.encode(isFristAirDropFlag, msg.sender)));</span><br><span class="line">            require(success, &quot;executeProposal failed&quot;);</span><br><span class="line">            AirDropCount[msg.sender]++;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在TransferOrAirDrop函数中，使用了call调用，但是未做调用函数名的限制，且_method参数可控，就可以通过爆破函数签名的方式调用token合约上的任意函数。在此处我们依旧可以注意到</p>
-<p><img src="/2021/11/12/33/../../code/typora/img/image-20211024153527420.png" alt="image-20211024153527420"></p>
+<p><img src="/2021/11/12/33/image-20211024153527420.png" alt="image-20211024153527420"></p>
 <p>对于DVT3合约上的owner被设置为了Airdrop的地址，也就是说我们可以调用前面提到的changeOwner函数变成合约的owner，进而实现触发SendFlag事件。</p>
 <h1 id="Poc分析"><a href="#Poc分析" class="headerlink" title="Poc分析"></a>Poc分析</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sha3</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">p=sha3.keccak_256()</span><br><span class="line">p.update(<span class="string">b&#x27;changeOwner(address)&#x27;</span>)</span><br><span class="line">print(p.hexdigest()[:<span class="number">8</span>])</span><br><span class="line"><span class="comment">#a6f9dae1</span></span><br></pre></td></tr></table></figure>
 <p>再分析下面的两个call调用</p>
@@ -391,23 +397,23 @@
 <p>上述参数传递使用了Solidity语言的参数传递优化自动对齐的性质。</p>
 <p>但是对于第二个调用不能是我们变成DVT3合约的owner，不太符合我们的调用。所以我们选择第一个调用。</p>
 <h1 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h1><p>使用 github.com/ethereum/go-ethereum/crypto 的库编写一个Go语言的多线程爆脚本 大致经过十五分钟可以出结果</p>
-<p><img src="/2021/11/12/33/../../code/typora/img/image-20211024193711092.png" alt="image-20211024193711092"></p>
+<p><img src="/2021/11/12/33/image-20211024193711092.png" alt="image-20211024193711092"></p>
 <p>可以看到两者的签名相同</p>
-<p><img src="/2021/11/12/33/../../code/typora/img/image-20211024193807987.png" alt="image-20211024193807987"></p>
+<p><img src="/2021/11/12/33/image-20211024193807987.png" alt="image-20211024193807987"></p>
 <p>转化出攻击参数</p>
 <p>进行攻击</p>
-<p><img src="/2021/11/12/33/../../code/typora/img/image-20211024163126593.png" alt="image-20211024163126593"></p>
+<p><img src="/2021/11/12/33/image-20211024163126593.png" alt="image-20211024163126593"></p>
 <p>成功实现攻击</p>
-<p><img src="/2021/11/12/33/../../code/typora/img/image-20211024163204353.png" alt="image-20211024163204353"></p>
+<p><img src="/2021/11/12/33/image-20211024163204353.png" alt="image-20211024163204353"></p>
 <p>最后实现触发SendFlag事件</p>
-<p><img src="/2021/11/12/33/../../code/typora/img/image-20211024163402002.png" alt="image-20211024163402002"></p>
+<p><img src="/2021/11/12/33/image-20211024163402002.png" alt="image-20211024163402002"></p>
 <h1 id="与Poly-Network-事件的联系"><a href="#与Poly-Network-事件的联系" class="headerlink" title="与Poly Network 事件的联系"></a>与Poly Network 事件的联系</h1><p>在<a target="_blank" rel="noopener" href="https://github.com/polynetwork/eth-contracts/blob/master/contracts/core/cross_chain_manager/logic/EthCrossChainManager_new_template.sol#L185">Poly Network官方开源的源码中</a>的_executeCrossChainTx函数中，我们可以容易的看到这一行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(success, returnData) &#x3D; _toContract.call(abi.encodePacked(bytes4(keccak256(abi.encodePacked(_method, &quot;(bytes,bytes,uint64)&quot;))), abi.encode(_args, _fromContractAddr, _fromChainId)));</span><br></pre></td></tr></table></figure>
 <p>就可以在_toContract对应的合约上调用任意的函数，同时_toContract对应的合约上没有进行合理的鉴权，攻击者通过爆破_method从而调用 putCurEpochConPubKeyBytes 函数去替换 _toContract合约上的Keeper 的Public Key Bytes。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function putCurEpochConPubKeyBytes(bytes memory curEpochPkBytes) public whenNotPaused onlyOwner returns (bool) &#123;</span><br><span class="line">    ConKeepersPkBytes &#x3D; curEpochPkBytes;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在用替换后的Keeper的Public Key Bytes对应的私钥进行签名即可通过所有检查执行调用 LockProxy 合约将其管理的资产转出。</p>
 <p>可以从<a target="_blank" rel="noopener" href="https://www.4byte.directory/signatures/?bytes4_signature=0x41973cd9">函数签名库</a>中找到</p>
-<p><img src="/2021/11/12/33/../../code/typora/img/image-20211024164912828.png" alt="image-20211024164912828"></p>
+<p><img src="/2021/11/12/33/image-20211024164912828.png" alt="image-20211024164912828"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本次攻击利用的三个点</p>
 <ul>
 <li>权限控制错误</li>
