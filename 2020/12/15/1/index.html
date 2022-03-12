@@ -24,15 +24,15 @@
     var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="本文主要是对python第三方库Crypto库进行一些简单的总结归纳">
+  <meta name="description" content="一些简单库函数学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Crypto库学习">
+<meta property="og:title" content="Python 第三方库学习">
 <meta property="og:url" content="https://zpano.cn/2020/12/15/1/index.html">
 <meta property="og:site_name" content="Zpano&#39;s Blog">
-<meta property="og:description" content="本文主要是对python第三方库Crypto库进行一些简单的总结归纳">
+<meta property="og:description" content="一些简单库函数学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-15T12:49:40.000Z">
-<meta property="article:modified_time" content="2021-06-28T05:41:42.000Z">
+<meta property="article:modified_time" content="2022-03-12T13:37:29.026Z">
 <meta property="article:author" content="Zpano">
 <meta property="article:tag" content="Crypto">
 <meta property="article:tag" content="Python">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title>Crypto库学习 | Zpano's Blog</title>
+  <title>Python 第三方库学习 | Zpano's Blog</title>
   
 
 
@@ -221,7 +221,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Crypto%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">Crypto库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AES%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">AES加解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81DES"><span class="nav-number">2.2.</span> <span class="nav-text">对称密码DES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81RSA"><span class="nav-number">2.3.</span> <span class="nav-text">非对称密码RSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash%E7%AE%97%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">Hash算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="nav-number">2.5.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">2.6.</span> <span class="nav-text">随机数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%8A%9F%E8%83%BD"><span class="nav-number">2.7.</span> <span class="nav-text">其它功能</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Crypto%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">Crypto库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AES%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">AES加解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81DES"><span class="nav-number">1.2.</span> <span class="nav-text">对称密码DES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81RSA"><span class="nav-number">1.3.</span> <span class="nav-text">非对称密码RSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">Hash算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="nav-number">1.5.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">随机数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%8A%9F%E8%83%BD"><span class="nav-number">1.7.</span> <span class="nav-text">其它功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gmpy2%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">gmpy2库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gmpy2%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">gmpy2常见函数使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RSA%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">RSA库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5"><span class="nav-number">3.1.</span> <span class="nav-text">生成密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86"><span class="nav-number">3.2.</span> <span class="nav-text">加密解密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rsa-encrypt-message%EF%BC%8Cpubkey"><span class="nav-number">3.2.1.</span> <span class="nav-text">rsa.encrypt(message，pubkey)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rsa-decrypt-crypto%EF%BC%8Cprikey"><span class="nav-number">3.2.2.</span> <span class="nav-text">rsa.decrypt(crypto，prikey)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B%E6%BC%94%E7%A4%BA"><span class="nav-number">3.2.3.</span> <span class="nav-text">过程演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%BE%E5%90%8D%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-number">3.3.</span> <span class="nav-text">签名和验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rsa-sign"><span class="nav-number">3.3.1.</span> <span class="nav-text">rsa.sign()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rsa-verify"><span class="nav-number">3.3.2.</span> <span class="nav-text">rsa.verify()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">函数格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Secrets%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">Secrets库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5"><span class="nav-number">4.1.</span> <span class="nav-text">导入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SystemRandom"><span class="nav-number">4.1.1.</span> <span class="nav-text">SystemRandom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#choice-sequence"><span class="nav-number">4.1.2.</span> <span class="nav-text">choice(sequence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#randbelow"><span class="nav-number">4.1.3.</span> <span class="nav-text">randbelow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#randbits-k"><span class="nav-number">4.1.4.</span> <span class="nav-text">randbits(k)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#token%E7%94%9F%E6%88%90"><span class="nav-number">4.2.</span> <span class="nav-text">token生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#token-bytes"><span class="nav-number">4.2.1.</span> <span class="nav-text">token_bytes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token-hex"><span class="nav-number">4.2.2.</span> <span class="nav-text">token_hex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token-urlsafe"><span class="nav-number">4.2.3.</span> <span class="nav-text">token_urlsafe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compare-digest"><span class="nav-number">4.2.4.</span> <span class="nav-text">compare_digest</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -237,20 +237,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -307,7 +307,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Crypto库学习
+          Python 第三方库学习
         </h1>
 
         <div class="post-meta-container">
@@ -325,7 +325,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-28 13:41:42" itemprop="dateModified" datetime="2021-06-28T13:41:42+08:00">2021-06-28</time>
+        <time title="修改时间：2022-03-12 21:37:29" itemprop="dateModified" datetime="2022-03-12T21:37:29+08:00">2022-03-12</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -333,7 +333,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/python%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">python第三方库</span></a>
+          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
         </span>
     </span>
 
@@ -352,18 +352,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.7k</span>
+      <span>8.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">本文主要是对python第三方库Crypto库进行一些简单的总结归纳</div>
+            <div class="post-description">一些简单库函数学习</div>
         </div>
       </header>
 
@@ -417,7 +417,7 @@
 </div>
 <p>简而言之</p>
 <p>常见对称密码在 Crypto.Cipher 库下，主要有： <code>DES 3DES AES RC4 Salsa20</code><br>        非对称密码在 Crypto.PublicKey 库下，主要有： <code>RSA ECC DSA</code><br>        哈希密码在 Crypto.Hash 库下，常用的有： <code>MD5 SHA-1 SHA-128 SHA-256</code><br>        随机数在 Crypto.Random 库下<br>        实用小工具在 Crypto.Util 库下<br>        数字签名在 Crypto.Signature 库下</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><h2 id="AES加解密"><a href="#AES加解密" class="headerlink" title="AES加解密"></a>AES加解密</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">key = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_key&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">aes = AES.new(key,AES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># encrypt</span></span><br><span class="line">plain_text = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_plain&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">text_enc = aes.encrypt(plain_text)</span><br><span class="line">text_enc_b64 = base64.b64encode(text_enc)</span><br><span class="line">print(text_enc_b64.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># decrypt</span></span><br><span class="line">msg_enc = base64.b64decode(text_enc_b64)</span><br><span class="line">msg = aes.decrypt(msg_enc)</span><br><span class="line">print(msg.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="AES加解密"><a href="#AES加解密" class="headerlink" title="AES加解密"></a>AES加解密</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">key = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_key&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">aes = AES.new(key,AES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># encrypt</span></span><br><span class="line">plain_text = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_plain&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">text_enc = aes.encrypt(plain_text)</span><br><span class="line">text_enc_b64 = base64.b64encode(text_enc)</span><br><span class="line">print(text_enc_b64.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># decrypt</span></span><br><span class="line">msg_enc = base64.b64decode(text_enc_b64)</span><br><span class="line">msg = aes.decrypt(msg_enc)</span><br><span class="line">print(msg.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
 <p>注意：key和明文是需要填充到指定位数的，可以使用<code>ljust</code>或者<code>zfill</code>之类的填充，也可以用<code>Util中的pad()</code>函数填充！</p>
 <h2 id="对称密码DES"><a href="#对称密码DES" class="headerlink" title="对称密码DES"></a>对称密码DES</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> DES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">key = <span class="built_in">bytes</span>(<span class="string">&#x27;test_key&#x27;</span>.ljust(<span class="number">8</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">des = DES.new(key,DES.MODE_ECB)</span><br><span class="line"></span><br><span class="line"><span class="comment"># encrypt</span></span><br><span class="line">plain_text = <span class="built_in">bytes</span>(<span class="string">&#x27;this_is_a_plain&#x27;</span>.ljust(<span class="number">16</span>,<span class="string">&#x27; &#x27;</span>),encoding=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">text_enc = des.encrypt(plain_text)</span><br><span class="line">text_enc_b64 = base64.b64encode(text_enc)</span><br><span class="line">print(text_enc_b64.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># decrypt</span></span><br><span class="line">msg_enc = base64.b64decode(text_enc_b64)</span><br><span class="line">msg = des.decrypt(msg_enc)</span><br><span class="line">print(msg.decode(encoding=<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
 <h2 id="非对称密码RSA"><a href="#非对称密码RSA" class="headerlink" title="非对称密码RSA"></a>非对称密码RSA</h2><p>这个库的 RSA 主要是用来<code>生成</code>公钥文件/私钥文件或者<code>读取</code>公钥文件/私钥文件<br>生成公/私钥文件</p>
@@ -432,6 +432,81 @@
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import Crypto.Random</span><br><span class="line">import <span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random</span><br><span class="line"></span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>get<span class="constructor">_random_bytes(4)</span>) # 得到n字节的随机字节串</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.randrange(<span class="number">1</span>,<span class="number">10</span>,<span class="number">1</span>)) # x到y之间的整数，可以给定step</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.randint(<span class="number">1</span>,<span class="number">10</span>)) # x到y之间的整数</span><br><span class="line">print(<span class="module-access"><span class="module"><span class="identifier">Crypto</span>.</span><span class="module"><span class="identifier">Random</span>.</span></span>random.getrandbits(<span class="number">16</span>)) # 返回一个最大为N bit的随机整数</span><br></pre></td></tr></table></figure>
 <h2 id="其它功能"><a href="#其它功能" class="headerlink" title="其它功能"></a>其它功能</h2><p>常用到 Util 中的<code>pad()</code>函数来填充密钥</p>
 <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">from Crypto.Util.Padding import *</span><br><span class="line"></span><br><span class="line"><span class="meta"># 按照规定的几种类型 pad，自定义 pad可以用 ljust()或者 zfill()</span></span><br><span class="line">str1 = b&#x27;helloworld&#x27;</span><br><span class="line">pad_str1 = <span class="built_in">pad</span>(str1,<span class="number">16</span>,&#x27;pkcs7&#x27;) <span class="meta"># 填充类型默认为&#x27;pkcs7&#x27;，还有&#x27;iso7816&#x27;和&#x27;x923&#x27;</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">unpad</span>(pad_str1,<span class="number">16</span>))</span><br><span class="line"><span class="meta"># number</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">GCD</span>(<span class="number">11</span>,<span class="number">143</span>)) <span class="meta"># 最大公约数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">bytes_to_long</span>(b&#x27;hello&#x27;)) <span class="meta"># 字节转整数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">long_to_bytes</span>(<span class="number">0x41424344</span>)) <span class="meta"># 整数转字节</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">getPrime</span>(<span class="number">16</span>)) <span class="meta"># 返回一个最大为 N bit 的随机素数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">getStrongPrime</span>(<span class="number">512</span>)) <span class="meta"># 返回强素数</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">inverse</span>(<span class="number">10</span>,<span class="number">5</span>)) <span class="meta"># 求逆元</span></span><br><span class="line"><span class="keyword">print</span>(<span class="built_in">isPrime</span>(<span class="number">1227</span>)) <span class="meta"># 判断是不是素数</span></span><br></pre></td></tr></table></figure>
+<h1 id="gmpy2库"><a href="#gmpy2库" class="headerlink" title="gmpy2库"></a>gmpy2库</h1><h2 id="gmpy2常见函数使用"><a href="#gmpy2常见函数使用" class="headerlink" title="gmpy2常见函数使用"></a>gmpy2常见函数使用</h2><p><strong>1.初始化大整数</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.mpz(<span class="number">909090</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">909090</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>2.求大整数a,b的最大公因数</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.gcd(<span class="number">6</span>,<span class="number">18</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>3.求大整数x模m的逆元y</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#4*6 ≡ 1 mod 23</span></span><br><span class="line">gmpy2.invert(<span class="number">4</span>,<span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>4.检验大整数是否为偶数</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_even(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p><strong>5.检验大整数是否为奇数</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">False</span></span><br><span class="line"></span><br><span class="line">-----------</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_odd(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p><strong>6.检验大整数是否为素数</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.is_prime(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">result:<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p><strong>7.求大整数x开n次根</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">gmpy2.iroot(<span class="number">81</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">result:(mpz(<span class="number">9</span>),<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>8.求大整数x的y次幂模m取余</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="comment">#2^4 mod 5 = 1</span></span><br><span class="line">gmpy2.powmod(<span class="number">2</span>,<span class="number">4</span>,<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">result:mpz(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>9.扩展欧几里得</strong></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">import</span> gmpy<span class="number">2</span></span><br><span class="line"><span class="comment">#3*6+17*(-1) = (3,17)</span></span><br><span class="line"><span class="attribute">gmpy2</span>.gcdext(<span class="number">3</span>,<span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">result</span>:(mpz(<span class="number">1</span>), mpz(<span class="number">6</span>), mpz(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<h1 id="RSA库"><a href="#RSA库" class="headerlink" title="RSA库"></a>RSA库</h1><p>仅对字节运行</p>
+<h2 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(pubkey, privkey) = rsa.newkeys(<span class="number">512</span>, poolsize=<span class="number">8</span>)</span><br><span class="line"><span class="comment">#均为元组形式</span></span><br><span class="line"><span class="comment">#poolsize表示线程数</span></span><br><span class="line"><span class="comment">#accurate=True默认</span></span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pubkey</td>
+<td>(n,e)</td>
+</tr>
+<tr>
+<td>privkey</td>
+<td>(n,e,d,p,q)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>实际测试生成4096位密钥需要50秒左右</p>
+<h2 id="加密解密"><a href="#加密解密" class="headerlink" title="加密解密"></a>加密解密</h2><h3 id="rsa-encrypt-message，pubkey"><a href="#rsa-encrypt-message，pubkey" class="headerlink" title="rsa.encrypt(message，pubkey)"></a>rsa.encrypt(message，pubkey)</h3><h3 id="rsa-decrypt-crypto，prikey"><a href="#rsa-decrypt-crypto，prikey" class="headerlink" title="rsa.decrypt(crypto，prikey)"></a>rsa.decrypt(crypto，prikey)</h3><h3 id="过程演示"><a href="#过程演示" class="headerlink" title="过程演示"></a>过程演示</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(bob_pub, bob_priv) = rsa.newkeys(<span class="number">512</span>)</span><br><span class="line">message = <span class="string">&#x27;hello Bob!&#x27;</span>.encode(<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">crypto = rsa.encrypt(message, bob_pub)</span><br><span class="line">message = rsa.decrypt(crypto, bob_priv)</span><br><span class="line">print(message.decode(<span class="string">&#x27;utf8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<p>如果加密消息被篡改会报错</p>
+<h2 id="签名和验证"><a href="#签名和验证" class="headerlink" title="签名和验证"></a>签名和验证</h2><h3 id="rsa-sign"><a href="#rsa-sign" class="headerlink" title="rsa.sign()"></a>rsa.sign()</h3><p>为邮件创建分离签名</p>
+<h3 id="rsa-verify"><a href="#rsa-verify" class="headerlink" title="rsa.verify()"></a>rsa.verify()</h3><p>验证签名，成功返回True</p>
+<p>如果签名被篡改会报错</p>
+<h2 id="函数格式"><a href="#函数格式" class="headerlink" title="函数格式"></a>函数格式</h2><ol>
+<li><code>rsa.encrypt</code>(<em>message: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → bytes</li>
+<li><code>rsa.decrypt</code>(<em>crypto: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>) → bytes</li>
+<li><code>rsa.sign</code>(<em>message: bytes</em>, <em>priv_key: rsa.key.PrivateKey</em>, <em>hash_method: str</em>) → bytes</li>
+<li><code>rsa.verify</code>(<em>message: bytes</em>, <em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str</li>
+<li><code>rsa.find_signature_hash</code>(<em>signature: bytes</em>, <em>pub_key: rsa.key.PublicKey</em>) → str  返回从签名中检测到的哈希名称</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a target="_blank" rel="noopener" href="https://stuvel.eu/python-rsa-doc/genindex.html">https://stuvel.eu/python-rsa-doc/genindex.html</a></p>
+<h1 id="Secrets库"><a href="#Secrets库" class="headerlink" title="Secrets库"></a>Secrets库</h1><blockquote>
+<p>secrets是python3.6加入到标准库的,使用secrets模块，可以生成适用于处理机密信息（如密码，帐户身份验证，安全令牌）的加密强随机数。</p>
+</blockquote>
+<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> secrets</span><br></pre></td></tr></table></figure>
+<h3 id="SystemRandom"><a href="#SystemRandom" class="headerlink" title="SystemRandom"></a>SystemRandom</h3><p>它是使用OS提供的最高质量源生成随机数的类。 有关更多详细信息，请参阅random.SystemRandom。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">secrets</span><span class="selector-class">.SystemRandom</span>()</span><br><span class="line"></span><br><span class="line">&lt;<span class="selector-tag">random</span><span class="selector-class">.SystemRandom</span> <span class="selector-tag">at</span> 0<span class="selector-tag">x7fd537094418</span>&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="choice-sequence"><a href="#choice-sequence" class="headerlink" title="choice(sequence)"></a>choice(sequence)</h3><p>从非空序列中选择一个元素。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.choice([<span class="number">23</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br></pre></td></tr></table></figure>
+<h3 id="randbelow"><a href="#randbelow" class="headerlink" title="randbelow"></a>randbelow</h3><p>[0,n) 取0-n之间的整数</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbelow(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">6</span></span><br></pre></td></tr></table></figure>
+<h3 id="randbits-k"><a href="#randbits-k" class="headerlink" title="randbits(k)"></a>randbits(k)</h3><p>随机不超过k位的整数</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">secrets</span>.randbits(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">426</span></span><br></pre></td></tr></table></figure>
+<h2 id="token生成"><a href="#token生成" class="headerlink" title="token生成"></a>token生成</h2><p>secret模块还提供用于生成适合于重置密码和难以想象的URL的安全令牌的功能。</p>
+<h3 id="token-bytes"><a href="#token-bytes" class="headerlink" title="token_bytes"></a>token_bytes</h3><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.token_bytes(nbytes=10)</span><br><span class="line"></span><br><span class="line">b&#x27;<span class="symbol">\x</span>ca<span class="symbol">\x</span>feQ<span class="symbol">\x</span>03&amp;<span class="symbol">\x</span>8b7<span class="symbol">\x</span>d7&amp;<span class="symbol">\x</span>af&#x27;</span><br></pre></td></tr></table></figure>
+<p>返回包含nbytes个字节的字节字符串。 如果nbytes为None或未给出，则使用有效的默认值。</p>
+<h3 id="token-hex"><a href="#token-hex" class="headerlink" title="token_hex"></a>token_hex</h3><p>返回十六进制随机文本字符串。 该字符串有n个字节的随机字节，每个字节转换为两个十六进制数字。 如果nbytes为None或未给出，则使用有效的默认值。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.token_hex()</span><br><span class="line"></span><br><span class="line">&#x27;494ee83c2a42ce3dc488b059eb64a<span class="number">50628667</span>e9f2c939a<span class="number">8767</span>2d3d6a<span class="number">174825</span>2a&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="token-urlsafe"><a href="#token-urlsafe" class="headerlink" title="token_urlsafe"></a>token_urlsafe</h3><p>返回随机字节为nbytes的URL安全文本字符串。 文本以Base64编码，每个字节平均约为1.3个字符。 如果nbytes为None或未给出，则使用有效的默认值。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.token_urlsafe()</span><br><span class="line"></span><br><span class="line">&#x27;giZFsPv9ch4OGWvuqihEIkj0LwOsHDOjgGHoqDeTvb8&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="compare-digest"><a href="#compare-digest" class="headerlink" title="compare_digest"></a>compare_digest</h3><p>字符串比较的安全方式,减少攻击风险。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secrets.compare_digest(<span class="string">&quot;e&quot;</span>,<span class="string">&quot;E&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -449,7 +524,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://zpano.cn/2020/12/15/1/" title="Crypto库学习">https://zpano.cn/2020/12/15/1/</a>
+      <a href="https://zpano.cn/2020/12/15/1/" title="Python 第三方库学习">https://zpano.cn/2020/12/15/1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -468,8 +543,8 @@
             <div class="post-nav-item">
             </div>
             <div class="post-nav-item">
-                <a href="/2020/12/15/2/" rel="next" title="gmpy2库">
-                  gmpy2库 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/12/17/5/" rel="next" title="BUUCTF CRYPTO 1-20">
+                  BUUCTF CRYPTO 1-20 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -529,13 +604,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">226k</span>
+    <span title="站点总字数">202k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:26</span>
+    <span title="站点阅读时长">3:04</span>
   </span>
 </div>
 <div class="busuanzi-count">
